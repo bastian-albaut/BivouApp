@@ -1,16 +1,13 @@
-import { StatusBar } from 'expo-status-bar';
-import { Platform, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 import { Text, View } from '@/components/Themed';
 
-export default function ModalScreen() {
+export default function SearchPage() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Modal</Text>
+      <Text style={styles.title}>Page de recherche</Text>
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-
-      {/* Use a light status bar on iOS to account for the black space above the modal */}
-      <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
+      <Text>Il y a un exemple en haut à droite de comment intégrer une modal. Je l'ai laissé si jamais ça nous sert :)</Text>
     </View>
   );
 }
@@ -31,3 +28,4 @@ const styles = StyleSheet.create({
     width: '80%',
   },
 });
+

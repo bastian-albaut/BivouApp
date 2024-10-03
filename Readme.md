@@ -26,3 +26,16 @@ Suivre les étapes ci-dessous pour configurer le projet:
 4. **Démarrez l'application sur l'iPhone** :
    - Scanner le code QR affiché sur le terminal avec l'appareil photo de l'iPhone.
    - Ouvrir le lien dans **Expo Go**.
+
+# Fais une petite aide pour les autres développeurs pour utiliser des icones
+
+
+## Utilisation d'icônes
+
+Pour utiliser des icônes dans l'application, utiliser la bibliothèque **react-native-vector-icons**. Suivre les étapes ci-dessous:
+- **Rechercher des icônes** : Rechercher des icônes sur le site [Fontawesome](https://fontawesome.com/v5/search?o=r&m=free). (Version 5.15.4)
+- Utiliser l'icône dans le code :
+  ```typescript
+  import FontAwesome from '@expo/vector-icons/FontAwesome';
+  <FontAwesome name="home" size={24} color="black" style={{marginRight: 10}} />
+  ```
