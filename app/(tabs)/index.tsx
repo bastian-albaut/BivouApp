@@ -6,7 +6,7 @@ export default function SearchPage() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Page de recherche</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
+      <View style={styles.separator} />
       <Text>Il y a un exemple en haut à droite de comment intégrer une modal. Je l'ai laissé si jamais ça nous sert :)</Text>
     </View>
   );

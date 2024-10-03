@@ -4,43 +4,40 @@ import { Link, Tabs } from 'expo-router';
 import { Pressable } from 'react-native';
 
 import Colors from '@/constants/Colors';
-import { useColorScheme } from '@/components/useColorScheme';
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 function TabBarIcon(props: {
   name: React.ComponentProps<typeof FontAwesome>['name'];
-  color: string;
+  focused: boolean
 }) {
-  return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
+  return <FontAwesome size={28} style={{ marginBottom: -3 }} color={props.focused ? Colors.green1 : Colors.green3} {...props} />;
 }
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
-
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+        tabBarActiveTintColor: Colors.green1
       }}>
       <Tabs.Screen
         name="favoritePage"
         options={{
           title: 'Favoris',
-          tabBarIcon: ({ color }) => <TabBarIcon name="heart" color={color} />,
+          tabBarIcon: ({ focused }) => <TabBarIcon name="heart" focused={focused} />,
         }}
       />
       <Tabs.Screen
         name="addBivouakPage"
         options={{
           title: 'Ajouter un bivouak',
-          tabBarIcon: ({ color }) => <TabBarIcon name="plus-circle" color={color} />,
+          tabBarIcon: ({ focused }) => <TabBarIcon name="plus-circle" focused={focused} />,
         }}
       />
       <Tabs.Screen
         name="index"
         options={{
           title: 'Chercher',
-          tabBarIcon: ({ color }) => <TabBarIcon name="search" color={color} />,
+          tabBarIcon: ({ focused }) => <TabBarIcon name="search" focused={focused} />,
           headerRight: () => (
             <Link href="/modal" asChild>
               <Pressable>
@@ -48,7 +45,7 @@ export default function TabLayout() {
                   <FontAwesome
                     name="info-circle"
                     size={25}
-                    color={Colors[colorScheme ?? 'light'].text}
+                    color={Colors.green3}
                     style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
                   />
                 )}
@@ -61,7 +58,7 @@ export default function TabLayout() {
         name="profilePage"
         options={{
           title: 'Page de profil',
-          tabBarIcon: ({ color }) => <TabBarIcon name="user-circle" color={color} />,
+          tabBarIcon: ({ focused }) => <TabBarIcon name="user-circle" focused={focused} />,
         }}
       />
     </Tabs>

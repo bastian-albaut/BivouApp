@@ -27,9 +27,6 @@ Suivre les étapes ci-dessous pour configurer le projet:
    - Scanner le code QR affiché sur le terminal avec l'appareil photo de l'iPhone.
    - Ouvrir le lien dans **Expo Go**.
 
-# Fais une petite aide pour les autres développeurs pour utiliser des icones
-
-
 ## Utilisation d'icônes
 
 Pour utiliser des icônes dans l'application, utiliser la bibliothèque **react-native-vector-icons**. Suivre les étapes ci-dessous:
