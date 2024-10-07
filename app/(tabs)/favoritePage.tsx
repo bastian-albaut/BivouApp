@@ -1,21 +1,24 @@
+import { useDispatch, useSelector } from 'react-redux';
 import { Button, StyleSheet } from 'react-native';
-
-import { useSelector, useDispatch } from 'react-redux';
-import { RootState, AppDispatch } from '../../store/store';
-import { increment, decrement } from '../../store/slices/counterSlice';
 import { Text, View } from '@/components/Themed';
+import React, { useEffect } from 'react';
+import { fetchUsers } from '../../store/slices/usersSlice';
+import { RootState, AppDispatch } from '../../store/store';
+
 
 export default function SearchPage() {
-  const count = useSelector((state: RootState) => state.counter.value);
-  const dispatch: AppDispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
+  const { data, loading, error } = useSelector((state: RootState) => state.users);
+
+  useEffect(() => {
+    dispatch(fetchUsers());
+  }, [dispatch]);
   
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Page de favoris</Text>
-      <View style={styles.separator}/>
-      <Text>Count: {count}</Text>
-      <Button title="Increment" onPress={() => dispatch(increment())} />
-      <Button title="Decrement" onPress={() => dispatch(decrement())} />
+      {loading && <Text>Loading...</Text>}
+      {error && <Text>Error: {error}</Text>}
+      {data && data.map((user) => <Text key={user.id}>{user.name}</Text>)}
     </View>
   );
 }
