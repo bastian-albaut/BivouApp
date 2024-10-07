@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, StyleSheet } from 'react-native';
-import { Text, View } from '@/components/Themed';
+import { Text, View } from '@/common/components/Themed';
 import React, { useEffect } from 'react';
-import { fetchUsers } from '../../store/slices/usersSlice';
-import { RootState, AppDispatch } from '../../store/store';
+import { fetchUsers } from '../../features/users/store/usersSlice';
+import { RootState, AppDispatch } from '../../common/store/store';
 
 
 export default function SearchPage() {

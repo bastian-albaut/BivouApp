@@ -1,12 +1,12 @@
 // RootLayout.tsx or equivalent file
 import React, { useEffect } from 'react';
 import { Provider } from 'react-redux';
-import { store } from '../store/store';
+import { store } from '../common/store/store';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
-import { useColorScheme } from '@/components/useColorScheme';
+import { useColorScheme } from '@/common/components/useColorScheme';
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.

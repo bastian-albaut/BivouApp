@@ -1,4 +1,4 @@
-import { apiClient } from './index';
+import { apiClient } from '../../../common/api/index';
 
 export const getUsers = async () => {
   return await apiClient('users');

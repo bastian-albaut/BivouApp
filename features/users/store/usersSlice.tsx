@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { getUsers, getUserById, createUser } from '../../api/users';
+import { getUsers, getUserById, createUser } from '../api/users';
 
 interface UsersState {
   data: any[];
