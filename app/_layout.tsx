@@ -1,4 +1,3 @@
-// RootLayout.tsx or equivalent file
 import React, { useEffect } from 'react';
 import { Provider } from 'react-redux';
 import { store } from '../common/store/store';
@@ -45,8 +44,6 @@ export default function RootLayout() {
 }
 
 function RootLayoutNav() {
-  const colorScheme = useColorScheme();
-
   return (
     <Stack>
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
