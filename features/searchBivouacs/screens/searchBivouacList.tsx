@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { FlatList, Image, StyleSheet, TextInput, View, Text, Button } from 'react-native';
+import { FlatList, StyleSheet, TextInput, View, Text } from 'react-native';
 import { fetchBivouacs } from '../store/bivouacsSlice';
 import { RootState, AppDispatch } from '../../../common/store/store';
 import { useTranslation } from 'react-i18next';
 import BivouacItem from '../components/bivouacItem';
+import Colors from "@/common/constants/Colors";
+import FontAwesome from '@expo/vector-icons/FontAwesome';
 
 export default function SearchBivouacList() {
   
@@ -27,12 +29,16 @@ export default function SearchBivouacList() {
 
   return (
     <View style={styles.container}>
-      <TextInput
-        style={styles.searchBar}
-        placeholder={t('searchBivouacs:search_bar')}
-        value={searchQuery}
-        onChangeText={setSearchQuery}
-      />
+      <View style={styles.searchContainer}>
+        <FontAwesome name="search" size={24} color={Colors.black} style={styles.searchIcon} />
+        <TextInput
+          style={styles.searchBar}
+          placeholder={t('searchBivouacs:search_bar')}
+          placeholderTextColor={Colors.black}
+          value={searchQuery}
+          onChangeText={setSearchQuery}
+        />
+      </View>
 
       {loading && <Text>Loading...</Text>}
       {error && <Text>Error: {error}</Text>}
@@ -51,18 +57,30 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 20,
-    backgroundColor: '#fff',
+    backgroundColor: Colors.white,
   },
-  searchBar: {
-    height: 40,
-    borderColor: '#ccc',
+  searchContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderColor: Colors.black,
     borderWidth: 1,
     borderRadius: 8,
-    paddingHorizontal: 10,
     marginHorizontal: 20,
     marginBottom: 20,
+    paddingHorizontal: 10,
+  },
+  searchIcon: {
+    marginRight: 10,
+  },
+  searchBar: {
+    flex: 1,
+    height: 50,
+    color: Colors.black,
   },
   list: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 20,
     paddingBottom: 20,
   },
 });
