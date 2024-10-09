@@ -1,24 +1,13 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { Button, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { Text, View } from '@/common/components/Themed';
-import React, { useEffect } from 'react';
-import { fetchUsers } from '../../features/users/store/usersSlice';
-import { RootState, AppDispatch } from '../../common/store/store';
+import React from 'react';
 
-
-export default function SearchPage() {
-  const dispatch = useDispatch<AppDispatch>();
-  const { data, loading, error } = useSelector((state: RootState) => state.users);
-
-  useEffect(() => {
-    dispatch(fetchUsers());
-  }, [dispatch]);
-  
+// Tout doit etre migrer dans la page specifique dans features/...
+export default function FavoritePage() {
   return (
     <View style={styles.container}>
-      {loading && <Text>Loading...</Text>}
-      {error && <Text>Error: {error}</Text>}
-      {data && data.map((user) => <Text key={user.id}>{user.name}</Text>)}
+      <Text style={styles.title}>Page de favoris</Text>
+      <View style={styles.separator}/>
     </View>
   );
 }

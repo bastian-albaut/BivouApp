@@ -2,6 +2,7 @@ import { StyleSheet } from 'react-native';
 
 import { Text, View } from '@/common/components/Themed';
 
+// Tout doit etre migrer dans la page specifique dans features/...
 export default function SearchPage() {
   return (
     <View style={styles.container}>

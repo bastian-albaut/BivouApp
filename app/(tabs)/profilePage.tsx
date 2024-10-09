@@ -2,6 +2,7 @@ import { Button, StyleSheet } from 'react-native';
 import { Text, View } from '@/common/components/Themed';
 import { useTranslation } from 'react-i18next';
 
+// Tout doit etre migrer dans la page specifique dans features/...
 export default function ProfilePage() {
 
   const { i18n } = useTranslation();
