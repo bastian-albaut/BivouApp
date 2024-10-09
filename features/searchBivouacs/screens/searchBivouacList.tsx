@@ -4,32 +4,26 @@ import { FlatList, Image, StyleSheet, TextInput, View, Text, Button } from 'reac
 import { fetchBivouacs } from '../store/bivouacsSlice';
 import { RootState, AppDispatch } from '../../../common/store/store';
 import { useTranslation } from 'react-i18next';
+import BivouacItem from '../components/bivouacItem';
 
 export default function SearchBivouacList() {
+  
+  // Redux store access
   const dispatch = useDispatch<AppDispatch>();
   const { data, loading, error } = useSelector((state: RootState) => state.bivouacs);
-  const [searchQuery, setSearchQuery] = useState('');
-
   useEffect(() => {
     dispatch(fetchBivouacs());
   }, [dispatch]);
 
-  const { t } = useTranslation();
-
+  
+  // Search functionality
+  const [searchQuery, setSearchQuery] = useState('');
   const filteredBivouacs = data.filter(bivouac => 
     bivouac.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const renderBivouacItem = ({ item }: { item: any }) => (
-    <View style={styles.bivouacItem}>
-      <Image source={{ uri: item.imageUrl }} style={styles.bivouacImage} />
-      <View style={styles.bivouacInfo}>
-        <Text style={styles.bivouacTitle}>{item.name}</Text>
-        <Text style={styles.bivouacAddress}>{`${item.address.number} ${item.address.street}, ${item.address.city}, ${item.address.postalCode}`}</Text>
-        <Text style={styles.bivouacHost}>Host: {item.host.name}</Text>
-      </View>
-    </View>
-  );
+  // Translation
+  const { t } = useTranslation();
 
   return (
     <View style={styles.container}>
@@ -45,7 +39,7 @@ export default function SearchBivouacList() {
 
       <FlatList
         data={filteredBivouacs}
-        renderItem={renderBivouacItem}
+        renderItem={({ item }) => <BivouacItem item={item} />}
         keyExtractor={(item) => item.id.toString()}
         contentContainerStyle={styles.list}
       />
@@ -70,33 +64,5 @@ const styles = StyleSheet.create({
   },
   list: {
     paddingBottom: 20,
-  },
-  bivouacItem: {
-    flexDirection: 'row',
-    padding: 10,
-    borderBottomColor: '#ddd',
-    borderBottomWidth: 1,
-    marginHorizontal: 20,
-    alignItems: 'center',
-  },
-  bivouacImage: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    marginRight: 10,
-  },
-  bivouacInfo: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-  bivouacTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  bivouacAddress: {
-    color: '#555',
-  },
-  bivouacHost: {
-    color: '#999',
   },
 });
