@@ -1,6 +1,8 @@
 import { Platform, NativeModules } from 'react-native'
 import i18n, { ModuleType } from 'i18next';
 import { initReactI18next } from 'react-i18next';
+import enCommon from './en.json';
+import frCommon from './fr.json';
 import enSearchBivouacs from '../../features/searchBivouacs/locales/en.json';
 import frSearchBivouacs from '../../features/searchBivouacs/locales/fr.json';
 import enUsers from '../../features/users/locales/en.json';
@@ -38,10 +40,12 @@ i18n
     fallbackLng: 'en',
     resources: {
       en: {
+        common: enCommon,
         searchBivouacs: enSearchBivouacs,
         users: enUsers,
       },
       fr: {
+        common: frCommon,
         searchBivouacs: frSearchBivouacs,
         users: frUsers,
       },
