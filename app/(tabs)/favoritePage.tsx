@@ -1,8 +1,9 @@
 import { StyleSheet } from 'react-native';
+import { Text, View } from '@/common/components/Themed';
+import React from 'react';
 
-import { Text, View } from '@/components/Themed';
-
-export default function SearchPage() {
+// Tout doit etre migrer dans la page specifique dans features/...
+export default function FavoritePage() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Page de favoris</Text>
