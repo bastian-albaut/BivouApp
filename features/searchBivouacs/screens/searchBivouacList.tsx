@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { FlatList, Image, StyleSheet, TextInput, View, Text, Button } from 'react-native';
 import { fetchBivouacs } from '../store/bivouacsSlice';
 import { RootState, AppDispatch } from '../../../common/store/store';
+import { useTranslation } from 'react-i18next';
 
 export default function SearchBivouacList() {
   const dispatch = useDispatch<AppDispatch>();
@@ -12,6 +13,8 @@ export default function SearchBivouacList() {
   useEffect(() => {
     dispatch(fetchBivouacs());
   }, [dispatch]);
+
+  const { t } = useTranslation();
 
   const filteredBivouacs = data.filter(bivouac => 
     bivouac.name.toLowerCase().includes(searchQuery.toLowerCase())
@@ -32,7 +35,7 @@ export default function SearchBivouacList() {
     <View style={styles.container}>
       <TextInput
         style={styles.searchBar}
-        placeholder="Search bivouacs..."
+        placeholder={t('searchBivouacs:search_bar')}
         value={searchQuery}
         onChangeText={setSearchQuery}
       />

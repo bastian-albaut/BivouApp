@@ -1,4 +1,4 @@
-import SearchBivouacList from "@/features/bivouacs/screens/searchBivouacList";
+import SearchBivouacList from "@/features/searchBivouacs/screens/searchBivouacList";
 
 export default function SearchPage() {
   return (

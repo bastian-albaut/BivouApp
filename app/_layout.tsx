@@ -5,6 +5,9 @@ import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
+import { I18nextProvider } from 'react-i18next';
+import i18n from '../common/locales/i18n';
+
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
@@ -37,7 +40,9 @@ export default function RootLayout() {
 
   return (
     <Provider store={store}>
-      <RootLayoutNav />
+      <I18nextProvider i18n={i18n}> 
+        <RootLayoutNav />
+      </I18nextProvider>
     </Provider>
   );
 }
