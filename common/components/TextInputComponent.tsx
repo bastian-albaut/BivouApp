@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
   container: {
     width: 340,
     height: 50,
-    margin: 10,
+    margin: 8,
     borderWidth: 1,
     display: 'flex',
     flexDirection: 'row',
