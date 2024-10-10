@@ -7,6 +7,7 @@ import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { I18nextProvider } from 'react-i18next';
 import i18n from '../common/locales/i18n';
+import Login from './login';
 
 
 export const unstable_settings = {
