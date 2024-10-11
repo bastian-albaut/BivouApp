@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { FlatList, StyleSheet, TextInput, View, Text } from 'react-native';
+import { FlatList, StyleSheet, TextInput, View, Text, Pressable, Button, Dimensions, TouchableOpacity } from 'react-native';
 import { fetchBivouacs } from '../store/bivouacsSlice';
 import { RootState, AppDispatch } from '../../../common/store/store';
 import { useTranslation } from 'react-i18next';
 import BivouacItem from '../components/bivouacItem';
 import Colors from "@/common/constants/Colors";
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import CustomIconButton from '@/common/components/customIconButton';
+import { useRouter } from 'expo-router';
 
 export default function SearchBivouacList() {
   
@@ -26,6 +28,8 @@ export default function SearchBivouacList() {
 
   // Translation
   const { t } = useTranslation();
+
+  const router = useRouter();
 
   return (
     <View style={styles.container}>
@@ -49,6 +53,10 @@ export default function SearchBivouacList() {
         keyExtractor={(item) => item.id.toString()}
         contentContainerStyle={styles.list}
       />
+      
+      <View style={styles.containerButton}>
+        <CustomIconButton title={t('searchBivouacs:map_button')} iconName="map" onPress={() => router.push(`/searchBivouacs/screens/searchBivouacMap`)} />
+      </View>
     </View>
   );
 }
@@ -83,4 +91,30 @@ const styles = StyleSheet.create({
     gap: 20,
     paddingBottom: 20,
   },
+  containerButton: {
+    position: 'absolute',
+    bottom: 20,
+    left: 0,
+    right: 0,
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  mapButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+    paddingHorizontal: 20,
+    backgroundColor: Colors.green1,
+    borderRadius: 10,
+    paddingVertical: 15,
+    elevation: 5, // Adds shadow for Android
+    shadowColor: '#000', // Adds shadow for iOS
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 3,
+  },
+  mapButtonText: {
+    color: Colors.white,
+    fontSize: 18,
+  }
 });

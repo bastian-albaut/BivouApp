@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Image, View, Text, Button, Pressable } from 'react-native';
+import { StyleSheet, Image, View, Text, Button, Pressable, TouchableOpacity } from 'react-native';
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import Colors from "@/common/constants/Colors";
 import { useRouter } from "expo-router";
@@ -8,7 +8,7 @@ export default function BivouacItem({ item }: { item: any }) {
     const router = useRouter();
 
     return (
-        <Pressable onPress={() => router.push(`/users/screens/testScreen`)}>
+        <TouchableOpacity activeOpacity={0.8} onPress={() => router.push(`/users/screens/testScreen`)}>
             <View style={styles.bivouacItem}>
             <Image source={{ uri: item.imageUrl }} style={styles.bivouacImage} resizeMode="cover" />
             <View>
@@ -20,7 +20,7 @@ export default function BivouacItem({ item }: { item: any }) {
                 </View>
             </View>
             </View>
-        </Pressable>
+        </TouchableOpacity>
     );
 }
 
