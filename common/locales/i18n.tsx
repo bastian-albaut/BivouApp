@@ -3,10 +3,10 @@ import i18n, { ModuleType } from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import enCommon from './en.json';
 import frCommon from './fr.json';
-import enSearchBivouacs from '../../features/searchBivouacs/locales/en.json';
-import frSearchBivouacs from '../../features/searchBivouacs/locales/fr.json';
-import enUsers from '../../features/users/locales/en.json';
-import frUsers from '../../features/users/locales/fr.json';
+import enSearchBivouacs from '../../app/searchBivouacs/locales/en.json';
+import frSearchBivouacs from '../../app/searchBivouacs/locales/fr.json';
+import enUsers from '../../app/users/locales/en.json';
+import frUsers from '../../app/users/locales/fr.json';
 
 const deviceLanguage : String =
   Platform.OS === 'ios'

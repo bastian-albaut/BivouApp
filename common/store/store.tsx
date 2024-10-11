@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
-import usersReducer from '../../features/users/store/usersSlice';
-import bivouacsReducer from '../../features/searchBivouacs/store/bivouacsSlice';
+import usersReducer from '../../app/users/store/usersSlice';
+import bivouacsReducer from '../../app/searchBivouacs/store/bivouacsSlice';
 
 export const store = configureStore({
   reducer: {
