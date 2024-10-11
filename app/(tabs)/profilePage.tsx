@@ -1,8 +1,11 @@
-import { Button, StyleSheet } from 'react-native';
+import { Button, StyleSheet, TouchableOpacity } from 'react-native';
 import { Text, View } from '@/common/components/Themed';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'expo-router';
 import { useRouter } from 'expo-router';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import Colors from '../../common/constants/Colors';
+
 
 
 // Tout doit etre migrer dans la page specifique dans features/...
@@ -18,12 +21,55 @@ export default function ProfilePage() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Page de profil utilisateur</Text>
+      <Text style={styles.title}>Votre profil</Text>
+
+      <View>
+
+        <View style={styles.profileLine}>
+          <View style={styles.lineTitle}>
+            <Icon name="user-circle-o" size={20} color="black" />
+            <Text style={styles.lineText}>Informations personnelles</Text>
+          </View>
+          <Icon name="angle-right" size={20} color="black" />
+        </View>
+
+        <View style={styles.profileLine}>
+          <View style={styles.lineTitle}>
+            <Icon name="clone" size={20} color="black" />
+            <Text style={styles.lineText}>Vos annonces</Text>
+          </View>
+          <Icon name="angle-right" size={20} color="black" />
+        </View>
+
+        <View style={styles.profileLine}>
+          <View style={styles.lineTitle}>
+            <Icon name="history" size={20} color="black" />
+            <Text style={styles.lineText}>Historique des réservations</Text>
+          </View>
+          <Icon name="angle-right" size={20} color="black" />
+        </View>
+
+        <TouchableOpacity  onPress={() => router.push('../changeLanguage')} style={styles.profileLine}>
+          <View style={styles.lineTitle}>
+            <Icon name="language" size={20} color="black" />
+            <Text style={styles.lineText}>Langues</Text>
+          </View>
+          <Icon name="angle-right" size={20} color="black" />
+        </TouchableOpacity>
+
+        <View style={styles.profileLine}>
+          <View style={styles.lineTitle}>
+            <Icon name="question-circle-o" size={20} color="black" />
+            <Text style={styles.lineText}>Politique de confidentialité</Text>
+          </View>
+          <Icon name="angle-right" size={20} color="black" />
+        </View>
+
+      </View>
+
       <View style={styles.separator} />
-      <Button title="French" onPress={() => changeLanguage('fr')} />
-      <Button title="English" onPress={() => changeLanguage('en')} />
       
-      <Button title="Login" onPress={() => router.push('../login')} />
+      <Button title="Se déconnecter" onPress={() => router.push('../login')} />
       
     </View>
   );
@@ -33,15 +79,40 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    paddingTop: 50,
   },
   title: {
-    fontSize: 20,
-    fontWeight: 'bold',
+    fontSize: 24,
+    fontWeight: '600',
+    color: Colors.black,
+    marginBottom: 20,
+    width: '100%',
+    textAlign: 'left',
+    paddingLeft: 20,
   },
   separator: {
     marginVertical: 30,
     height: 1,
     width: '80%',
+  },
+  profileLine: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-end',
+    width: 340,
+    padding: 10,
+    marginTop: 5,
+    borderBottomWidth: 1,
+    borderBottomColor: 'black',
+  },
+  lineTitle: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+  },
+  lineText: {
+    marginLeft: 15,
+    fontSize: 16,
   },
 });
