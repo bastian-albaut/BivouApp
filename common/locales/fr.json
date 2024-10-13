@@ -3,5 +3,11 @@
     "tab_add_bivouak_page": "Ajouter un bivouac",
     "tab_search_page": "Chercher",
     "tab_profile_page": "Profil",
-    "navigation_back": "Retour"
+    "navigation_back": "Retour",
+    "loginTitle": "Se connecter",
+    "night": "nuit",
+    "comments": "commentaires",
+    "host": "hôte",
+    "read_more": "En savoir plus",
+    "read_less": "Lire moins"
 }

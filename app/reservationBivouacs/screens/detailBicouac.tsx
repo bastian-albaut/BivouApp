@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, ScrollView } from 'react-native';
 import { fetchBivouacById } from '../../searchBivouacs/store/bivouacsSlice';
 import { RootState, AppDispatch } from '../../../common/store/store';
 import { useTranslation } from 'react-i18next';
 import Colors from "@/common/constants/Colors";
 import ImageGallery from '../components/imageGalery';
+import BivouacInformations from '../components/bivouacInformations';
 
 export default function DetailBivouac() {
   const { id } = {id: 1};
@@ -24,7 +25,7 @@ export default function DetailBivouac() {
   const { t } = useTranslation();
 
   const bivouac = data.find((b) => b.id === id);
-
+  console.log(bivouac);
   return (
     <View style={styles.container}>
 
@@ -32,11 +33,10 @@ export default function DetailBivouac() {
       {error && <Text>Error: {error}</Text>}
 
       {bivouac ? (
-        <>
-        <ImageGallery images={bivouac.photos} />
-          <Text style={styles.title}>{bivouac.name}</Text>
-          <Text>{bivouac.description}</Text>
-        </>
+        <ScrollView>
+          <ImageGallery images={bivouac.photos} />
+          <BivouacInformations name={bivouac.name} price={bivouac.price} address={bivouac.address} rating={bivouac.rating} comments={bivouac.comments} host={bivouac.host} description={bivouac.description} equipment={bivouac.equipment} />
+        </ScrollView>
       ) : (
         <Text>No data found</Text>
       )}
