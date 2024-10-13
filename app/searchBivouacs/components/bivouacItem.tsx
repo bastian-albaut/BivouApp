@@ -16,7 +16,7 @@ export default function BivouacItem({ item }: { item: any }) {
     };
 
     return (
-        <TouchableOpacity activeOpacity={0.8} onPress={() => router.push(`/users/screens/testScreen`)}>
+        <TouchableOpacity activeOpacity={0.8} onPress={() => router.push(`/reservationBivouacs/screens/detailBicouac?id=${item.id}`)}>
             <View style={styles.bivouacItem}>
                 <View style={styles.imageContainer}>
                     <Image source={{ uri: item.imageUrl }} style={styles.bivouacImage} resizeMode="cover" />

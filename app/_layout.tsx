@@ -76,8 +76,9 @@ function RootLayoutNav() {
     >
       <Stack.Screen name="(tabs)" />
       <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
-      <Stack.Screen name="users/screens/testScreen" options={{ headerBackTitle: t("common:navigation_back"), title: 'Test' }} />
-      <Stack.Screen name="searchBivouacs/screens/searchBivouacMap" options={{ headerBackTitle: t("common:navigation_back"), title: 'Page map' }} />
+      <Stack.Screen name="users/screens/testScreen" options={{ headerBackTitle: t("common:navigation_back")}} />
+      <Stack.Screen name="searchBivouacs/screens/searchBivouacMap" options={{ headerBackTitle: t("common:navigation_back")}} />
+      <Stack.Screen name="reservationBivouacs/screens/detailBicouac" options={{ headerBackTitle: t("common:navigation_back") }} />
     </Stack>
   );
 }
