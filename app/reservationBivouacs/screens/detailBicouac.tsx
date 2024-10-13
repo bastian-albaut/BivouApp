@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { StyleSheet, View, Text } from 'react-native';
-import { fetchBivouacById } from '../store/bivouacsSlice'; 
+import { fetchBivouacById } from '../../searchBivouacs/store/bivouacsSlice';
 import { RootState, AppDispatch } from '../../../common/store/store';
 import { useTranslation } from 'react-i18next';
 import Colors from "@/common/constants/Colors";
+import ImageGallery from '../components/imageGalery';
 
 export default function DetailBivouac() {
   const { id } = {id: 1};
@@ -32,6 +33,7 @@ export default function DetailBivouac() {
 
       {bivouac ? (
         <>
+        <ImageGallery images={bivouac.photos} />
           <Text style={styles.title}>{bivouac.name}</Text>
           <Text>{bivouac.description}</Text>
         </>
@@ -45,7 +47,6 @@ export default function DetailBivouac() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 20,
     backgroundColor: Colors.white,
   },
   title: {

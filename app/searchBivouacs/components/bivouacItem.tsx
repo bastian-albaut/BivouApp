@@ -19,13 +19,9 @@ export default function BivouacItem({ item }: { item: any }) {
         <TouchableOpacity activeOpacity={0.8} onPress={() => router.push(`/reservationBivouacs/screens/detailBicouac?id=${item.id}`)}>
             <View style={styles.bivouacItem}>
                 <View style={styles.imageContainer}>
-                    <Image source={{ uri: item.imageUrl }} style={styles.bivouacImage} resizeMode="cover" />
+                    <Image source={{ uri: item.photos[0] }} style={styles.bivouacImage} resizeMode="cover" />
                     <TouchableOpacity onPress={toggleFavorite} style={styles.favoriteIcon}>
-                        <FontAwesome 
-                            name="heart" 
-                            size={28} 
-                            color={isFavorited ? "red" : "gray"}
-                        />
+                        <FontAwesome name="heart" size={28} color={isFavorited ? "red" : "gray"} />
                     </TouchableOpacity>
                 </View>
 

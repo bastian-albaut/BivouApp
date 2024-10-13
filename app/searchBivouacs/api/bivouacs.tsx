@@ -6,8 +6,9 @@ export const getBivouacs = async () => {
   return mockBivouacs;
 };
 
-export const getBivouacById = async (id: string) => {
-  return await apiClient(`bivouacs/${id}`);
+export const getBivouacById = async (id: number) => {
+  // return await apiClient(`bivouacs/${id}`);
+  return mockBivouacs;
 };
 
 export const createBivouac = async (bivouacData: any) => {

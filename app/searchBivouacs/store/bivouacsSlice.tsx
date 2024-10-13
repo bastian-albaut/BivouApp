@@ -18,6 +18,11 @@ export const fetchBivouacs = createAsyncThunk('bivouacs/fetchBivouacs', async ()
   return response;
 });
 
+export const fetchBivouacById = createAsyncThunk('bivouacs/fetchBivouacById', async (id: number) => {
+  const response = await getBivouacById(id);
+  return response;
+});
+
 const bivouacsSlice = createSlice({
   name: 'bivouacs',
   initialState,
