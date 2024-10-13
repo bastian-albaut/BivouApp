@@ -29,24 +29,28 @@ export default function TabLayout() {
       <Tabs.Screen
         name="favoritePage"
         options={{
+          title: t('common:tab_favorite_page'),
           tabBarIcon: ({ focused }) => <TabBarIcon name="heart" focused={focused} />,
         }}
       />
       <Tabs.Screen
         name="addBivouakPage"
         options={{
+          title: t('common:tab_add_bivouak_page'),
           tabBarIcon: ({ focused }) => <TabBarIcon name="plus-circle" focused={focused} />,
         }}
       />
       <Tabs.Screen
         name="index"
         options={{
+          title: t('common:tab_search_page'),
           tabBarIcon: ({ focused }) => <TabBarIcon name="search" focused={focused} />,
         }}
       />
       <Tabs.Screen
         name="profilePage"
         options={{
+          title: t('common:tab_profile_page'),
           tabBarIcon: ({ focused }) => <TabBarIcon name="user-circle" focused={focused} />,
         }}
       />
