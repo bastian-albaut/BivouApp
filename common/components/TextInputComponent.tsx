@@ -1,7 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { TextInput, View, StyleSheet, Animated, TouchableOpacity } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import Colors from '../constants/Colors';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
+
 
 export default function TextInputComponent(props: any) {
   const [isFocused, setIsFocused] = useState(false);
@@ -38,7 +39,7 @@ export default function TextInputComponent(props: any) {
 
   return (
     <View style={styles.container}>
-      <Icon name={props.icon} size={20} color="black" />
+      <FontAwesome name={props.icon} size={20} color={Colors.black} />
 
       <View style={styles.inputContainer}>
         <Animated.Text style={[styles.label, labelStyle]}>
@@ -48,6 +49,7 @@ export default function TextInputComponent(props: any) {
         <TextInput
           style={styles.input}
           value={text}
+          keyboardType={props.keyboardType || 'default'}
           secureTextEntry={props.secureTextEntry && !isPasswordVisible}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
@@ -57,10 +59,12 @@ export default function TextInputComponent(props: any) {
 
       {props.secureTextEntry && (
         <TouchableOpacity onPress={togglePasswordVisibility} activeOpacity={0.8} >
-          <Icon
+          
+          <FontAwesome
             style={styles.eyeIcon}
             name={isPasswordVisible ? 'eye' : 'eye-slash'} 
             size={20}
+            color={Colors.black}
           />
         </TouchableOpacity>
       )}

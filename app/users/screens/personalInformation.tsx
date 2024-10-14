@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, Keyboard, TouchableWithoutFeedback, TouchableOpacity } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useRouter } from 'expo-router';
-import TextInputComponent from '../common/components/TextInputComponent';
-import ButtonComponent from '../common/components/ButtonComponent';
+import TextInputComponent from '../../../common/components/TextInputComponent';
+import ButtonComponent from '../../../common/components/ButtonComponent';
 import Colors from '@/common/constants/Colors';
 
-export default function SignUp() {
+
+export default function PersonalInformation() {
   const [searchQuery, setSearchQuery] = useState('');
   const { t } = useTranslation();
   const router = useRouter();
@@ -16,23 +17,17 @@ export default function SignUp() {
       <View style={styles.container}>
         <View style={styles.centeredContainer}>
             {/* <Text style={styles.leftAlignedTitle}>t('login:loginTitle')</Text> */}
-            <Text style={styles.leftAlignedTitle}>S'inscrire</Text>
+            <Text style={styles.leftAlignedTitle}>Renseigner vos informations</Text>
 
-            <TextInputComponent icon="envelope" placeholder="Adresse mail" keyboardType="email-address" value="" secureTextEntry={false} />
-            <TextInputComponent icon="lock" placeholder="Mot de passe" value="" secureTextEntry={true} />
-            <TextInputComponent icon="lock" placeholder="Confirmation du mot de passe" value="" secureTextEntry={true} />
+            <TextInputComponent icon="user" placeholder="Prénom" value="" secureTextEntry={false} />
+            <TextInputComponent icon="user" placeholder="Nom" value="" secureTextEntry={false} />
+            
+            <TextInputComponent icon="phone" placeholder="Numéro de téléphone" keyboardType="phone-pad" value="" secureTextEntry={false} />
 
-            <Text style={styles.loginText}>
-                Vous avez déjà un compte ?{' '}
-            </Text>
-        
-            <TouchableOpacity activeOpacity={0.8} onPress={() => router.navigate("./login")}>
-                <Text style={styles.loginLink}>Se connecter</Text>
-                </TouchableOpacity>
         </View>
 
         <View style={styles.bottomButton}>
-          <ButtonComponent title="S'inscrire" onPress={() => router.navigate("./users/screens/personalInformation")} />
+          <ButtonComponent title="Valider" onPress={() => console.log("S'inscrire")} />
         </View>
       </View>
     </TouchableWithoutFeedback>

@@ -19,7 +19,7 @@ export default function Login() {
           {/* <Text style={styles.leftAlignedTitle}>t('login:loginTitle')</Text> */}
           <Text style={styles.leftAlignedTitle}>Se connecter</Text>
 
-          <TextInputComponent icon="envelope" placeholder="Adresse mail" value="" secureTextEntry={false} />
+          <TextInputComponent icon="envelope" placeholder="Adresse mail" keyboardType="email-address" value="" secureTextEntry={false} />
           <TextInputComponent icon="lock" placeholder="Mot de passe" value="" secureTextEntry={true} />
 
           <Text style={styles.signupText}>
