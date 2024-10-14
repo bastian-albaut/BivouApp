@@ -9,7 +9,7 @@ import Colors from '../common/constants/Colors';
 
 
 // Tout doit etre migrer dans la page specifique dans features/...
-export default function ProfilePage() {
+export default function LanguagePage() {
 
   const { i18n } = useTranslation();
 
