@@ -9,5 +9,7 @@
     "host": "host",
     "read_more": "Read more",
     "read_less": "Read less",
-    "equipments": "Equipments"
+    "equipments": "Equipments",
+    "from": "From",
+    "to": "to"
 }

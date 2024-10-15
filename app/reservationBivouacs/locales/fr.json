@@ -4,5 +4,13 @@
     "start_date": "Date de début",
     "select_start_date": "Sélectionnez la date de début",
     "end_date": "Date de fin",
-    "select_end_date": "Sélectionnez la date de fin"
+    "select_end_date": "Sélectionnez la date de fin",
+    "error_not_select_dates": "Veuillez sélectionner une date de début et une date de fin.",
+    "error_start_date_after_end_date": "La date de début doit être avant la date de fin.",
+    "book_bivouac": "Réserver le bivouac",
+    "reservation_details": "Détails de la réservation",
+    "location": "Emplacement",
+    "journey": "Voyage",
+    "service_fees": "Frais de service",
+    "confirm_reservation": "Confirmer la réservation"
 }

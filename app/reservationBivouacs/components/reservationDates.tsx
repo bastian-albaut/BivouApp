@@ -37,6 +37,30 @@ export default function ReservationDates(props : any) {
 
   const router = useRouter();
 
+  // Handle reservation button click
+  const handleReservation = () => {
+    if (!startDate || !endDate) {
+      alert(t('reservationBivouacs:error_not_select_dates'));
+      return;
+    }
+
+    // Start date after end date
+    if (startDate.getTime() > endDate.getTime()) {
+      alert(t('reservationBivouacs:error_start_date_after_end_date'));
+      return;
+    }
+
+    router.push({
+      pathname: '/reservationBivouacs/screens/detailReservation',
+      params: {
+        startDate: startDate.toISOString(),
+        endDate: endDate.toISOString(),
+        bivouac: JSON.stringify(props.bivouac),    
+      },
+    });
+  }
+
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{t('reservationBivouacs:title_date_reservation')}</Text>
@@ -79,23 +103,7 @@ export default function ReservationDates(props : any) {
         )}
       </View>
 
-      <ButtonComponent 
-        title="Réserver le bivouac" 
-        onPress={() => {
-          if (startDate && endDate) {
-            router.push({
-              pathname: '/reservationBivouacs/screens/detailReservation',
-              params: {
-                startDate: startDate.toISOString(),
-                endDate: endDate.toISOString(),
-                bivouac: JSON.stringify(props.bivouac),    
-              },
-            });
-          } else {
-            alert('Veuillez sélectionner les deux dates.');
-          }
-        }}
-      />
+      <ButtonComponent title={t('reservationBivouacs:book_bivouac')} onPress={handleReservation}/>
     </View>
   );
 }

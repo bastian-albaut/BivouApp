@@ -25,8 +25,8 @@ export default function ReservationConfirmation() {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Détail de la réservation</Text>
-            <Text style={styles.subtitle}>Emplacement</Text>
+            <Text style={styles.title}>{t('reservationBivouacs:reservation_details')}</Text>
+            <Text style={styles.subtitle}>{t('reservationBivouacs:location')}</Text>
             <Image source={{ uri: bivouacData.photos[0] }} style={styles.bivouacImage} resizeMode="cover" />
             <Text style={styles.bivouacName}>{bivouacData.name}</Text>
             <Text style={styles.bivouacAddress}>{bivouacData.address.street}, {bivouacData.address.city}</Text>
@@ -36,20 +36,24 @@ export default function ReservationConfirmation() {
                 <Text style={styles.host}>{t('common:host')}: {bivouacData.host.name}</Text>
             </View>
 
-            <Text style={styles.subtitle}>Voyage</Text>
-            <Text style={styles.dates}>Du {start.toLocaleDateString('fr-FR')} au {end.toLocaleDateString('fr-FR')}</Text>
+            <Text style={styles.subtitle}>{t('reservationBivouacs:journey')}</Text>
+            <Text style={styles.dates}>{t('common:from')} {start.toLocaleDateString('fr-FR')} {t('common:to')} {end.toLocaleDateString('fr-FR')}</Text>
 
-            <Text style={styles.subtitle}>Prix</Text>
+            <Text style={styles.subtitle}>{t('common:price')}</Text>
             <View style={styles.priceContainer}>
                 <Text style={styles.priceText}>{bivouacData.price}€ x {nights}</Text>
                 <Text style={styles.priceText}>{priceWithoutTax}€</Text>
             </View>
             <View style={styles.priceContainer}>
-                <Text style={styles.priceText}>Frais de service</Text>
+                <Text style={styles.priceText}>{t('reservationBivouacs:service_fees')}</Text>
                 <Text style={styles.priceText}>{tax}€</Text>
             </View>
+            <View style={[ styles.priceContainer, styles.totalContainer ]}>
+                <Text style={[ styles.priceText, styles.total ]}>Total</Text>
+                <Text style={[ styles.priceText, styles.total ]}>{total}€</Text>
+            </View>
 
-            <ButtonComponent title="Confirmer la réservation" onPress={() => console.log('Confirmation de réservation')} />
+            <ButtonComponent title={t('reservationBivouacs:confirm_reservation')} onPress={() => console.log('Confirmation de réservation')} />
         </View>
     );
     }
@@ -70,7 +74,7 @@ export default function ReservationConfirmation() {
         fontWeight: "600",
         color: Colors.black,
         marginTop: 30,
-        marginBottom: 15,
+        marginBottom: 10,
     },
     bivouacImage: {
         height: 200,
@@ -111,8 +115,15 @@ export default function ReservationConfirmation() {
         justifyContent: 'space-between',
         marginTop: 5,
     },
+    totalContainer: {
+        marginTop: 10,
+        marginBottom: 30,
+    },
     priceText: {
         fontSize: 16,
         color: Colors.black,
+    },
+    total: {
+        fontWeight: 'bold',
     },
 });
