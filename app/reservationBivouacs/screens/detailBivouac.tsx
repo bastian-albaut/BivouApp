@@ -8,9 +8,14 @@ import Colors from "@/common/constants/Colors";
 import ImageGallery from '../components/imageGalery';
 import BivouacInformations from '../components/bivouacInformations';
 import ReservationDates from '../components/reservationDates';
+import { useLocalSearchParams } from 'expo-router';
 
 export default function DetailBivouac() {
-  const { id } = {id: 1};
+
+  // Get the search parameters
+  const params = useLocalSearchParams();
+  const { itemId } = params;
+  const id = Array.isArray(itemId) ? Number(itemId[0]) : Number(itemId);
 
   // Redux store access
   const dispatch = useDispatch<AppDispatch>();
