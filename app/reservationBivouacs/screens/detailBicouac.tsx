@@ -26,7 +26,7 @@ export default function DetailBivouac() {
   const { t } = useTranslation();
 
   const bivouac = data.find((b) => b.id === id);
-  console.log(bivouac);
+
   return (
     <View style={styles.container}>
 
@@ -37,7 +37,7 @@ export default function DetailBivouac() {
         <ScrollView>
           <ImageGallery images={bivouac.photos} />
           <BivouacInformations name={bivouac.name} price={bivouac.price} address={bivouac.address} rating={bivouac.rating} comments={bivouac.comments} host={bivouac.host} description={bivouac.description} equipment={bivouac.equipment} />
-          <ReservationDates />
+          <ReservationDates bivouac={bivouac}/>
         </ScrollView>
       ) : (
         <Text>No data found</Text>

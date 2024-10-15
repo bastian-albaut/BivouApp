@@ -4,8 +4,9 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import Colors from '@/common/constants/Colors';
 import ButtonComponent from '@/common/components/ButtonComponent';
 import { useTranslation } from 'react-i18next';
+import { useRouter } from 'expo-router';
 
-export default function ReservationDates() {
+export default function ReservationDates(props : any) {
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
   const [showStartDatePicker, setShowStartDatePicker] = useState(false);
@@ -33,6 +34,8 @@ export default function ReservationDates() {
   };
 
   const { t } = useTranslation();
+
+  const router = useRouter();
 
   return (
     <View style={styles.container}>
@@ -76,7 +79,23 @@ export default function ReservationDates() {
         )}
       </View>
 
-      <ButtonComponent title="Réserver le bivouac" onPress={() => console.log('Réserver')} />
+      <ButtonComponent 
+        title="Réserver le bivouac" 
+        onPress={() => {
+          if (startDate && endDate) {
+            router.push({
+              pathname: '/reservationBivouacs/screens/detailReservation',
+              params: {
+                startDate: startDate.toISOString(),
+                endDate: endDate.toISOString(),
+                bivouac: JSON.stringify(props.bivouac),    
+              },
+            });
+          } else {
+            alert('Veuillez sélectionner les deux dates.');
+          }
+        }}
+      />
     </View>
   );
 }
