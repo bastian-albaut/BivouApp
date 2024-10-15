@@ -64,7 +64,7 @@ export default function BivouacInformations({ name, price, address, rating, comm
         <Text style={styles.readMore}>{isDescriptionExpanded ? t('common:read_less') : t('common:read_more')}</Text>
       </TouchableOpacity>
 
-      <Text style={styles.sectionTitle}>Equipements</Text>
+      <Text style={styles.sectionTitle}>{t('common:equipments')}</Text>
       <View style={styles.equipmentList}>
         {equipment.map((item, index) => (
           <View key={index} style={styles.equipmentItem}>

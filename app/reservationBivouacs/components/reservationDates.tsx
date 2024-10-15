@@ -3,6 +3,7 @@ import { View, Text, Button, Platform, StyleSheet } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import Colors from '@/common/constants/Colors';
 import ButtonComponent from '@/common/components/ButtonComponent';
+import { useTranslation } from 'react-i18next';
 
 export default function ReservationDates() {
   const [startDate, setStartDate] = useState<Date | null>(null);
@@ -31,15 +32,16 @@ export default function ReservationDates() {
     return date ? date.toLocaleDateString('fr-FR') : 'Sélectionnez une date';
   };
 
+  const { t } = useTranslation();
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Choisissez vos dates de réservation</Text>
+      <Text style={styles.title}>{t('reservationBivouacs:title_date_reservation')}</Text>
 
-      {/* Start Date Input */}
       <View style={styles.dateInputContainer}>
-        <Text style={styles.label}>Date de début:</Text>
+        <Text style={styles.label}>{t('reservationBivouacs:start_date')}</Text>
         <Button
-          title={startDate ? formatDate(startDate) : 'Sélectionnez la date de début'}
+          title={startDate ? formatDate(startDate) : t('reservationBivouacs:select_start_date')}
           onPress={() => setShowStartDatePicker(true)}
           color={Colors.green1}
         />
@@ -48,18 +50,17 @@ export default function ReservationDates() {
             value={startDate || new Date()}
             textColor={Colors.black}
             mode="date"
-            locale="fr-FR" // Optional, Android will respect this but iOS will not
+            locale="fr-FR"
             display={Platform.OS === 'ios' ? 'spinner' : 'default'}
             onChange={onStartDateChange}
             />
         )}
       </View>
 
-      {/* End Date Input */}
       <View style={styles.dateInputContainer}>
-        <Text style={styles.label}>Date de fin:</Text>
+        <Text style={styles.label}>{t('reservationBivouacs:end_date')}</Text>
         <Button
-          title={endDate ? formatDate(endDate) : 'Sélectionnez la date de fin'}
+          title={endDate ? formatDate(endDate) : t('reservationBivouacs:select_end_date')}
           onPress={() => setShowEndDatePicker(true)}
           color={Colors.green1}
           />
@@ -68,19 +69,12 @@ export default function ReservationDates() {
             value={endDate || new Date()}
             textColor={Colors.black}
             mode="date"
-            locale="fr-FR" // Optional, Android will respect this but iOS will not
+            locale="fr-FR"
             display={Platform.OS === 'ios' ? 'spinner' : 'default'}
             onChange={onEndDateChange}
           />
         )}
       </View>
-
-      {/* Display Selected Dates */}
-      {startDate && endDate && (
-        <Text style={styles.summary}>
-          Réservation du {formatDate(startDate)} au {formatDate(endDate)}
-        </Text>
-      )}
 
       <ButtonComponent title="Réserver le bivouac" onPress={() => console.log('Réserver')} />
     </View>
@@ -105,12 +99,5 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: Colors.black,
     marginBottom: 5,
-  },
-  summary: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: Colors.black,
-    marginTop: 20,
-    marginBottom: 10,
   },
 });

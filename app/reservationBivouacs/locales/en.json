@@ -1,3 +1,8 @@
 {
-    "share_bivouac": "Look at this amazing bivouac that I just found on BivouApp!"
+    "share_bivouac": "Look at this amazing bivouac that I just found on BivouApp!",
+    "title_date_reservation": "Choose dates of your reservation",
+    "start_date": "Start date",
+    "select_start_date": "Select start date",
+    "end_date": "End date",
+    "select_end_date": "Select end date"
 }
