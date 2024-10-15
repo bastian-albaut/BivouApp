@@ -1,0 +1,13 @@
+{
+  "next": "Suivant",
+  "addLocation": {
+    "location": "Localisation",
+    "address": "Adresse",
+    "city": "Ville",
+    "postalCode": "Code Postal",
+    "street": "N° Voie, Rue...",
+    "gps_coordinates": "Coordonnées GPS",
+    "latitude": "Latitude",
+    "longitude": "Longitude"
+  }
+}

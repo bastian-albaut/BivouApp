@@ -7,6 +7,8 @@ import enSearchBivouacs from '../../app/searchBivouacs/locales/en.json';
 import frSearchBivouacs from '../../app/searchBivouacs/locales/fr.json';
 import enUsers from '../../app/users/locales/en.json';
 import frUsers from '../../app/users/locales/fr.json';
+import enAddBivouac from '../../app/addBivouac/locales/en.json';
+import frAddBivouac from '../../app/addBivouac/locales/fr.json';
 
 const deviceLanguage : String =
   Platform.OS === 'ios'
@@ -44,11 +46,13 @@ i18n
         common: enCommon,
         searchBivouacs: enSearchBivouacs,
         users: enUsers,
+        addBivouac: enAddBivouac,
       },
       fr: {
         common: frCommon,
         searchBivouacs: frSearchBivouacs,
         users: frUsers,
+        addBivouac: frAddBivouac,
       },
     },
     ns: ['searchBivouacs', 'users'], // Define namespaces
