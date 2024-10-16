@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { StyleSheet, View, Text, ScrollView } from 'react-native';
-import { fetchBivouacById } from '../../searchBivouacs/store/bivouacsSlice';
+import { fetchBivouacById } from '../../../common/store/slices/bivouacsSlice';
 import { RootState, AppDispatch } from '../../../common/store/store';
 import { useTranslation } from 'react-i18next';
 import Colors from "@/common/constants/Colors";

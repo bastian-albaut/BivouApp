@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { getBivouacs, getBivouacById, createBivouac } from '../api/bivouacs';
+import { getBivouacs, getBivouacById, createBivouac } from '../../../app/searchBivouacs/api/bivouacs';
 
 interface BivouacsState {
   data: any[];
