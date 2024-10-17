@@ -1,6 +1,13 @@
 {
     "search_title": "Rechercher des bivouacs",
     "list_empty": "Aucun bivouac trouvé",
-    "loginTitle": "Se connecter"
+    "loginTitle": "Se connecter",
+    "mailAddress": "Adresse mail",
+    "password": "Mot de passe",
+    "confirmPassword": "Confirmation du mot de passe",
+    "noAccount": "Vous n'avez pas encore de compte ?",
+    "alreadyAccount": "Vous avez déjà un compte ?",
+    "signUp": "S'inscrire",
+    "login": "Se connecter"
 }
   

@@ -14,5 +14,12 @@
     "from": "Du",
     "to": "au",
     "price": "Prix",
-    "close": "Fermer"
+    "close": "Fermer",
+    "language": "Langues",
+    "profilePageTitle": "Votre profil",
+    "personalInformation": "Informations personnelles",
+    "Announces": "Vos annonces",
+    "history": "Historique des réservations",
+    "privacyPolicy": "Politique de confidentialité",
+    "logOut": "Se déconnecter"
 }

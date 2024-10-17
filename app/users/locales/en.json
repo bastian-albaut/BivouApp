@@ -1,4 +1,11 @@
 {
     "test": "english",
-    "loginTitle": "Login"
+    "loginTitle": "Login",
+    "mailAddress": "Mail address",
+    "password": "Password",
+    "confirmPassword": "Confirm password",
+    "noAccount": "You don't have an account yet?",
+    "alreadyAccount": "You already have an account?",
+    "signUp": "Sign up",
+    "login": "Login"
 }

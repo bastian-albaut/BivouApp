@@ -13,5 +13,13 @@
     "from": "From",
     "to": "to",
     "price": "Price",
-    "close": "Close"
+    "close": "Close",
+    "language": "Languages",
+    "profilePageTitle": "Your profile",
+    "personalInformation": "Personal information",
+    "Announces": "Announces",
+    "history": "Reservation history",
+    "privacyPolicy": "Privacy policy",
+    "logOut": "Log out"
+
 }

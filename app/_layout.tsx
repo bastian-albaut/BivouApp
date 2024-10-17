@@ -80,6 +80,11 @@ function RootLayoutNav() {
       <Stack.Screen name="searchBivouacs/screens/searchBivouacMap" options={{ headerBackTitle: t("common:navigation_back")}} />
       <Stack.Screen name="reservationBivouacs/screens/detailBivouac" options={{ headerBackTitle: t("common:navigation_back") }} />
       <Stack.Screen name="reservationBivouacs/screens/detailReservation" options={{ headerBackTitle: t("common:navigation_back") }} />
+      <Stack.Screen name="users/screens/testScreen" options={{ headerBackTitle: t("common:navigation_back"), title: 'Test' }} />
+      <Stack.Screen name="searchBivouacs/screens/searchBivouacMap" options={{ headerBackTitle: t("common:navigation_back"), title: 'Page map' }} />
+      <Stack.Screen name="users/screens/login" options={{ headerBackTitle: t("common:navigation_back"), title: 'Page map' }} />
+      <Stack.Screen name="users/screens/signup" options={{ headerBackTitle: t("common:navigation_back"), title: 'Page map' }} />
+      <Stack.Screen name="changeLanguage" options={{ headerBackTitle: t("common:navigation_back"), title: 'Page map' }} />
     </Stack>
   );
 }
