@@ -23,10 +23,9 @@ export default function Favorites() {
   // Translation
   const { t } = useTranslation();
 
-  const router = useRouter();
-
   return (
     <View style={styles.container}>
+      <Text style={styles.title}>{t('favorites:title')}</Text>
 
       {loading && <Text>Loading...</Text>}
       {error && <Text>Error: {error}</Text>}
@@ -46,6 +45,15 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 20,
     backgroundColor: Colors.white,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: '600',
+    color: Colors.black,
+    marginBottom: 20,
+    width: '100%',
+    textAlign: 'left',
+    paddingLeft: 20,
   },
   searchContainer: {
     flexDirection: 'row',
