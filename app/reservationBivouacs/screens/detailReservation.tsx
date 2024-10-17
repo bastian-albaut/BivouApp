@@ -19,9 +19,9 @@ export default function ReservationConfirmation() {
 
     // Calculate number of nights, tax (1%) and total price
     const nights = Math.ceil((end.getTime() - start.getTime()) / (1000 * 3600 * 24));
-    const priceWithoutTax = bivouacData.price * nights;
-    const tax = priceWithoutTax * 0.01;
-    const total = priceWithoutTax + tax;
+    const priceWithoutTax = (bivouacData.price * nights).toFixed(2);
+    const tax = (parseFloat(priceWithoutTax) * 0.01).toFixed(2);
+    const total = (parseFloat(priceWithoutTax) + parseFloat(tax)).toFixed(2);
 
     return (
         <View style={styles.container}>
