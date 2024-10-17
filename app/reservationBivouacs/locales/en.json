@@ -8,6 +8,7 @@
     "book_bivouac": "Book bivouac",
     "error_not_select_dates": "Please select a start date and an end date.",
     "error_start_date_after_end_date": "The start date must be before the end date.",
+    "error_min_reservation_duration": "The minimum reservation duration is 1 day.",
     "reservation_details": "Reservation details",
     "location": "Location",
     "journey": "Journey",

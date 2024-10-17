@@ -7,6 +7,7 @@
     "select_end_date": "Sélectionnez la date de fin",
     "error_not_select_dates": "Veuillez sélectionner une date de début et une date de fin.",
     "error_start_date_after_end_date": "La date de début doit être avant la date de fin.",
+    "error_min_reservation_duration": "La durée minimale de réservation est de 1 jour.",
     "book_bivouac": "Réserver le bivouac",
     "reservation_details": "Détails de la réservation",
     "location": "Emplacement",
