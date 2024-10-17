@@ -22,7 +22,9 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors.green1
+        tabBarActiveTintColor: Colors.green1,
+        tabBarStyle: { backgroundColor: Colors.black },
+        headerShown: false,
       }}>
       <Tabs.Screen
         name="favoritePage"
@@ -43,20 +45,6 @@ export default function TabLayout() {
         options={{
           title: t('common:tab_search_page'),
           tabBarIcon: ({ focused }) => <TabBarIcon name="search" focused={focused} />,
-          headerRight: () => (
-            <Link href="/modal" asChild>
-              <Pressable>
-                {({ pressed }) => (
-                  <FontAwesome
-                    name="info-circle"
-                    size={25}
-                    color={Colors.green3}
-                    style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
-                  />
-                )}
-              </Pressable>
-            </Link>
-          ),
         }}
       />
       <Tabs.Screen

@@ -9,11 +9,12 @@ import Colors from '../common/constants/Colors';
 
 
 // Tout doit etre migrer dans la page specifique dans features/...
-export default function ProfilePage() {
+export default function LanguagePage() {
 
   const { i18n } = useTranslation();
 
   const router = useRouter();
+  const { t } = useTranslation();
 
   const changeLanguage = (lang: string) => {
     i18n.changeLanguage(lang);
@@ -21,7 +22,7 @@ export default function ProfilePage() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Langues</Text>
+      <Text style={styles.title}>{t('common:language')}</Text>
 
       <View style={styles.separator} />
       <Button title="French" onPress={() => changeLanguage('fr')} />

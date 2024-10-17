@@ -13,6 +13,8 @@ export default function ProfilePage() {
 
   const { i18n } = useTranslation();
 
+  const { t } = useTranslation();
+
   const router = useRouter();
 
   const changeLanguage = (lang: string) => {
@@ -21,14 +23,14 @@ export default function ProfilePage() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Votre profil</Text>
+      <Text style={styles.title}>{t("common:profilePageTitle")}</Text>
 
       <View>
 
         <View style={styles.profileLine}>
           <View style={styles.lineTitle}>
             <Icon name="user-circle-o" size={20} color="black" />
-            <Text style={styles.lineText}>Informations personnelles</Text>
+            <Text style={styles.lineText}>{t("common:personalInformation")}</Text>
           </View>
           <Icon name="angle-right" size={20} color="black" />
         </View>
@@ -36,7 +38,7 @@ export default function ProfilePage() {
         <View style={styles.profileLine}>
           <View style={styles.lineTitle}>
             <Icon name="clone" size={20} color="black" />
-            <Text style={styles.lineText}>Vos annonces</Text>
+            <Text style={styles.lineText}>{t("common:Announces")}</Text>
           </View>
           <Icon name="angle-right" size={20} color="black" />
         </View>
@@ -44,7 +46,7 @@ export default function ProfilePage() {
         <View style={styles.profileLine}>
           <View style={styles.lineTitle}>
             <Icon name="history" size={20} color="black" />
-            <Text style={styles.lineText}>Historique des réservations</Text>
+            <Text style={styles.lineText}>{t("common:history")}</Text>
           </View>
           <Icon name="angle-right" size={20} color="black" />
         </View>
@@ -52,7 +54,7 @@ export default function ProfilePage() {
         <TouchableOpacity  onPress={() => router.push('../changeLanguage')} style={styles.profileLine}>
           <View style={styles.lineTitle}>
             <Icon name="language" size={20} color="black" />
-            <Text style={styles.lineText}>Langues</Text>
+            <Text style={styles.lineText}>{t("common:language")}</Text>
           </View>
           <Icon name="angle-right" size={20} color="black" />
         </TouchableOpacity>
@@ -60,7 +62,7 @@ export default function ProfilePage() {
         <View style={styles.profileLine}>
           <View style={styles.lineTitle}>
             <Icon name="question-circle-o" size={20} color="black" />
-            <Text style={styles.lineText}>Politique de confidentialité</Text>
+            <Text style={styles.lineText}>{t("common:privacyPolicy")}</Text>
           </View>
           <Icon name="angle-right" size={20} color="black" />
         </View>
@@ -69,7 +71,7 @@ export default function ProfilePage() {
 
       <View style={styles.separator} />
       
-      <Button title="Se déconnecter" onPress={() => router.push('../login')} />
+      <Button title={t("common:logOut")} onPress={() => router.push('../users/screens/login')} />
       
     </View>
   );
