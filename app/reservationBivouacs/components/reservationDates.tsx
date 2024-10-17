@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import { View, Text, Button, Platform, StyleSheet } from 'react-native';
+import { View, Text, Button, Platform, StyleSheet, Modal } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import Colors from '@/common/constants/Colors';
 import ButtonComponent from '@/common/components/ButtonComponent';
 import { useTranslation } from 'react-i18next';
 import { useRouter } from 'expo-router';
+import CustomModal from './modal';
 
-export default function ReservationDates(props : any) {
+export default function ReservationDates(props: any) {
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
   const [showStartDatePicker, setShowStartDatePicker] = useState(false);
@@ -34,7 +35,6 @@ export default function ReservationDates(props : any) {
   };
 
   const { t } = useTranslation();
-
   const router = useRouter();
 
   // Handle reservation button click
@@ -50,16 +50,21 @@ export default function ReservationDates(props : any) {
       return;
     }
 
+    // Minimum reservation duration of one day
+    if (endDate.getTime() - startDate.getTime() < 24 * 60 * 60 * 1000) {
+      alert(t('reservationBivouacs:error_min_reservation_duration'));
+      return;
+    }
+
     router.push({
       pathname: '/reservationBivouacs/screens/detailReservation',
       params: {
         startDate: startDate.toISOString(),
         endDate: endDate.toISOString(),
-        bivouac: JSON.stringify(props.bivouac),    
+        bivouac: JSON.stringify(props.bivouac),
       },
     });
-  }
-
+  };
 
   return (
     <View style={styles.container}>
@@ -72,16 +77,6 @@ export default function ReservationDates(props : any) {
           onPress={() => setShowStartDatePicker(true)}
           color={Colors.green1}
         />
-        {showStartDatePicker && (
-          <DateTimePicker
-            value={startDate || new Date()}
-            textColor={Colors.black}
-            mode="date"
-            locale="fr-FR"
-            display={Platform.OS === 'ios' ? 'spinner' : 'default'}
-            onChange={onStartDateChange}
-            />
-        )}
       </View>
 
       <View style={styles.dateInputContainer}>
@@ -90,20 +85,34 @@ export default function ReservationDates(props : any) {
           title={endDate ? formatDate(endDate) : t('reservationBivouacs:select_end_date')}
           onPress={() => setShowEndDatePicker(true)}
           color={Colors.green1}
-          />
-        {showEndDatePicker && (
-          <DateTimePicker
-            value={endDate || new Date()}
-            textColor={Colors.black}
-            mode="date"
-            locale="fr-FR"
-            display={Platform.OS === 'ios' ? 'spinner' : 'default'}
-            onChange={onEndDateChange}
-          />
-        )}
+        />
       </View>
 
-      <ButtonComponent title={t('reservationBivouacs:book_bivouac')} onPress={handleReservation}/>
+      <ButtonComponent title={t('reservationBivouacs:book_bivouac')} onPress={handleReservation} />
+
+      <CustomModal visible={showStartDatePicker} onClose={() => setShowStartDatePicker(false)}>
+        <DateTimePicker
+          value={startDate || new Date()}
+          minimumDate={new Date()}
+          mode="date"
+          locale="fr-FR"
+          display={Platform.OS === 'ios' ? 'spinner' : 'default'}
+          onChange={onStartDateChange}
+          textColor={Colors.black}
+        />
+      </CustomModal>
+
+      <CustomModal visible={showEndDatePicker} onClose={() => setShowEndDatePicker(false)}>
+        <DateTimePicker
+          value={endDate || new Date()}
+          minimumDate={startDate || new Date()}
+          mode="date"
+          locale="fr-FR"
+          display={Platform.OS === 'ios' ? 'spinner' : 'default'}
+          onChange={onEndDateChange}
+          textColor={Colors.black}
+        />
+      </CustomModal>
     </View>
   );
 }
@@ -126,5 +135,17 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: Colors.black,
     marginBottom: 5,
+  },
+  modalBackground: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+  },
+  modalContent: {
+    backgroundColor: Colors.white,
+    borderRadius: 10,
+    padding: 20,
+    alignItems: 'center',
   },
 });
