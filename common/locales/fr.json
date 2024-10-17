@@ -3,5 +3,12 @@
     "tab_add_bivouak_page": "Ajouter un bivouac",
     "tab_search_page": "Chercher",
     "tab_profile_page": "Profil",
-    "navigation_back": "Retour"
+    "navigation_back": "Retour",
+    "language": "Langues",
+    "profilePageTitle": "Votre profil",
+    "personalInformation": "Informations personnelles",
+    "Announces": "Vos annonces",
+    "history": "Historique des réservations",
+    "privacyPolicy": "Politique de confidentialité",
+    "logOut": "Se déconnecter"
 }

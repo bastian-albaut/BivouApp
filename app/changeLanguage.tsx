@@ -14,6 +14,7 @@ export default function LanguagePage() {
   const { i18n } = useTranslation();
 
   const router = useRouter();
+  const { t } = useTranslation();
 
   const changeLanguage = (lang: string) => {
     i18n.changeLanguage(lang);
@@ -21,7 +22,7 @@ export default function LanguagePage() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Langues</Text>
+      <Text style={styles.title}>{t('common:language')}</Text>
 
       <View style={styles.separator} />
       <Button title="French" onPress={() => changeLanguage('fr')} />

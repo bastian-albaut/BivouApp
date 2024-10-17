@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { View, TextInput, FlatList, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { View, TextInput, FlatList, Text, TouchableOpacity, StyleSheet, Alert, Keyboard } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import axios from 'axios';
 import Colors from '@/common/constants/Colors';
 import { useTranslation } from 'react-i18next';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import * as Location from 'expo-location'; // Importer expo-location
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchBivouacsData } from '../store/bivouacsSlice';
+
 
 
 export default function SearchBivouacMap() {
@@ -13,6 +16,13 @@ export default function SearchBivouacMap() {
   const [suggestions, setSuggestions] = useState<any[]>([]);
   const [location, setLocation] = useState({ latitude: 48.8566, longitude: 2.3522 }); // Coordonnées par défaut (Paris)
   const { t } = useTranslation();
+
+  // Redux store access
+  const dispatch = useDispatch<AppDispatch>();
+  const { data, loading, error } = useSelector((state: RootState) => state.bivouacs);
+  useEffect(() => {
+    dispatch(fetchBivouacsData());
+  }, [dispatch]);
 
   // Fonction pour rechercher les suggestions de ville en France avec Nominatim
   const searchSuggestions = async (text: string) => {
@@ -60,7 +70,7 @@ export default function SearchBivouacMap() {
     const { lat, lon } = suggestion;
     setLocation({ latitude: parseFloat(lat), longitude: parseFloat(lon) });
     setCity(formattedCity || suggestion.display_name);
-    setSuggestions([]); // Masquer les suggestions après sélection
+    setSuggestions([]); 
   };
 
   // Utiliser useEffect pour demander la localisation lors du lancement
@@ -93,6 +103,8 @@ export default function SearchBivouacMap() {
           value={city}
           onChangeText={searchSuggestions}
         />
+
+
       </View>
 
       {suggestions.length > 0 && (
@@ -116,6 +128,9 @@ export default function SearchBivouacMap() {
           latitudeDelta: 0.05,
           longitudeDelta: 0.05,
         }}
+        onPress={() => {
+          Keyboard.dismiss(); // Fermer le clavier ici
+        }}
       >
         <Marker coordinate={location} title="Votre position" />
       </MapView>
@@ -126,7 +141,6 @@ export default function SearchBivouacMap() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 20,
     backgroundColor: Colors.white,
   },
   searchContainer: {
@@ -134,9 +148,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderColor: Colors.black,
     borderWidth: 1,
-    borderRadius: 8,
+    borderRadius: 30,
     marginHorizontal: 20,
+    marginVertical: 20,
     paddingHorizontal: 10,
+    position: 'absolute',
+    zIndex: 1,
+    backgroundColor: '#fff',
   },
   searchIcon: {
     marginRight: 10,
@@ -165,6 +183,5 @@ const styles = StyleSheet.create({
   },
   map: {
     flex: 1,
-    marginTop: 20,
   },
 });

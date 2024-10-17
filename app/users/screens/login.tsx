@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, Keyboard, TouchableWithoutFeedback, TouchableOpacity } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useRouter } from 'expo-router';
-import TextInputComponent from '../common/components/TextInputComponent';
-import ButtonComponent from '../common/components/ButtonComponent';
+import TextInputComponent from '../../../common/components/TextInputComponent';
+import ButtonComponent from '../../../common/components/ButtonComponent';
 import Colors from '@/common/constants/Colors';
 
 export default function Login() {
@@ -16,22 +16,21 @@ export default function Login() {
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
         <View style={styles.centeredContainer}>
-          {/* <Text style={styles.leftAlignedTitle}>t('login:loginTitle')</Text> */}
-          <Text style={styles.leftAlignedTitle}>Se connecter</Text>
+          <Text style={styles.leftAlignedTitle}>{t('users:loginTitle')}</Text>
 
-          <TextInputComponent icon="envelope" placeholder="Adresse mail" keyboardType="email-address" value="" secureTextEntry={false} />
-          <TextInputComponent icon="lock" placeholder="Mot de passe" value="" secureTextEntry={true} />
+          <TextInputComponent icon="envelope" placeholder={t('users:mailAddress')} keyboardType="email-address" value="" secureTextEntry={false} />
+          <TextInputComponent icon="lock" placeholder={t('users:password')} value="" secureTextEntry={true} />
 
           <Text style={styles.signupText}>
-            Vous n'avez pas encore de compte ?
+            {t('users:noAccount')} 
           </Text>
           <TouchableOpacity activeOpacity={0.8} onPress={() => router.navigate("./signup")}>
-              <Text style={styles.signupLink}>S'inscrire</Text>
+              <Text style={styles.signupLink}>{t('users:signUp')} </Text>
           </TouchableOpacity>
         </View>
 
         <View style={styles.bottomButton}>
-          <ButtonComponent title="Se connecter" onPress={() => console.log('Se connecter')} />
+          <ButtonComponent title={t('users:login')} onPress={() => console.log('Se connecter')} />
         </View>
       </View>
     </TouchableWithoutFeedback>
