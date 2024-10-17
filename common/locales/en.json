@@ -3,5 +3,15 @@
     "tab_add_bivouak_page": "Add a bivouac",
     "tab_search_page": "Search",
     "tab_profile_page": "Profile",
-    "navigation_back": "Back"
+    "navigation_back": "Back",
+    "night": "night",
+    "comments": "comments",
+    "host": "host",
+    "read_more": "Read more",
+    "read_less": "Read less",
+    "equipments": "Equipments",
+    "from": "From",
+    "to": "to",
+    "price": "Price",
+    "close": "Close"
 }
