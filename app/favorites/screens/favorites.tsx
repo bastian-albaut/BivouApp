@@ -9,54 +9,33 @@ import Colors from "@/common/constants/Colors";
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import CustomIconButton from '@/common/components/customIconButton';
 import { useRouter } from 'expo-router';
+import { fetchFavorites } from '@/common/store/slices/favoritesSlice';
 
-export default function SearchBivouacList() {
+export default function Favorites() {
   
   // Redux store access
   const dispatch = useDispatch<AppDispatch>();
-  const { data, loading, error } = useSelector((state: RootState) => state.bivouacs);
+  const { data, loading, error } = useSelector((state: RootState) => state.favorites);
   useEffect(() => {
-    dispatch(fetchBivouacs());
+    dispatch(fetchFavorites());
   }, [dispatch]);
-
-  
-  // Search functionality
-  const [searchQuery, setSearchQuery] = useState('');
-  const filteredBivouacs = data.filter(bivouac => 
-    bivouac.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
 
   // Translation
   const { t } = useTranslation();
 
-  const router = useRouter();
-
   return (
     <View style={styles.container}>
-      <View style={styles.searchContainer}>
-        <FontAwesome name="search" size={24} color={Colors.black} style={styles.searchIcon} />
-        <TextInput
-          style={styles.searchBar}
-          placeholder={t('searchBivouacs:search_bar')}
-          placeholderTextColor={Colors.black}
-          value={searchQuery}
-          onChangeText={setSearchQuery}
-        />
-      </View>
+      <Text style={styles.title}>{t('favorites:title')}</Text>
 
       {loading && <Text>Loading...</Text>}
       {error && <Text>Error: {error}</Text>}
 
       <FlatList
-        data={filteredBivouacs}
+        data={data}
         renderItem={({ item }) => <BivouacItem item={item} />}
         keyExtractor={(item) => item.id.toString()}
         contentContainerStyle={styles.list}
       />
-      
-      <View style={styles.containerButton}>
-        <CustomIconButton title={t('searchBivouacs:map_button')} iconName="map" onPress={() => router.push(`/searchBivouacs/screens/searchBivouacMap`)} />
-      </View>
     </View>
   );
 }
@@ -66,6 +45,15 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 20,
     backgroundColor: Colors.white,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: '600',
+    color: Colors.black,
+    marginBottom: 20,
+    width: '100%',
+    textAlign: 'left',
+    paddingLeft: 20,
   },
   searchContainer: {
     flexDirection: 'row',

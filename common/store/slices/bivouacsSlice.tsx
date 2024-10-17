@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { getBivouacs, getBivouacById, createBivouac } from '../api/bivouacs';
+import { getBivouacs, getBivouacById, createBivouac } from '../../../app/searchBivouacs/api/bivouacs';
 
 interface BivouacsState {
   data: any[];
@@ -18,11 +18,10 @@ export const fetchBivouacs = createAsyncThunk('bivouacs/fetchBivouacs', async ()
   return response;
 });
 
-export const fetchBivouacsData = createAsyncThunk('bivouacs/fetchBivouacsData', async () => {
-  // Ajouter code ici 
+export const fetchBivouacById = createAsyncThunk('bivouacs/fetchBivouacById', async (id: number) => {
+  const response = await getBivouacById(id);
   return response;
 });
-
 
 const bivouacsSlice = createSlice({
   name: 'bivouacs',

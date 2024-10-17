@@ -22,7 +22,7 @@ export default function BivouacItem({ item }: { item: any }) {
             router.push({
                 pathname: '/reservationBivouacs/screens/detailBivouac',
                 params: {
-                itemId: item.id
+                    itemId: item.id
                 },
             })}
         >
@@ -34,7 +34,7 @@ export default function BivouacItem({ item }: { item: any }) {
                     </TouchableOpacity>
                 </View>
 
-                <View>
+                <View style={styles.informationContainer}>
                     <Text style={styles.bivouacTitle}>{item.name}</Text>
                     <Text style={styles.bivouacAddress}>{`${item.address.number} ${item.address.street}, ${item.address.city}, ${item.address.postalCode}`}</Text>
                     <View style={styles.bivouacViewHost}>
@@ -49,15 +49,20 @@ export default function BivouacItem({ item }: { item: any }) {
 
 const styles = StyleSheet.create({
     bivouacItem: {
-        flexDirection: 'column',
+        flexDirection: 'row',
         padding: 10,
     },
     imageContainer: {
         position: 'relative',
+        flex: 2,
+    },
+    informationContainer: {
+        flex: 3,
+        marginLeft: 10,
     },
     bivouacImage: {
         alignSelf: 'stretch',
-        height: 250,
+        height: 100,
         borderRadius: 10,
         marginBottom: 10,
     },

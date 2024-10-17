@@ -5,8 +5,12 @@ import enCommon from './en.json';
 import frCommon from './fr.json';
 import enSearchBivouacs from '../../app/searchBivouacs/locales/en.json';
 import frSearchBivouacs from '../../app/searchBivouacs/locales/fr.json';
+import enReservationBivouacs from '../../app/reservationBivouacs/locales/en.json';
+import frReservationBivouacs from '../../app/reservationBivouacs/locales/fr.json';
 import enUsers from '../../app/users/locales/en.json';
 import frUsers from '../../app/users/locales/fr.json';
+import frFavorites from '../../app/favorites/locales/fr.json';
+import enFavorites from '../../app/favorites/locales/en.json';
 
 const deviceLanguage : String =
   Platform.OS === 'ios'
@@ -43,12 +47,16 @@ i18n
       en: {
         common: enCommon,
         searchBivouacs: enSearchBivouacs,
+        reservationBivouacs: enReservationBivouacs,
         users: enUsers,
+        favorites: enFavorites,
       },
       fr: {
         common: frCommon,
         searchBivouacs: frSearchBivouacs,
+        reservationBivouacs: frReservationBivouacs,
         users: frUsers,
+        favorites: frFavorites,
       },
     },
     ns: ['searchBivouacs', 'users'], // Define namespaces

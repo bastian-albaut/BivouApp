@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
-import usersReducer from '../../app/users/store/usersSlice';
-import bivouacsReducer from '../../app/searchBivouacs/store/bivouacsSlice';
+import usersReducer from './slices/usersSlice';
+import bivouacsReducer from './slices/bivouacsSlice';
+import favoritesReducer from './slices/favoritesSlice';
 
 export const store = configureStore({
   reducer: {
     users: usersReducer,
     bivouacs: bivouacsReducer,
+    favorites: favoritesReducer,
   },
 });
 
