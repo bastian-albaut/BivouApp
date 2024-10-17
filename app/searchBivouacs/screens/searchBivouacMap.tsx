@@ -7,7 +7,8 @@ import { useTranslation } from 'react-i18next';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import * as Location from 'expo-location'; // Importer expo-location
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchBivouacsData } from '../store/bivouacsSlice';
+import { fetchBivouacs } from '../../../common/store/slices/bivouacsSlice';
+import { AppDispatch, RootState } from '@/common/store/store';
 
 
 
@@ -21,7 +22,7 @@ export default function SearchBivouacMap() {
   const dispatch = useDispatch<AppDispatch>();
   const { data, loading, error } = useSelector((state: RootState) => state.bivouacs);
   useEffect(() => {
-    dispatch(fetchBivouacsData());
+    dispatch(fetchBivouacs());
   }, [dispatch]);
 
   // Fonction pour rechercher les suggestions de ville en France avec Nominatim
@@ -42,7 +43,7 @@ export default function SearchBivouacMap() {
         const uniqueSuggestions = Array.from(new Set(
           filteredResults.map((item: any) => formatSuggestion(item))
         )).map(uniqueCity => {
-          return filteredResults.find(item => formatSuggestion(item) === uniqueCity);
+          return filteredResults.find((item: any) => formatSuggestion(item) === uniqueCity);
         });
 
         setSuggestions(uniqueSuggestions);

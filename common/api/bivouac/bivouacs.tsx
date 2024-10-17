@@ -1,4 +1,4 @@
-import { apiClient } from '../../../common/api/index';
+import { apiClient } from '../index';
 import { mockBivouacs } from './MockData';
 
 export const getBivouacs = async () => {
