@@ -46,8 +46,9 @@ const AddLocation: React.FC = () => {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>{t('addBivouac:addLocation.location')}</Text>
-      <Text style={styles.subtitle}>{t('addBivouac:addLocation.address')}</Text>
+      <Text style={styles.title}>{t('addBivouac:addBivouac')}</Text>
+      <Text style={styles.subtitle}>{t('addBivouac:addLocation.location')}</Text>
+      <Text style={styles.section}>{t('addBivouac:addLocation.address')}</Text>
       <TextInputComponent
         icon="map-marker"
         placeholder={t('addBivouac:addLocation.city')}
@@ -72,7 +73,7 @@ const AddLocation: React.FC = () => {
           <Text style={styles.text}>OU</Text>
         <View style={styles.line} />
       </View>
-      <Text style={styles.subtitle}>{t('addBivouac:addLocation.gps_coordinates')}</Text>
+      <Text style={styles.section}>{t('addBivouac:addLocation.gps_coordinates')}</Text>
       <TextInputComponent
         icon="map-marker"
         placeholder={t('addBivouac:addLocation.latitude')}
@@ -103,12 +104,19 @@ const styles = StyleSheet.create({
   },
   title: {
     alignSelf: 'flex-start',
-    fontSize: 24,
+    fontSize: 28,
+    fontWeight: 'bold',
+    marginBottom: 5,
+    marginLeft: 15,
+  },
+  subtitle: {
+    alignSelf: 'flex-start',
+    fontSize: 22,
     fontWeight: 'bold',
     marginBottom: 20,
     marginLeft: 15,
   },
-  subtitle: {
+  section: {
     alignSelf: 'flex-start',
     fontSize: 16,
     fontWeight: 'bold',
