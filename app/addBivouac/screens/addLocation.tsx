@@ -13,6 +13,8 @@ const AddLocation: React.FC = () => {
   const [city, setCity] = useState('');
   const [postalCode, setPostalCode] = useState('');
   const [street, setStreet] = useState('');
+  const [latitude, setLatitude] = useState('');
+  const [longitude, setLongitude] = useState('');
   const [currentPage, setCurrentPage] = React.useState(1);
   const totalPages = 6;
 
@@ -27,6 +29,8 @@ const AddLocation: React.FC = () => {
       setCity('');
       setPostalCode('');
       setStreet('');
+      setLatitude('');
+      setLongitude('');
     } else {
       Alert.alert('Erreur', 'Veuillez remplir tous les champs.');
     }
@@ -77,14 +81,16 @@ const AddLocation: React.FC = () => {
       <TextInputComponent
         icon="map-marker"
         placeholder={t('addBivouac:addLocation.latitude')}
-        value={city}
+        value={latitude}
         onChangeText={setCity}
+        keyboardType="numeric"
       />
       <TextInputComponent
         icon="map-marker"
         placeholder={t('addBivouac:addLocation.longitude')}
-        value={city}
+        value={longitude}
         onChangeText={setCity}
+        keyboardType="numeric"
       />
       <Footer
         onBackPress={handleBackPress}
