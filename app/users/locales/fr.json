@@ -8,6 +8,11 @@
     "noAccount": "Vous n'avez pas encore de compte ?",
     "alreadyAccount": "Vous avez déjà un compte ?",
     "signUp": "S'inscrire",
-    "login": "Se connecter"
+    "login": "Se connecter",
+    "fillInformation": "Renseigner vos informations",
+    "name": "Nom",
+    "surname": "Prénom",
+    "phone": "Numéro de téléphone",
+    "validate": "Valider"
 }
   

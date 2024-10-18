@@ -7,5 +7,10 @@
     "noAccount": "You don't have an account yet?",
     "alreadyAccount": "You already have an account?",
     "signUp": "Sign up",
-    "login": "Login"
+    "login": "Login",
+    "fillInformation": "Fill your information",
+    "name": "Name",
+    "surname": "Surname",
+    "phone": "Phone number",
+    "validate": "Validate"
 }

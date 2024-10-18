@@ -51,7 +51,7 @@ export default function ProfilePage() {
           <Icon name="angle-right" size={20} color="black" />
         </View>
 
-        <TouchableOpacity  onPress={() => router.push('../changeLanguage')} style={styles.profileLine}>
+        <TouchableOpacity  onPress={() => router.push('../profilePage/screens/changeLanguage')} style={styles.profileLine}>
           <View style={styles.lineTitle}>
             <Icon name="language" size={20} color="black" />
             <Text style={styles.lineText}>{t("common:language")}</Text>
@@ -59,13 +59,13 @@ export default function ProfilePage() {
           <Icon name="angle-right" size={20} color="black" />
         </TouchableOpacity>
 
-        <View style={styles.profileLine}>
+        <TouchableOpacity onPress={() => router.push('../profilePage/screens/privacyPolicy')} style={styles.profileLine}>
           <View style={styles.lineTitle}>
             <Icon name="question-circle-o" size={20} color="black" />
             <Text style={styles.lineText}>{t("common:privacyPolicy")}</Text>
           </View>
           <Icon name="angle-right" size={20} color="black" />
-        </View>
+        </TouchableOpacity>
 
       </View>
 
