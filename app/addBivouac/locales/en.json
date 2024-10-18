@@ -1,0 +1,13 @@
+{
+  "next": "Next",
+  "addLocation": {
+    "location": "Location",
+    "address": "Address",
+    "city": "City",
+    "postalCode": "Postal Code",
+    "street": "Street Number, Name...",
+    "gps_coordinates": "GPS Coordinates",
+    "latitude": "Latitude",
+    "longitude": "Longitude"
+  }
+}

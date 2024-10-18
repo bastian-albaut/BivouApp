@@ -3,13 +3,15 @@ import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 import Colors from '../constants/Colors';
 
 export default function ButtonComponent(props: any) {
+  const { title, onPress, width = 340, style, textStyle } = props;
+
   return (
     <TouchableOpacity 
-      style={styles.button} 
-      onPress={props.onPress}
+      style={[styles.button, style, { width }]} 
+      onPress={onPress}
       activeOpacity={0.8} 
     >
-      <Text style={styles.buttonText}>{props.title}</Text>
+      <Text style={[styles.buttonText, textStyle]}>{title}</Text>
     </TouchableOpacity>
   );
 }
