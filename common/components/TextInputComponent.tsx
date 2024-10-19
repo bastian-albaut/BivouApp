@@ -106,13 +106,13 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   singleLine: {
-    height: 50, // Hauteur pour une seule ligne
+    height: 50,
   },
-  multiline: { // Ajuste la hauteur pour les entrées multi-lignes
-    height: 100,
+  multiline: {
+    height: 130,
   },
   iconMultiline: {
-    alignSelf: 'flex-start', // Aligne l'icône en haut
+    alignSelf: 'flex-start',
     marginTop: 15,
   },
 });
