@@ -1,4 +1,5 @@
 {
+  "previous": "Précédent",
   "next": "Suivant",
   "addBivouac": "Ajouter un bivouac",
   "addLocation": {
@@ -10,5 +11,12 @@
     "gps_coordinates": "Coordonnées GPS",
     "latitude": "Latitude",
     "longitude": "Longitude"
+  },
+  "addType": {
+    "rental": "Type de location",
+    "site": "Type de terrain",
+    "area": "Superficie disponible",
+    "description": "Description du lieu",
+    "PRM": "Accès PMR"
   }
 }

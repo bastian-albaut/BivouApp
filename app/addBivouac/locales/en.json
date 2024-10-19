@@ -1,4 +1,5 @@
 {
+  "previous": "Previous",
   "next": "Next",
   "addBivouac": "Add a bivouac",
   "addLocation": {
@@ -6,9 +7,16 @@
     "address": "Address",
     "city": "City",
     "postalCode": "Postal Code",
-    "street": "Street Number, Name...",
+    "street": "Street Number, Street Name...",
     "gps_coordinates": "GPS Coordinates",
     "latitude": "Latitude",
     "longitude": "Longitude"
+  },
+  "addType": {
+    "rental": "Type of rental",
+    "site": "Type of site",
+    "area": "Available area",
+    "description": "Description of the place",
+    "PRM": "PRM access"
   }
 }
