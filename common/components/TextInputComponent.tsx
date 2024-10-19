@@ -8,7 +8,8 @@ export default function TextInputComponent(props: any) {
   const [isFocused, setIsFocused] = useState(false);
   const animatedLabelPosition = useRef(new Animated.Value(0)).current;
   const [text, setText] = useState('');
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false); 
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const multiline = props.multiline || false;
 
   useEffect(() => {
     Animated.timing(animatedLabelPosition, {
@@ -39,7 +40,7 @@ export default function TextInputComponent(props: any) {
 
   return (
     <View style={styles.container}>
-      <FontAwesome name={props.icon} size={20} color={Colors.black} />
+      <FontAwesome name={props.icon} size={20} color={Colors.black} style={multiline && styles.iconMultiline} />
 
       <View style={styles.inputContainer}>
         <Animated.Text style={[styles.label, labelStyle]}>
@@ -47,7 +48,9 @@ export default function TextInputComponent(props: any) {
         </Animated.Text>
 
         <TextInput
-          style={styles.input}
+          style={[styles.input, multiline ? styles.multiline : styles.singleLine]}
+          multiline={multiline}
+          numberOfLines={multiline ? 4 : 1} // Ajuste le nombre de lignes visibles par défaut
           value={text}
           keyboardType={props.keyboardType || 'default'}
           secureTextEntry={props.secureTextEntry && !isPasswordVisible}
@@ -75,7 +78,6 @@ export default function TextInputComponent(props: any) {
 const styles = StyleSheet.create({
   container: {
     width: 340,
-    height: 50,
     margin: 8,
     borderWidth: 1,
     display: 'flex',
@@ -102,5 +104,15 @@ const styles = StyleSheet.create({
   },
   eyeIcon: {
     marginRight: 10,
+  },
+  singleLine: {
+    height: 50, // Hauteur pour une seule ligne
+  },
+  multiline: { // Ajuste la hauteur pour les entrées multi-lignes
+    height: 100,
+  },
+  iconMultiline: {
+    alignSelf: 'flex-start', // Aligne l'icône en haut
+    marginTop: 15,
   },
 });
