@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, StyleSheet, Button, Alert, ScrollView, Text } from 'react-native';
 import TextInputComponent from '../../../common/components/TextInputComponent';
 import RadioButtonComponent from '../components/RadioButtonComponent';
+import DropdownComponent from '../components/DropdownComponent';
 import Footer from '../components/Footer';
 import { useTranslation } from 'react-i18next';
 import Colors from "@/common/constants/Colors";
@@ -9,10 +10,24 @@ import Colors from "@/common/constants/Colors";
 const AddType: React.FC = () => {
   
     const [selectedPRM, setSelectedPRM] = useState(null);
+    const [selectedSite, setSelectedSite] = useState<string | number | undefined>(undefined);
     const [currentPage, setCurrentPage] = React.useState(2);
     const totalPages = 6;
 
     const { t } = useTranslation();
+
+    const rentals = [
+      { label: t('addBivouac:addType.rentalType.nothing'), value: 'nothing' },
+      { label: t('addBivouac:addType.rentalType.tent'), value: 'tent' },
+      { label: t('addBivouac:addType.rentalType.teepee'), value: 'teepee' },
+    ];
+
+    const sites = [
+      { label: t('addBivouac:addType.siteType.underbrush'), value: 'underbrush' },
+      { label: t('addBivouac:addType.siteType.sand'), value: 'sand' },
+      { label: t('addBivouac:addType.siteType.field'), value: 'field' },
+      { label: t('addBivouac:addType.siteType.cave'), value: 'cave' },
+    ];
 
     const handleBackPress = () => {
         // Logic for back button press
@@ -24,19 +39,26 @@ const AddType: React.FC = () => {
         setCurrentPage((prev) => Math.min(prev + 1, totalPages));
     };
 
+    const handleSelect = (item: any) => {
+      setSelectedSite(item.value);
+    };
+
     const progress = currentPage / totalPages;
     return (
         <ScrollView contentContainerStyle={styles.container}>
           <Text style={styles.title}>{t('addBivouac:addBivouac')}</Text>
           <Text style={styles.subtitle}>{t('addBivouac:addType.rental')}</Text>
-          <TextInputComponent
+          <DropdownComponent
             icon="map-marker"
             placeholder={t('addBivouac:addType.rental')}
+            items={sites} // Assurez-vous que cette prop est fournie
+            onSelect={handleSelect}
           />
-          <TextInputComponent
+          <DropdownComponent
             icon="map-marker"
             placeholder={t('addBivouac:addType.site')}
-            keyboardType="numeric"
+            items={sites} // Assurez-vous que cette prop est fournie
+            onSelect={handleSelect}
           />
           <TextInputComponent
             icon="map-marker"
