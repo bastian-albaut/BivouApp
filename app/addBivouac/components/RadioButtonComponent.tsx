@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, TouchableOpacity, StyleSheet, Text } from 'react-native';
 import Colors from "@/common/constants/Colors";
-import FontAwesome from '@expo/vector-icons/FontAwesome';
 
 export default function RadioButtonComponent(props: any) {
   const { selected, label, onPress } = props;
