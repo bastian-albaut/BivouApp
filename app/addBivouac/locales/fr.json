@@ -17,6 +17,17 @@
     "site": "Type de terrain",
     "area": "Superficie disponible",
     "description": "Description du lieu",
-    "PRM": "Accès PMR"
+    "PRM": "Accès PMR",
+    "siteType": {
+      "underbrush": "Sous-bois",
+      "sand": "Sable",
+      "field": "Champ",
+      "cave": "Grotte"
+    },
+    "rentalType": {
+      "nothing": "Rien",
+      "tent": "Tente",
+      "teepee": "tipi"
+    }
   }
 }

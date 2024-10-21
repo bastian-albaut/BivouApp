@@ -17,6 +17,17 @@
     "site": "Type of site",
     "area": "Available area",
     "description": "Description of the place",
-    "PRM": "PRM access"
+    "PRM": "PRM access",
+    "siteType": {
+      "underbrush": "Underbrush",
+      "sand": "Sand",
+      "field": "Field",
+      "cave": "Cave"
+    },
+    "rentalType": {
+      "nothing": "Nothing",
+      "tent": "Tent",
+      "teepee": "teepee"
+    }
   }
 }
