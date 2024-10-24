@@ -29,5 +29,16 @@
       "tent": "Tent",
       "teepee": "teepee"
     }
+  },
+  "addEquipment": {
+    "available": "Available equipements",
+    "electricity": "Electricity",
+    "water": "Water",
+    "shelter": "Shelter",
+    "wifi": "Wifi",
+    "toilet": "Toilet",
+    "shower": "Shower",
+    "campfire": "Campfire",
+    "picnic": "Picnic table"
   }
 }
