@@ -16,7 +16,7 @@ export default function EquipmentComponent(props: any) {
 
     return (
         <TouchableOpacity onPress={handlePress} style={[styles.container, selected && styles.selectedContainer]}>
-            <FontAwesome name={icon} size={20} color={Colors.black} style={styles.icon} />
+            <FontAwesome name={icon} size={20} color={Colors.black} />
             <Text style={styles.label}>{label}</Text>
         </TouchableOpacity>
     );
@@ -37,9 +37,6 @@ const styles = StyleSheet.create({
     },
     selectedContainer: {
         backgroundColor: Colors.green4,
-    },
-    icon: {
-        marginRight: 10,
     },
     label: {
         fontSize: 20,
