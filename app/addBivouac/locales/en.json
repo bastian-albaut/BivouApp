@@ -40,5 +40,9 @@
     "shower": "Shower",
     "campfire": "Campfire",
     "picnic": "Picnic table"
+  },
+  "addPhotos": {
+    "photos": "Add photos",
+    "add": "Add"
   }
 }

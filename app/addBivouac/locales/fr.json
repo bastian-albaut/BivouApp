@@ -40,5 +40,9 @@
     "shower": "Douche",
     "campfire": "Feu de camp",
     "picnic": "Table picnic"
+  },
+  "addPhotos": {
+    "photos": "Ajouter de photos",
+    "add": "Ajouter"
   }
 }
