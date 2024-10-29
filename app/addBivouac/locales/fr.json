@@ -44,5 +44,15 @@
   "addPhotos": {
     "photos": "Ajouter de photos",
     "add": "Ajouter"
+  },
+  "addPrice": {
+    "askedPrice": "Prix demandé",
+    "public": "Publique",
+    "private": "Privé",
+    "place": "Le lieu est",
+    "noPrice": "Le lieu est publique. Vous ne pouvez pas faire payer les bivouaqueurs.",
+    "canPrice": "Le lieu est privé. Vous pouvez décider de faire payer les bivouaqueurs pour leur séjour, mais ce n'est pas obligatoire.",
+    "nightPrice": "Tarif par nuit",
+    "makePayment": "Voulez-vous faire payer le séjour ?"
   }
 }
