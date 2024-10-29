@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Alert, ScrollView, Text, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Alert, ScrollView, Text, TouchableOpacity, Image } from 'react-native';
 import Footer from '../components/Footer';
 import { useTranslation } from 'react-i18next';
 import Colors from "@/common/constants/Colors";
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import * as ImagePicker from 'expo-image-picker';
 
 const AddPhotos: React.FC = () => {
 
     const { t } = useTranslation();
+
+    const [photos, setPhotos] = useState([]);
 
     const [currentPage, setCurrentPage] = React.useState(4);
     const totalPages = 6;
@@ -22,6 +25,18 @@ const AddPhotos: React.FC = () => {
     };
 
     const progress = currentPage / totalPages;
+
+    const handleAddPhoto = () => {
+        ImagePicker.launchImageLibrary(
+            { mediaType: 'photo', selectionLimit: 15 - photos.length },
+            response => {
+                if (!response.didCancel && !response.errorCode) {
+                    const selectedPhotos = response.assets.map(asset => asset.uri);
+                    setPhotos(prevPhotos => [...prevPhotos, ...selectedPhotos]);
+                }
+            }
+        );
+    };
     
     return (
 
@@ -31,8 +46,8 @@ const AddPhotos: React.FC = () => {
 
 
                 <TouchableOpacity 
-                    style={[styles.button]} 
-                    //onPress={onPress}
+                    style={[styles.button]}
+                    onPress={handleAddPhoto}
                     activeOpacity={0.8} 
                 >
                     <View style={styles.buttonIconCircle}>
@@ -41,6 +56,11 @@ const AddPhotos: React.FC = () => {
                     <Text style={[styles.buttonText]}>{t('addBivouac:addPhotos.add')}</Text>
                 </TouchableOpacity>
 
+                <View style={styles.gallery}>
+                    {photos.map((photo, index) => (
+                        <Image key={index} source={{ uri: photo }} style={styles.photo} />
+                    ))}
+                </View>
 
                 <Footer
                     onBackPress={handleBackPress}
@@ -96,6 +116,18 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: 'bold',
         marginLeft: 10,
+    },
+    gallery: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+        marginTop: 20,
+    },
+    photo: {
+        width: 100,
+        height: 100,
+        borderRadius: 10,
+        margin: 5,
     },
 });
 
