@@ -7,10 +7,12 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { addLocation } from '../store/locationSlice';
 import Colors from "@/common/constants/Colors";
+import { AddStackParamList } from './addStack';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 const AddLocation: React.FC = () => {
   const dispatch = useDispatch();
-  const navigation = useNavigation();
+  const navigation = useNavigation<StackNavigationProp<AddStackParamList, 'AddLocation'>>();
 
   const [city, setCity] = useState('');
   const [postalCode, setPostalCode] = useState('');

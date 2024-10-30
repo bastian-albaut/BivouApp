@@ -5,9 +5,11 @@ import EquipmentComponent from '../components/EquipmentComponent';
 import Footer from '../components/Footer';
 import { useTranslation } from 'react-i18next';
 import Colors from "@/common/constants/Colors";
+import { AddStackParamList } from './addStack';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 const AddEquipment: React.FC = () => {
-    const navigation = useNavigation();
+    const navigation = useNavigation<StackNavigationProp<AddStackParamList, 'AddEquipment'>>();
 
     const { t } = useTranslation();
 

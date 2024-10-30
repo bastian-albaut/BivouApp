@@ -5,9 +5,11 @@ import Footer from '../components/Footer';
 import { useTranslation } from 'react-i18next';
 import Colors from "@/common/constants/Colors";
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { AddStackParamList } from './addStack';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 const AddPhotos: React.FC = () => {
-    const navigation = useNavigation();
+    const navigation = useNavigation<StackNavigationProp<AddStackParamList, 'AddPhotos'>>();
 
     const { t } = useTranslation();
 

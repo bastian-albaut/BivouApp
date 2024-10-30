@@ -7,9 +7,11 @@ import DropdownComponent from '../components/DropdownComponent';
 import Footer from '../components/Footer';
 import { useTranslation } from 'react-i18next';
 import Colors from "@/common/constants/Colors";
+import { AddStackParamList } from './addStack';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 const AddType: React.FC = () => {
-    const navigation = useNavigation();
+    const navigation = useNavigation<StackNavigationProp<AddStackParamList, 'AddType'>>();
   
     const [selectedPRM, setSelectedPRM] = useState(null);
     const [selectedSite, setSelectedSite] = useState<string | number | undefined>(undefined);

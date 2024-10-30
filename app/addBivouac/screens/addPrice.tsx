@@ -6,9 +6,11 @@ import RadioButtonComponent from '../components/RadioButtonComponent';
 import Footer from '../components/Footer';
 import { useTranslation } from 'react-i18next';
 import Colors from "@/common/constants/Colors";
+import { AddStackParamList } from './addStack';
+import { StackNavigationProp } from '@react-navigation/stack';
 
-const AddType: React.FC = () => {
-    const navigation = useNavigation();
+const AddPrice: React.FC = () => {
+    const navigation = useNavigation<StackNavigationProp<AddStackParamList, 'AddPrice'>>();
   
     const [selectedPrivacy, setSelectedPrivacy] = useState(null);
     const [payForStay, setPayForStay] = useState(null);
@@ -147,4 +149,4 @@ const styles = StyleSheet.create({
     },
 });
   
-export default AddType;
+export default AddPrice;
