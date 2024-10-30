@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Button, Alert, ScrollView, Text } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import TextInputComponent from '../../../common/components/TextInputComponent';
 import RadioButtonComponent from '../components/RadioButtonComponent';
 import DropdownComponent from '../components/DropdownComponent';
@@ -8,11 +9,12 @@ import { useTranslation } from 'react-i18next';
 import Colors from "@/common/constants/Colors";
 
 const AddType: React.FC = () => {
+    const navigation = useNavigation();
   
     const [selectedPRM, setSelectedPRM] = useState(null);
     const [selectedSite, setSelectedSite] = useState<string | number | undefined>(undefined);
     const [currentPage, setCurrentPage] = React.useState(2);
-    const totalPages = 6;
+    const totalPages = 5;
 
     const { t } = useTranslation();
 
@@ -30,13 +32,11 @@ const AddType: React.FC = () => {
     ];
 
     const handleBackPress = () => {
-        // Logic for back button press
-        Alert.alert('Retour', 'Retour à la page précédente');
-        setCurrentPage((prev) => Math.max(prev - 1, 1));
+      navigation.goBack();
     };
     
     const handleNextPress = () => {
-        setCurrentPage((prev) => Math.min(prev + 1, totalPages));
+      navigation.navigate('AddEquipment');
     };
 
     const handleSelect = (item: any) => {

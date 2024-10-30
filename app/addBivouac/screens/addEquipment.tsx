@@ -1,24 +1,25 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Alert, ScrollView, Text } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import EquipmentComponent from '../components/EquipmentComponent';
 import Footer from '../components/Footer';
 import { useTranslation } from 'react-i18next';
 import Colors from "@/common/constants/Colors";
 
 const AddEquipment: React.FC = () => {
+    const navigation = useNavigation();
 
     const { t } = useTranslation();
 
     const [currentPage, setCurrentPage] = React.useState(3);
-    const totalPages = 6;
+    const totalPages = 5;
 
     const handleBackPress = () => {
-        Alert.alert('Retour', 'Retour à la page précédente');
-        setCurrentPage((prev) => Math.max(prev - 1, 1));
+        navigation.goBack();
     };
     
     const handleNextPress = () => {
-        setCurrentPage((prev) => Math.min(prev + 1, totalPages));
+        navigation.navigate('AddPhotos');
     };
 
     const progress = currentPage / totalPages;

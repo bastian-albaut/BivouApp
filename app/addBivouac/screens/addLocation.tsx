@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Button, Alert, ScrollView, Text } from 'react-native';
+import { View, StyleSheet, Alert, ScrollView, Text } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import TextInputComponent from '../../../common/components/TextInputComponent';
 import Footer from '../components/Footer';
 import { useTranslation } from 'react-i18next';
@@ -9,14 +10,15 @@ import Colors from "@/common/constants/Colors";
 
 const AddLocation: React.FC = () => {
   const dispatch = useDispatch();
+  const navigation = useNavigation();
 
   const [city, setCity] = useState('');
   const [postalCode, setPostalCode] = useState('');
   const [street, setStreet] = useState('');
   const [latitude, setLatitude] = useState('');
   const [longitude, setLongitude] = useState('');
-  const [currentPage, setCurrentPage] = React.useState(1);
-  const totalPages = 6;
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = 5;
 
   const { t } = useTranslation();
 
@@ -37,13 +39,11 @@ const AddLocation: React.FC = () => {
   };
 
   const handleBackPress = () => {
-    // Logic for back button press
-    Alert.alert('Retour', 'Retour à la page précédente');
-    setCurrentPage((prev) => Math.max(prev - 1, 1));
+    //navigation.goBack();
   };
 
   const handleNextPress = () => {
-    setCurrentPage((prev) => Math.min(prev + 1, totalPages));
+    navigation.navigate('AddType');
   };
   
   const progress = currentPage / totalPages;
@@ -82,14 +82,14 @@ const AddLocation: React.FC = () => {
         icon="map-marker"
         placeholder={t('addBivouac:addLocation.latitude')}
         value={latitude}
-        onChangeText={setCity}
+        onChangeText={setLatitude}
         keyboardType="numeric"
       />
       <TextInputComponent
         icon="map-marker"
         placeholder={t('addBivouac:addLocation.longitude')}
         value={longitude}
-        onChangeText={setCity}
+        onChangeText={setLongitude}
         keyboardType="numeric"
       />
       <Footer

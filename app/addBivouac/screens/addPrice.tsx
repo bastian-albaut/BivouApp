@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Button, Alert, ScrollView, Text } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import TextInputComponent from '../../../common/components/TextInputComponent';
 import RadioButtonComponent from '../components/RadioButtonComponent';
 import Footer from '../components/Footer';
@@ -7,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import Colors from "@/common/constants/Colors";
 
 const AddType: React.FC = () => {
+    const navigation = useNavigation();
   
     const [selectedPrivacy, setSelectedPrivacy] = useState(null);
     const [payForStay, setPayForStay] = useState(null);
@@ -16,13 +18,11 @@ const AddType: React.FC = () => {
     const { t } = useTranslation();
 
     const handleBackPress = () => {
-        // Logic for back button press
-        Alert.alert('Retour', 'Retour à la page précédente');
-        setCurrentPage((prev) => Math.max(prev - 1, 1));
+        navigation.goBack();
     };
     
     const handleNextPress = () => {
-        setCurrentPage((prev) => Math.min(prev + 1, totalPages));
+        //navigation.navigate('AddType');
     };
 
     const progress = currentPage / totalPages;
