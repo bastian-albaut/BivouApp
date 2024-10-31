@@ -1,13 +1,58 @@
 {
+  "previous": "Previous",
   "next": "Next",
+  "addBivouac": "Add a bivouac",
   "addLocation": {
     "location": "Location",
     "address": "Address",
     "city": "City",
     "postalCode": "Postal Code",
-    "street": "Street Number, Name...",
+    "street": "Street Number, Street Name...",
     "gps_coordinates": "GPS Coordinates",
     "latitude": "Latitude",
     "longitude": "Longitude"
+  },
+  "addType": {
+    "rental": "Type of rental",
+    "site": "Type of site",
+    "area": "Available area",
+    "description": "Description of the place",
+    "PRM": "PRM access",
+    "siteType": {
+      "underbrush": "Underbrush",
+      "sand": "Sand",
+      "field": "Field",
+      "cave": "Cave"
+    },
+    "rentalType": {
+      "nothing": "Nothing",
+      "tent": "Tent",
+      "teepee": "teepee"
+    }
+  },
+  "addEquipment": {
+    "available": "Available equipements",
+    "electricity": "Electricity",
+    "water": "Water",
+    "shelter": "Shelter",
+    "wifi": "Wifi",
+    "toilet": "Toilet",
+    "shower": "Shower",
+    "campfire": "Campfire",
+    "picnic": "Picnic table"
+  },
+  "addPhotos": {
+    "photos": "Add photos",
+    "add": "Add"
+  },
+  "addPrice": {
+    "askedPrice": "Asking price",
+    "public": "Public",
+    "private": "Private",
+    "place": "The place is",
+    "noPrice": "The place is public. You cannot charge bivouackers.",
+    "canPrice": "The place is private. You can decide to charge bivouackers for their stay, but this is not obligatory.",
+    "nightPrice": "Price per night",
+    "makePayment": "Do you want to charge for the stay ?"
   }
 }

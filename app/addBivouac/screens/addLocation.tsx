@@ -1,20 +1,26 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Button, Alert, ScrollView, Text } from 'react-native';
+import { View, StyleSheet, Alert, ScrollView, Text } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import TextInputComponent from '../../../common/components/TextInputComponent';
 import Footer from '../components/Footer';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { addLocation } from '../store/locationSlice';
 import Colors from "@/common/constants/Colors";
+import { AddStackParamList } from './addStack';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 const AddLocation: React.FC = () => {
   const dispatch = useDispatch();
+  const navigation = useNavigation<StackNavigationProp<AddStackParamList, 'AddLocation'>>();
 
   const [city, setCity] = useState('');
   const [postalCode, setPostalCode] = useState('');
   const [street, setStreet] = useState('');
-  const [currentPage, setCurrentPage] = React.useState(1);
-  const totalPages = 6;
+  const [latitude, setLatitude] = useState('');
+  const [longitude, setLongitude] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = 5;
 
   const { t } = useTranslation();
 
@@ -27,27 +33,28 @@ const AddLocation: React.FC = () => {
       setCity('');
       setPostalCode('');
       setStreet('');
+      setLatitude('');
+      setLongitude('');
     } else {
       Alert.alert('Erreur', 'Veuillez remplir tous les champs.');
     }
   };
 
   const handleBackPress = () => {
-    // Logic for back button press
-    Alert.alert('Retour', 'Retour à la page précédente');
-    setCurrentPage((prev) => Math.max(prev - 1, 1));
+    //navigation.goBack();
   };
 
   const handleNextPress = () => {
-    setCurrentPage((prev) => Math.min(prev + 1, totalPages));
+    navigation.navigate('AddType');
   };
   
   const progress = currentPage / totalPages;
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>{t('addBivouac:addLocation.location')}</Text>
-      <Text style={styles.subtitle}>{t('addBivouac:addLocation.address')}</Text>
+      <Text style={styles.title}>{t('addBivouac:addBivouac')}</Text>
+      <Text style={styles.subtitle}>{t('addBivouac:addLocation.location')}</Text>
+      <Text style={styles.section}>{t('addBivouac:addLocation.address')}</Text>
       <TextInputComponent
         icon="map-marker"
         placeholder={t('addBivouac:addLocation.city')}
@@ -72,18 +79,20 @@ const AddLocation: React.FC = () => {
           <Text style={styles.text}>OU</Text>
         <View style={styles.line} />
       </View>
-      <Text style={styles.subtitle}>{t('addBivouac:addLocation.gps_coordinates')}</Text>
+      <Text style={styles.section}>{t('addBivouac:addLocation.gps_coordinates')}</Text>
       <TextInputComponent
         icon="map-marker"
         placeholder={t('addBivouac:addLocation.latitude')}
-        value={city}
-        onChangeText={setCity}
+        value={latitude}
+        onChangeText={setLatitude}
+        keyboardType="numeric"
       />
       <TextInputComponent
         icon="map-marker"
         placeholder={t('addBivouac:addLocation.longitude')}
-        value={city}
-        onChangeText={setCity}
+        value={longitude}
+        onChangeText={setLongitude}
+        keyboardType="numeric"
       />
       <Footer
         onBackPress={handleBackPress}
@@ -103,12 +112,19 @@ const styles = StyleSheet.create({
   },
   title: {
     alignSelf: 'flex-start',
-    fontSize: 24,
+    fontSize: 28,
+    fontWeight: 'bold',
+    marginBottom: 5,
+    marginLeft: 15,
+  },
+  subtitle: {
+    alignSelf: 'flex-start',
+    fontSize: 22,
     fontWeight: 'bold',
     marginBottom: 20,
     marginLeft: 15,
   },
-  subtitle: {
+  section: {
     alignSelf: 'flex-start',
     fontSize: 16,
     fontWeight: 'bold',
