@@ -71,6 +71,11 @@ export default function TextInputComponent(props: any) {
           />
         </TouchableOpacity>
       )}
+
+      {props.euro && (
+        <FontAwesome style={styles.eyeIcon} name="euro" size={20} color={Colors.black} />
+      )}
+
     </View>
   );
 }

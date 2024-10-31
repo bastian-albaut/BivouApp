@@ -47,12 +47,12 @@ const AddPrice: React.FC = () => {
           </View>
 
           {selectedPrivacy === 'public' && (
-            <Text>{t('addBivouac:addPrice.noPrice')}</Text>
+            <Text style={styles.place} >{t('addBivouac:addPrice.noPrice')}</Text>
           )}
           
           {selectedPrivacy === 'private' && (
             <>
-              <Text>{t('addBivouac:addPrice.canPrice')}</Text>
+              <Text style={styles.place} >{t('addBivouac:addPrice.canPrice')}</Text>
               
               <Text style={styles.section}>{t('addBivouac:addPrice.makePayment')}</Text>
               <View style={styles.radioButtonGroup}>
@@ -75,8 +75,9 @@ const AddPrice: React.FC = () => {
               {payForStay === 'yes' && (
                 <TextInputComponent
                   icon="money"
-                  placeholder={t('addBivouac:addPrice.area')}
+                  placeholder={t('addBivouac:addPrice.nightPrice')}
                   keyboardType="numeric"
+                  euro={true}
                 />
               )}
             </>
@@ -112,6 +113,14 @@ const styles = StyleSheet.create({
       fontWeight: 'bold',
       marginBottom: 20,
       marginLeft: 15,
+    },
+    place: {
+        alignSelf: 'flex-start',
+        marginTop: 8,
+        fontSize: 16,
+        paddingLeft: 25,
+        marginBottom: 5,
+        width: 340
     },
     section: {
       alignSelf: 'flex-start',
