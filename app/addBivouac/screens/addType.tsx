@@ -13,7 +13,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 const AddType: React.FC = () => {
     const navigation = useNavigation<StackNavigationProp<AddStackParamList, 'AddType'>>();
   
-    const [selectedPRM, setSelectedPRM] = useState(null);
+    const [selectedPRM, setSelectedPRM] = useState<'yes' | 'no' | null>(null);
     const [selectedSite, setSelectedSite] = useState<string | number | undefined>(undefined);
     const [currentPage, setCurrentPage] = React.useState(2);
     const totalPages = 5;

@@ -12,8 +12,8 @@ import { StackNavigationProp } from '@react-navigation/stack';
 const AddPrice: React.FC = () => {
     const navigation = useNavigation<StackNavigationProp<AddStackParamList, 'AddPrice'>>();
   
-    const [selectedPrivacy, setSelectedPrivacy] = useState(null);
-    const [payForStay, setPayForStay] = useState(null);
+    const [selectedPrivacy, setSelectedPrivacy] = useState<'public' | 'private' | null>(null);
+    const [payForStay, setPayForStay] = useState<'yes' | 'no' | null>(null);
     const [currentPage, setCurrentPage] = React.useState(5);
     const totalPages = 5;
 
