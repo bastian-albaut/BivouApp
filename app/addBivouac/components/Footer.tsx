@@ -10,23 +10,29 @@ interface FooterProps {
     onBackPress: () => void;
     onNextPress: () => void;
     progress: number;
+    showBackButton?: boolean;
+    isLastStep?: boolean;
   }
   
-  const Footer: React.FC<FooterProps> = ({ onBackPress, onNextPress, progress }) => {
+  const Footer: React.FC<FooterProps> = ({ onBackPress, onNextPress, progress, showBackButton = true, isLastStep = false }) => {
 
     const { t } = useTranslation();
 
     return (
       <View style={styles.footerContainer}>
         <ProgressBarComponent progress={progress} />
-          <View style={styles.buttonContainer}>
-            <TouchableOpacity onPress={onBackPress}>
-              <Text style={styles.backButton}>{t('addBivouac:previous')}</Text>
-            </TouchableOpacity>
-            <View style={styles.buttonMargin}>
-              <ButtonComponent title={t('addBivouac:next')} onPress={onNextPress} width={100} />
+        <View style={styles.buttonContainer}>
+                {showBackButton ? (
+                    <TouchableOpacity onPress={onBackPress}>
+                        <Text style={styles.backButton}>{t('addBivouac:previous')}</Text>
+                    </TouchableOpacity>
+                ) : (
+                    <View style={styles.spacer} />  // Empty view to take up space
+                )}
+                <View style={styles.buttonMargin}>
+                    <ButtonComponent title={isLastStep ? t('addBivouac:end') : t('addBivouac:next')} onPress={onNextPress} width={100} />
+                </View>
             </View>
-          </View>
       </View>
     );
   };
@@ -42,19 +48,18 @@ interface FooterProps {
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
-    },
-    backButtonContainer: {
-      flex: 1,
-      alignItems: 'center',
-    },
-    backButton: {
+  },
+  spacer: {
+      width: 100,  // Same width as the button to maintain spacing
+  },
+  backButton: {
       color: 'black',
       textDecorationLine: 'underline',
       fontSize: 16,
-    },
-    buttonMargin: {
+  },
+  buttonMargin: {
       marginRight: -10,
-    },
+  },
   });
   
   export default Footer;

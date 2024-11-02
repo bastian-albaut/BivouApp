@@ -88,6 +88,7 @@ const AddPrice: React.FC = () => {
             onBackPress={handleBackPress}
             onNextPress={handleNextPress}
             progress={progress}
+            isLastStep={true}
           />
         </ScrollView>
     );

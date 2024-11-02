@@ -1,6 +1,7 @@
 {
   "previous": "Précédent",
   "next": "Suivant",
+  "end": "Terminer",
   "addBivouac": "Ajouter un bivouac",
   "addLocation": {
     "location": "Localisation",

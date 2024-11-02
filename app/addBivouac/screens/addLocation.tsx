@@ -98,6 +98,7 @@ const AddLocation: React.FC = () => {
         onBackPress={handleBackPress}
         onNextPress={handleNextPress}
         progress={progress}
+        showBackButton={false}
       />
     </ScrollView>
   );
