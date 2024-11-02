@@ -53,7 +53,7 @@ const AddType: React.FC = () => {
           <DropdownComponent
             icon="map-marker"
             placeholder={t('addBivouac:addType.rental')}
-            items={sites} // Assurez-vous que cette prop est fournie
+            items={rentals} // Assurez-vous que cette prop est fournie
             onSelect={handleSelect}
           />
           <DropdownComponent
