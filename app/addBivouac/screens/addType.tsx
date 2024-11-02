@@ -13,7 +13,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 const AddType: React.FC = () => {
     const navigation = useNavigation<StackNavigationProp<AddStackParamList, 'AddType'>>();
   
-    const [selectedPRM, setSelectedPRM] = useState(null);
+    const [selectedPRM, setSelectedPRM] = useState<'yes' | 'no' | null>(null);
     const [selectedSite, setSelectedSite] = useState<string | number | undefined>(undefined);
     const [currentPage, setCurrentPage] = React.useState(2);
     const totalPages = 5;
@@ -53,7 +53,7 @@ const AddType: React.FC = () => {
           <DropdownComponent
             icon="map-marker"
             placeholder={t('addBivouac:addType.rental')}
-            items={sites} // Assurez-vous que cette prop est fournie
+            items={rentals} // Assurez-vous que cette prop est fournie
             onSelect={handleSelect}
           />
           <DropdownComponent

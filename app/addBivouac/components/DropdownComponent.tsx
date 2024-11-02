@@ -15,6 +15,7 @@ interface DropdownProps {
   placeholder: string;
   items: DropdownItem[];
   onSelect: (item: DropdownItem) => void; // Fonction appelée lors de la sélection
+  icon: string;
 }
 
 export default function DropdownComponent(props: DropdownProps) {
@@ -62,7 +63,7 @@ export default function DropdownComponent(props: DropdownProps) {
   return (
 
     <View style={styles.container}>
-        <FontAwesome name={props.icon} size={20} color={Colors.black} />
+        <FontAwesome name={props.icon as any} size={20} color={Colors.black} />
 
         <View style={styles.inputContainer}>
             <Animated.Text style={[styles.label, labelStyle]}>
