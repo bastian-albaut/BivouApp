@@ -27,7 +27,7 @@
     "rentalType": {
       "nothing": "Nothing",
       "tent": "Tent",
-      "teepee": "teepee"
+      "teepee": "Teepee"
     }
   },
   "addEquipment": {

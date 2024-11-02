@@ -27,7 +27,7 @@
     "rentalType": {
       "nothing": "Rien",
       "tent": "Tente",
-      "teepee": "tipi"
+      "teepee": "Tipi"
     }
   },
   "addEquipment": {
