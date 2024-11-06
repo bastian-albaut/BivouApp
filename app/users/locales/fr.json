@@ -13,6 +13,7 @@
     "name": "Nom",
     "surname": "Prénom",
     "phone": "Numéro de téléphone",
-    "validate": "Valider"
+    "validate": "Valider",
+    "modify": "Modifier"
 }
   

@@ -54,6 +54,7 @@ export default function TextInputComponent(props: any) {
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           onChangeText={setText}
+          editable={props.editable}
         />
       </View>
 

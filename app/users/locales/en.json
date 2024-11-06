@@ -12,5 +12,6 @@
     "name": "Name",
     "surname": "Surname",
     "phone": "Phone number",
-    "validate": "Validate"
+    "validate": "Validate",
+    "modify": "Modify"
 }

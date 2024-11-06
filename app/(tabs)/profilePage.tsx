@@ -1,4 +1,4 @@
-import { Button, StyleSheet, TouchableOpacity } from 'react-native';
+import { Button, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { Text, View } from '@/common/components/Themed';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'expo-router';
@@ -26,30 +26,38 @@ export default function ProfilePage() {
       <Text style={styles.title}>{t("common:profilePageTitle")}</Text>
 
       <View>
+        <Text style={styles.subtitle}>{t("common:nextTrip")}</Text>
 
-        <View style={styles.profileLine}>
+        <View style={styles.imageContainer}>
+          <Image source={{ uri: item.photos[0] }} style={styles.bivouacImage} resizeMode="cover" />
+        </View>
+
+      </View>
+
+      <View>
+        <TouchableOpacity onPress={() => router.push("../profilePage/screens/personalInformationProfile")} style={styles.profileLine}>
           <View style={styles.lineTitle}>
             <Icon name="user-circle-o" size={20} color="black" />
             <Text style={styles.lineText}>{t("common:personalInformation")}</Text>
           </View>
           <Icon name="angle-right" size={20} color="black" />
-        </View>
+        </TouchableOpacity>
 
-        <View style={styles.profileLine}>
+        <TouchableOpacity onPress={() => router.push("../profilePage/screens/yourPublications")} style={styles.profileLine}>
           <View style={styles.lineTitle}>
             <Icon name="clone" size={20} color="black" />
             <Text style={styles.lineText}>{t("common:Announces")}</Text>
           </View>
           <Icon name="angle-right" size={20} color="black" />
-        </View>
+        </TouchableOpacity>
 
-        <View style={styles.profileLine}>
+        <TouchableOpacity onPress={() => router.push("../profilePage/screens/reservationHistory")} style={styles.profileLine}>
           <View style={styles.lineTitle}>
             <Icon name="history" size={20} color="black" />
             <Text style={styles.lineText}>{t("common:history")}</Text>
           </View>
           <Icon name="angle-right" size={20} color="black" />
-        </View>
+        </TouchableOpacity>
 
         <TouchableOpacity  onPress={() => router.push('../profilePage/screens/changeLanguage')} style={styles.profileLine}>
           <View style={styles.lineTitle}>
@@ -91,6 +99,13 @@ const styles = StyleSheet.create({
     width: '100%',
     textAlign: 'left',
     paddingLeft: 20,
+  },
+  subtitle: {
+    fontSize: 20,
+    fontWeight: '600',
+    color: Colors.black,
+    marginBottom: 20,
+    width: '100%',
   },
   separator: {
     marginVertical: 30,
