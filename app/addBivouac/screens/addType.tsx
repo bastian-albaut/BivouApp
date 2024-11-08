@@ -50,6 +50,10 @@ const AddType: React.FC = () => {
         <ScrollView contentContainerStyle={styles.container}>
           <Text style={styles.title}>{t('addBivouac:addBivouac')}</Text>
           <Text style={styles.subtitle}>{t('addBivouac:addType.rental')}</Text>
+          <TextInputComponent
+            icon="map-marker"
+            placeholder={t('addBivouac:addType.name')}
+          />
           <DropdownComponent
             icon="map-marker"
             placeholder={t('addBivouac:addType.rental')}

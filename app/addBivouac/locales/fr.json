@@ -14,6 +14,7 @@
     "longitude": "Longitude"
   },
   "addType": {
+    "name": "Nom du lieu",
     "rental": "Type de location",
     "site": "Type de terrain",
     "area": "Superficie disponible",
