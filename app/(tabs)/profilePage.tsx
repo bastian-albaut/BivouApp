@@ -7,7 +7,6 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Colors from '../../common/constants/Colors';
 
 
-
 // Tout doit etre migrer dans la page specifique dans features/...
 export default function ProfilePage() {
 
@@ -25,13 +24,17 @@ export default function ProfilePage() {
     <View style={styles.container}>
       <Text style={styles.title}>{t("common:profilePageTitle")}</Text>
 
-      <View>
-        <Text style={styles.subtitle}>{t("common:nextTrip")}</Text>
+      <Text style={styles.subtitle}>{t("common:nextTrip")}</Text>
 
-        <View style={styles.imageContainer}>
-          <Image source={{ uri: item.photos[0] }} style={styles.bivouacImage} resizeMode="cover" />
+      <View style={styles.imageContainer}>
+        <Image
+          source={{ uri: "https://picsum.photos/200/300" }}
+          style={styles.image}
+          resizeMode="cover"
+        />
+        <View style={styles.textOverlay}>
+          <Text style={styles.textDateNextTrip}>Du 06/04/2025 au 09/04/2025</Text>
         </View>
-
       </View>
 
       <View>
@@ -76,10 +79,10 @@ export default function ProfilePage() {
         </TouchableOpacity>
 
       </View>
-
-      <View style={styles.separator} />
       
-      <Button title={t("common:logOut")} onPress={() => router.push('../users/screens/login')} />
+      <TouchableOpacity onPress={() => router.push('../users/screens/login')}>
+        <Text style={styles.logoutButton} >{t("common:logOut")}</Text>
+      </TouchableOpacity>
       
     </View>
   );
@@ -104,22 +107,42 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '600',
     color: Colors.black,
-    marginBottom: 20,
+    marginBottom: 10,
     width: '100%',
+    paddingLeft: 20,
   },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
+  imageContainer: {
+    width: '90%',
+    height: 220,
+    borderRadius: 10,
+    position: 'relative',
+  },
+  image: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 10,
+  },
+  textOverlay: {
+    position: 'absolute',
+    bottom: 10,
+    left: 10,
+    backgroundColor: 'rgba(0, 0, 0, 0.6)', 
+    borderRadius: 10,
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    color: Colors.white,
+  },
+  textDateNextTrip: {
+    color: Colors.white,
   },
   profileLine: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-end',
-    width: 340,
+    width: '90%',
     padding: 10,
-    marginTop: 5,
+    marginTop: 10,
     borderBottomWidth: 1,
     borderBottomColor: 'black',
   },
@@ -130,6 +153,12 @@ const styles = StyleSheet.create({
   },
   lineText: {
     marginLeft: 15,
+    fontSize: 16,
+  },
+  logoutButton: {
+    marginTop: 25,
+    width: '100%',
+    textAlign: 'center',
     fontSize: 16,
   },
 });
