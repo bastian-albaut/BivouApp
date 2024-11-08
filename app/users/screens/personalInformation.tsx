@@ -16,18 +16,17 @@ export default function PersonalInformation() {
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
         <View style={styles.centeredContainer}>
-            {/* <Text style={styles.leftAlignedTitle}>t('login:loginTitle')</Text> */}
-            <Text style={styles.leftAlignedTitle}>Renseigner vos informations</Text>
+            <Text style={styles.leftAlignedTitle}>{t('users:fillInformation')}</Text>
 
-            <TextInputComponent icon="user" placeholder="Prénom" value="" secureTextEntry={false} />
-            <TextInputComponent icon="user" placeholder="Nom" value="" secureTextEntry={false} />
+            <TextInputComponent icon="user" placeholder={t('users:surname')} value="" secureTextEntry={false} />
+            <TextInputComponent icon="user" placeholder={t('users:name')} value="" secureTextEntry={false} />
             
-            <TextInputComponent icon="phone" placeholder="Numéro de téléphone" keyboardType="phone-pad" value="" secureTextEntry={false} />
+            <TextInputComponent icon="phone" placeholder={t('users:phone')} keyboardType="phone-pad" value="" secureTextEntry={false} />
 
         </View>
 
         <View style={styles.bottomButton}>
-          <ButtonComponent title="Valider" onPress={() => console.log("S'inscrire")} />
+          <ButtonComponent title={t('users:validate')} onPress={() => console.log("S'inscrire")} />
         </View>
       </View>
     </TouchableWithoutFeedback>
