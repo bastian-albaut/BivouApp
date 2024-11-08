@@ -9,6 +9,8 @@ import enReservationBivouacs from '../../app/reservationBivouacs/locales/en.json
 import frReservationBivouacs from '../../app/reservationBivouacs/locales/fr.json';
 import enUsers from '../../app/users/locales/en.json';
 import frUsers from '../../app/users/locales/fr.json';
+import enAddBivouac from '../../app/addBivouac/locales/en.json';
+import frAddBivouac from '../../app/addBivouac/locales/fr.json';
 import frFavorites from '../../app/favorites/locales/fr.json';
 import enFavorites from '../../app/favorites/locales/en.json';
 import frProfilePage from '../../app/profilePage/locales/fr.json';
@@ -51,6 +53,7 @@ i18n
         searchBivouacs: enSearchBivouacs,
         reservationBivouacs: enReservationBivouacs,
         users: enUsers,
+        addBivouac: enAddBivouac,
         favorites: enFavorites,
         profilePage: enProfilePage,
 
@@ -60,6 +63,7 @@ i18n
         searchBivouacs: frSearchBivouacs,
         reservationBivouacs: frReservationBivouacs,
         users: frUsers,
+        addBivouac: frAddBivouac,
         favorites: frFavorites,
         profilePage: frProfilePage,
 
