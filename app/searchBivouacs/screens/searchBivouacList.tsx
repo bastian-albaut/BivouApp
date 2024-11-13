@@ -43,9 +43,6 @@ export default function SearchBivouacList() {
             value={searchQuery}
             onChangeText={setSearchQuery}
           />
-        </View>
-
-        <View style={styles.searchFilter}>
           <FontAwesome name="filter" size={24} color={Colors.black} />
         </View>
       </View>
@@ -85,20 +82,11 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
+    backgroundColor: '#fff',
     borderColor: Colors.black,
     borderWidth: 1,
     borderRadius: 8,
     paddingHorizontal: 10,
-    height: 50,
-  },
-  searchFilter: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginLeft: 10,
-    padding: 10,
-    borderColor: Colors.black,
-    borderWidth: 1,
-    borderRadius: 8,
     height: 50,
   },
   searchIcon: {

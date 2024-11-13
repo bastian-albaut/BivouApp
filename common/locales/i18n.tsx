@@ -56,7 +56,6 @@ i18n
         addBivouac: enAddBivouac,
         favorites: enFavorites,
         profilePage: enProfilePage,
-
       },
       fr: {
         common: frCommon,
@@ -66,7 +65,6 @@ i18n
         addBivouac: frAddBivouac,
         favorites: frFavorites,
         profilePage: frProfilePage,
-
       },
     },
     ns: ['searchBivouacs', 'users'], // Define namespaces
