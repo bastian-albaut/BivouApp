@@ -45,7 +45,6 @@ export default function SearchBivouacList() {
           />
           <FontAwesome name="filter" size={24} color={Colors.black} />
         </View>
-
       </View>
 
       

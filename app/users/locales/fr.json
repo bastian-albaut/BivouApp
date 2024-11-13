@@ -9,6 +9,10 @@
     "alreadyAccount": "Vous avez déjà un compte ?",
     "signUp": "S'inscrire",
     "login": "Se connecter",
+    "fillInformation": "Renseigner vos informations",
+    "name": "Nom",
+    "surname": "Prénom",
+    "phone": "Numéro de téléphone",
     "validate": "Valider",
     "modify": "Modifier"
 }
