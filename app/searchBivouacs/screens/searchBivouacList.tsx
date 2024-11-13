@@ -34,15 +34,21 @@ export default function SearchBivouacList() {
   return (
     <View style={styles.container}>
       <View style={styles.searchContainer}>
-        <FontAwesome name="search" size={24} color={Colors.black} style={styles.searchIcon} />
-        <TextInput
-          style={styles.searchBar}
-          placeholder={t('searchBivouacs:search_bar')}
-          placeholderTextColor={Colors.black}
-          value={searchQuery}
-          onChangeText={setSearchQuery}
-        />
+        <View style={styles.searchInput}>
+          <FontAwesome name="search" size={24} color={Colors.black} style={styles.searchIcon} />
+          <TextInput
+            style={styles.searchBar}
+            placeholder={t('searchBivouacs:search_bar')}
+            placeholderTextColor={Colors.black}
+            value={searchQuery}
+            onChangeText={setSearchQuery}
+          />
+          <FontAwesome name="filter" size={24} color={Colors.black} />
+        </View>
+
       </View>
+
+      
 
       {loading && <Text>Loading...</Text>}
       {error && <Text>Error: {error}</Text>}
@@ -68,22 +74,28 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.white,
   },
   searchContainer: {
+    marginHorizontal: 10,
+    marginBottom: 10,
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  searchInput: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#fff',
     borderColor: Colors.black,
     borderWidth: 1,
     borderRadius: 8,
-    marginHorizontal: 10,
-    marginBottom: 10,
     paddingHorizontal: 10,
+    height: 50,
   },
   searchIcon: {
     marginRight: 10,
   },
   searchBar: {
-    flex: 1,
-    height: 50,
     color: Colors.black,
+    flex: 1,
   },
   list: {
     display: 'flex',

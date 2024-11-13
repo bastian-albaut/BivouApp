@@ -13,6 +13,8 @@ import enAddBivouac from '../../app/addBivouac/locales/en.json';
 import frAddBivouac from '../../app/addBivouac/locales/fr.json';
 import frFavorites from '../../app/favorites/locales/fr.json';
 import enFavorites from '../../app/favorites/locales/en.json';
+import frProfilePage from '../../app/profilePage/locales/fr.json';
+import enProfilePage from '../../app/profilePage/locales/en.json';
 
 const deviceLanguage : String =
   Platform.OS === 'ios'
@@ -53,6 +55,7 @@ i18n
         users: enUsers,
         addBivouac: enAddBivouac,
         favorites: enFavorites,
+        profilePage: enProfilePage,
       },
       fr: {
         common: frCommon,
@@ -61,6 +64,7 @@ i18n
         users: frUsers,
         addBivouac: frAddBivouac,
         favorites: frFavorites,
+        profilePage: frProfilePage,
       },
     },
     ns: ['searchBivouacs', 'users'], // Define namespaces
