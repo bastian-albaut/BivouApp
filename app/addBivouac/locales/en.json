@@ -11,7 +11,8 @@
     "street": "Street Number, Street Name...",
     "gps_coordinates": "GPS Coordinates",
     "latitude": "Latitude",
-    "longitude": "Longitude"
+    "longitude": "Longitude",
+    "choseFields": "If you give your address, do not fill in the GPS coordinates, and vice versa."
   },
   "addType": {
     "name": "Name of place",
@@ -30,7 +31,8 @@
       "nothing": "Nothing",
       "tent": "Tent",
       "teepee": "Teepee"
-    }
+    },
+    "fillAllFields": "VYou need to fill all fields."
   },
   "addEquipment": {
     "available": "Available equipements",
@@ -55,6 +57,7 @@
     "noPrice": "The place is public. You cannot charge bivouackers.",
     "canPrice": "The place is private. You can decide to charge bivouackers for their stay, but this is not obligatory.",
     "nightPrice": "Price per night",
-    "makePayment": "Do you want to charge for the stay ?"
+    "makePayment": "Do you want to charge for the stay ?",
+    "selectPrivacy": "Select privacy to continue."
   }
 }
