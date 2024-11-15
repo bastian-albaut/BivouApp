@@ -9,12 +9,20 @@ import { useTranslation } from 'react-i18next';
 import Colors from "@/common/constants/Colors";
 import { AddStackParamList } from './addStack';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { useDispatch } from 'react-redux';
+import { updateType } from '../../../common/store/slices/bivouacsSlice';
 
 const AddType: React.FC = () => {
+  	const dispatch = useDispatch();
     const navigation = useNavigation<StackNavigationProp<AddStackParamList, 'AddType'>>();
   
+    const [name, setName] = useState('');
     const [selectedPRM, setSelectedPRM] = useState<'yes' | 'no' | null>(null);
+    const [selectedRental, setSelectedRental] = useState<string | number | undefined>(undefined);
     const [selectedSite, setSelectedSite] = useState<string | number | undefined>(undefined);
+    const [area, setArea] = useState('');
+    const [description, setDescription] = useState('');
+
     const [currentPage, setCurrentPage] = React.useState(2);
     const totalPages = 5;
 
@@ -33,16 +41,33 @@ const AddType: React.FC = () => {
       { label: t('addBivouac:addType.siteType.cave'), value: 'cave' },
     ];
 
-    const handleBackPress = () => {
-      navigation.goBack();
-    };
-    
     const handleNextPress = () => {
-      navigation.navigate('AddEquipment');
+      if (name && selectedRental && selectedSite && area && description && selectedPRM) {
+        dispatch(updateType({
+          name,
+          rental: selectedRental,
+          site: selectedSite,
+          area,
+          description,
+          prm: selectedPRM,
+        }));
+  
+        navigation.navigate('AddEquipment');
+      } else {
+        Alert.alert(t('common:warning'), t('addBivouac:addType.fillAllFields'));
+      }
     };
 
-    const handleSelect = (item: any) => {
-      setSelectedSite(item.value);
+    const handleBackPress = () => {
+		dispatch(updateType({
+			name,
+			rental: selectedRental,
+			site: selectedSite,
+			area,
+			description,
+			prm: selectedPRM,
+		}));
+      	navigation.goBack();
     };
 
     const progress = currentPage / totalPages;
@@ -53,27 +78,33 @@ const AddType: React.FC = () => {
           <TextInputComponent
             icon="map-marker"
             placeholder={t('addBivouac:addType.name')}
+            value={name}
+            onChangeText={setName}
           />
           <DropdownComponent
             icon="map-marker"
             placeholder={t('addBivouac:addType.rental')}
-            items={rentals} // Assurez-vous que cette prop est fournie
-            onSelect={handleSelect}
+            items={rentals}
+            onSelect={item => setSelectedRental(item.value)}
           />
           <DropdownComponent
             icon="map-marker"
             placeholder={t('addBivouac:addType.site')}
-            items={sites} // Assurez-vous que cette prop est fournie
-            onSelect={handleSelect}
+            items={sites}
+            onSelect={item => setSelectedSite(item.value)}
           />
           <TextInputComponent
             icon="map-marker"
             placeholder={t('addBivouac:addType.area')}
+            value={area}
+            onChangeText={setArea}
           />
           <TextInputComponent
             multiline={true}
             icon="map-marker"
             placeholder={t('addBivouac:addType.description')}
+            value={description}
+            onChangeText={setDescription}
           />
           <Text style={styles.section}>{t('addBivouac:addType.PRM')}</Text>
           <View style={styles.radioButtonGroup}>

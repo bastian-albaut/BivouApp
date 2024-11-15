@@ -5,7 +5,7 @@ import TextInputComponent from '../../../common/components/TextInputComponent';
 import Footer from '../components/Footer';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
-import { addLocation } from '../store/locationSlice';
+import { updateLocation } from '../../../common/store/slices/bivouacsSlice';
 import Colors from "@/common/constants/Colors";
 import { AddStackParamList } from './addStack';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -19,24 +19,28 @@ const AddLocation: React.FC = () => {
   const [street, setStreet] = useState('');
   const [latitude, setLatitude] = useState('');
   const [longitude, setLongitude] = useState('');
+
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = 5;
 
   const { t } = useTranslation();
 
-  const handleSubmit = () => {
-    if (city && postalCode && street) {
-      // Dispatch action to add location
-      dispatch(addLocation({ city, postalCode, street }));
-      Alert.alert('submit', 'Emplacement ajouté avec succès!');
-      // Réinitialiser les champs
-      setCity('');
-      setPostalCode('');
-      setStreet('');
-      setLatitude('');
-      setLongitude('');
+  const handleNextPress = () => {
+    // Vérification de la validité des données avant de passer à l'étape suivante
+    if ((city && postalCode && street && !(latitude || longitude)) || (latitude && longitude && !(city || postalCode || street))) {
+      // Dispatch action pour mettre à jour Redux avec les informations de localisation
+      dispatch(updateLocation({
+        city,
+        postalCode,
+        street,
+        latitude,
+        longitude,
+      }));
+
+      // Naviguer vers la page suivante
+      navigation.navigate('AddType');
     } else {
-      Alert.alert('Erreur', 'Veuillez remplir tous les champs.');
+      Alert.alert(t('common:warning'), t('addBivouac:addLocation.choseFields'));
     }
   };
 
@@ -44,9 +48,9 @@ const AddLocation: React.FC = () => {
     //navigation.goBack();
   };
 
-  const handleNextPress = () => {
-    navigation.navigate('AddType');
-  };
+  // const handleNextPress = () => {
+  //   navigation.navigate('AddType');
+  // };
   
   const progress = currentPage / totalPages;
 
