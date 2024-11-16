@@ -42,6 +42,14 @@ const AddType: React.FC = () => {
     ];
 
     const handleNextPress = () => {
+      // Log des valeurs pour débogage
+      console.log('name:', name);
+      console.log('selectedRental:', selectedRental);
+      console.log('selectedSite:', selectedSite);
+      console.log('area:', area);
+      console.log('description:', description);
+      console.log('selectedPRM:', selectedPRM);
+
       if (name && selectedRental && selectedSite && area && description && selectedPRM) {
         dispatch(updateType({
           name,
