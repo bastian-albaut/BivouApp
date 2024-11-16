@@ -12,15 +12,16 @@
     "gps_coordinates": "GPS Coordinates",
     "latitude": "Latitude",
     "longitude": "Longitude",
-    "choseFields": "If you give your address, do not fill in the GPS coordinates, and vice versa."
+    "choseFields": "If you give your address, do not fill in the GPS coordinates, and vice versa.",
+    "giveAddress": "You must provide an address or GPS coordinates."
   },
   "addType": {
-    "name": "Name of place",
+    "name": "Name of place *",
     "rental": "Type of rental",
     "site": "Type of site",
     "area": "Available area",
-    "description": "Description of the place",
-    "PRM": "PRM access",
+    "description": "Description of the place *",
+    "PRM": "PRM access *",
     "siteType": {
       "underbrush": "Underbrush",
       "sand": "Sand",
@@ -32,7 +33,7 @@
       "tent": "Tent",
       "teepee": "Teepee"
     },
-    "fillAllFields": "VYou need to fill all fields."
+    "fillAllFields": "You need to fill all fields."
   },
   "addEquipment": {
     "available": "Available equipements",
@@ -53,7 +54,7 @@
     "askedPrice": "Asking price",
     "public": "Public",
     "private": "Private",
-    "place": "The place is",
+    "place": "The place is *",
     "noPrice": "The place is public. You cannot charge bivouackers.",
     "canPrice": "The place is private. You can decide to charge bivouackers for their stay, but this is not obligatory.",
     "nightPrice": "Price per night",
