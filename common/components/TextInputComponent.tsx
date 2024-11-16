@@ -11,6 +11,12 @@ export default function TextInputComponent(props: any) {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false); 
 
   useEffect(() => {
+    if (props.value !== text) {
+      setText(props.value);
+    }
+  }, [props.value]);
+  
+  useEffect(() => {
     Animated.timing(animatedLabelPosition, {
       toValue: isFocused || text ? 1 : 0,
       duration: 200,
@@ -53,7 +59,10 @@ export default function TextInputComponent(props: any) {
           secureTextEntry={props.secureTextEntry && !isPasswordVisible}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
-          onChangeText={setText}
+          onChangeText={(newText) => {
+            setText(newText);
+            props.onChangeText(newText); // Call the parent component's onChangeText
+          }}
           editable={props.editable}
         />
       </View>
