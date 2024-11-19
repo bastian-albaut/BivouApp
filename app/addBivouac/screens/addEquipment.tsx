@@ -33,22 +33,12 @@ const AddEquipment: React.FC = () => {
 
     const progress = currentPage / totalPages;
 
-    // const handleSelect = (label: string, isSelected: boolean) => {
-    //     setSelectedEquipment(prevLabels => {
-    //         if (isSelected) {
-    //             return [...prevLabels, label];
-    //         } else {
-    //             return prevLabels.filter(item => item !== label);
-    //         }
-    //     });
-    // };
-
-    const handleSelect = (label: string) => {
+    const handleSelect = (label: string, isSelected: boolean) => {
         setSelectedEquipment(prevSelected => {
-            if (prevSelected.includes(label)) {
-                return prevSelected.filter(item => item !== label);
-            } else {
+            if (isSelected) {
                 return [...prevSelected, label];
+            } else {
+                return prevSelected.filter(item => item !== label);
             }
         });
     };
@@ -76,7 +66,7 @@ const AddEquipment: React.FC = () => {
                             label={component.label}
                             icon={component.icon}
                             selected={component.selected}
-                            onPress={() => handleSelect(component.label)}
+                            onSelect={handleSelect}
                         />
                     ))}
                 </View>

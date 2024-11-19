@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, StyleSheet, Button, Alert, ScrollView, Text } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, StyleSheet, Alert, ScrollView, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import TextInputComponent from '../../../common/components/TextInputComponent';
 import RadioButtonComponent from '../components/RadioButtonComponent';
@@ -23,6 +23,13 @@ const AddPrice: React.FC = () => {
     const totalPages = 5;
 
     const { t } = useTranslation();
+
+	useEffect(() => {
+        if (privacy === 'public') {
+            setPrice(0);
+            setPayForStay(null);
+        }
+    }, [privacy]);
 
     const handleBackPress = () => {
         navigation.goBack();
