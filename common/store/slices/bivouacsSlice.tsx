@@ -2,17 +2,17 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { getBivouacs, getBivouacById, createBivouac } from '../../api/bivouac/bivouacs';
 
 interface BivouacState {
-  city: string;
-  postalCode: string;
-  street: string;
-  latitude: string;
-  longitude: string;
+  city: string | null;
+  postalCode: string | null;
+  street: string | null;
+  latitude: string | null;
+  longitude: string | null;
   name: string;
-  rentalType: string;
-  fieldType: string;
-  area: string;
+  rental_type: string | null;
+  field_type: string | null;
+  area: number | null;
   description: string;
-  isPMR: boolean;
+  is_pmr: boolean;
   privacy: string;
   price: number;
   equipments: any[];
@@ -28,11 +28,11 @@ const initialState: BivouacState = {
   latitude: '',
   longitude: '',
   name:'',
-  rentalType: '',
-  fieldType: '',
-  area: '',
+  rental_type: '',
+  field_type: '',
+  area: 0,
   description: '',
-  isPMR: false,
+  is_pmr: false,
   privacy: '',
   price: 0,
   equipments: [],
@@ -45,6 +45,11 @@ export const fetchBivouacs = createAsyncThunk('bivouacs/fetchBivouacs', async ()
   const response = await getBivouacs();
   return response;
 });
+
+// export const fetchUserBivouacs = createAsyncThunk('bivouacs/fetchUserBivouacs', async () => {
+//   const response = await getUserBivouacsTest();
+//   return response;
+// });
 
 export const fetchBivouacById = createAsyncThunk('bivouacs/fetchBivouacById', async (id: number) => {
   const response = await getBivouacById(id);
@@ -64,13 +69,13 @@ const bivouacSlice = createSlice({
       state.longitude = longitude;
     },
     updateType(state, action) {
-      const { name, rentalType, fieldType, area, description, isPMR } = action.payload;
+      const { name, rental_type, field_type, area, description, is_pmr } = action.payload;
       state.name = name;
-      state.rentalType = rentalType;
-      state.fieldType = fieldType;
+      state.rental_type = rental_type;
+      state.field_type = field_type;
       state.area = area;
       state.description = description;
-      state.isPMR = isPMR;
+      state.is_pmr = is_pmr;
     },
     updateEquipments(state, action) {
       state.equipments = action.payload.equipments;
@@ -108,11 +113,11 @@ const bivouacSlice = createSlice({
         // state.street = bivouac.street;
         // state.latitude = bivouac.latitude;
         // state.longitude = bivouac.longitude;
-        // state.rentalType = bivouac.rentalType;
-        // state.fieldType = bivouac.fieldType;
+        // state.rental_type = bivouac.rental_type;
+        // state.field_type = bivouac.field_type;
         // state.area = bivouac.area;
         // state.description = bivouac.description;
-        // state.isPMR = bivouac.isPMR;
+        // state.is_pmr = bivouac.is_pmr;
         // state.privacy = bivouac.privacy;
         // state.equipments = bivouac.equipments;
         // state.price = bivouac.price;
@@ -120,6 +125,17 @@ const bivouacSlice = createSlice({
       .addCase(fetchBivouacById.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message || 'Error fetching bivouac by ID';
+      // })
+      // .addCase(fetchUserBivouacs.pending, (state) => {
+      //   state.loading = true;
+      // })
+      // .addCase(fetchUserBivouacs.fulfilled, (state, action) => {
+      //   state.loading = false;
+      //   state.data = action.payload;
+      // })
+      // .addCase(fetchUserBivouacs.rejected, (state, action) => {
+      //   state.loading = false;
+      //   state.error = action.error.message || 'Error fetching user bivouacs';
       });
   },
 });
