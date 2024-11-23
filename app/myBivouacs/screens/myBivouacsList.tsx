@@ -34,7 +34,7 @@ export default function MyBivouacsList() {
       <FlatList data={data} renderItem={({ item }) => <BivouacItem item={item} />} keyExtractor={(item) => item.id.toString()} contentContainerStyle={styles.list}/>
       
       <View style={styles.containerButton}>
-        <CustomIconButton title={t('myBivouacs:add_bivouac_button')} iconName="map" onPress={() => router.push(`../../addBivouac/screens/addStack`)} />
+        <CustomIconButton title={t('myBivouacs:add_bivouac_button')} iconName="plus" onPress={() => router.push(`../../addBivouac/screens/addStack`)} />
       </View>
     </View>
   );
