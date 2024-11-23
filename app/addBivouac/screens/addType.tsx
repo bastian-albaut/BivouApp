@@ -17,7 +17,7 @@ const AddType: React.FC = () => {
     const navigation = useNavigation<StackNavigationProp<AddStackParamList, 'AddType'>>();
   
     const [name, setName] = useState('');
-    const [selectedPRM, setSelectedPRM] = useState<'yes' | 'no' | null>(null);
+    const [selectedPRM, setSelectedPRM] = useState<true | false | null>(null);
     const [selectedRental, setSelectedRental] = useState<string | number | undefined>(undefined);
     const [selectedSite, setSelectedSite] = useState<string | number | undefined>(undefined);
     const [area, setArea] = useState('');
@@ -42,14 +42,15 @@ const AddType: React.FC = () => {
     ];
 
     const handleNextPress = () => {
-		if (name && area && description && selectedPRM) {
+		console.log(name, area, description, selectedPRM);
+		if (name && description && selectedPRM !== null && selectedPRM !== undefined) {
 			dispatch(updateType({
 			name,
 			rental: selectedRental,
 			site: selectedSite,
 			area,
 			description,
-			prm: selectedPRM,
+			is_pmr: selectedPRM,
 			}));
 	
 			navigation.navigate('AddEquipment');
@@ -65,7 +66,7 @@ const AddType: React.FC = () => {
 			site: selectedSite,
 			area,
 			description,
-			prm: selectedPRM,
+			is_pmr: selectedPRM,
 		}));
       	navigation.goBack();
     };
@@ -94,19 +95,20 @@ const AddType: React.FC = () => {
 				icon="map-marker"
 				placeholder={t('addBivouac:addType.rental')}
 				items={rentals}
-				onSelect={item => setSelectedRental(item.value)}
+				onSelect={item => handleSelectRentalType(item.value)}
 			/>
 			<DropdownComponent
 				icon="map-marker"
 				placeholder={t('addBivouac:addType.site')}
 				items={sites}
-				onSelect={item => setSelectedSite(item.value)}
+				onSelect={item => handleSelectSite(item.value)}
 			/>
 			<TextInputComponent
 				icon="map-marker"
 				placeholder={t('addBivouac:addType.area')}
 				value={area}
 				onChangeText={setArea}
+				keyboardType="numeric"
 			/>
 			<TextInputComponent
 				multiline={true}
@@ -119,13 +121,13 @@ const AddType: React.FC = () => {
 			<View style={styles.radioButtonGroup}>
 				<RadioButtonComponent
 				label={t('common:yes')}
-				selected={selectedPRM === 'yes'}
-				onPress={() => setSelectedPRM('yes')}
+				selected={selectedPRM === true}
+				onPress={() => setSelectedPRM(true)}
 				/>
 				<RadioButtonComponent
 				label={t('common:no')}
-				selected={selectedPRM === 'no'}
-				onPress={() => setSelectedPRM('no')}
+				selected={selectedPRM === false}
+				onPress={() => setSelectedPRM(false)}
 				/>
 			</View>
 			<Footer
