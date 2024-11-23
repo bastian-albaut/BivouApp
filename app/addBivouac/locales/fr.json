@@ -19,7 +19,7 @@
     "name": "Nom du lieu *",
     "rental": "Type de location",
     "site": "Type de terrain",
-    "area": "Superficie disponible",
+    "area": "Superficie disponible (en m²)",
     "description": "Description du lieu *",
     "PRM": "Accès PMR *",
     "siteType": {

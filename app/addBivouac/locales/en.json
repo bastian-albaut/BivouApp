@@ -19,7 +19,7 @@
     "name": "Name of place *",
     "rental": "Type of rental",
     "site": "Type of site",
-    "area": "Available area",
+    "area": "Available area (in m²)",
     "description": "Description of the place *",
     "PRM": "PRM access *",
     "siteType": {
