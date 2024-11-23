@@ -34,10 +34,11 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="addBivouacPage"
+        name="bivouacHostPage"
+        // name="addBivouacPage"
         options={{
-          title: t('common:tab_add_bivouak_page'),
-          tabBarIcon: ({ focused }) => <TabBarIcon name="plus-circle" focused={focused} />,
+          title: t('common:bivouac_host_page'),
+          tabBarIcon: ({ focused }) => <TabBarIcon name="home" focused={focused} />,
         }}
       />
       <Tabs.Screen
