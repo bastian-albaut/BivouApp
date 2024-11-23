@@ -8,8 +8,10 @@ import { useTranslation } from 'react-i18next';
 import Colors from "@/common/constants/Colors";
 import { AddStackParamList } from './addStack';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { updatePrice } from '../../../common/store/slices/bivouacsSlice';
+import { createBivouac } from '../../../common/api/bivouac/bivouacs';
+import { RootState } from '../../../common/store/store';
 
 const AddPrice: React.FC = () => {
 	const dispatch = useDispatch();
@@ -24,6 +26,10 @@ const AddPrice: React.FC = () => {
 
     const { t } = useTranslation();
 
+
+	// Sélection des données du store Redux
+	const bivouacDataFromStore = useSelector((state: RootState) => state.bivouacs);
+
 	useEffect(() => {
         if (privacy === 'public') {
             setPrice(0);
@@ -35,11 +41,35 @@ const AddPrice: React.FC = () => {
         navigation.goBack();
     };
     
-    const handleNextPress = () => {
+    const handleNextPress = async () => {
         if (privacy) {
             dispatch(updatePrice({ privacy, price: payForStay === 'yes' ? price : 0 }));
-            // Uncomment the following line to navigate to the next screen if applicable
-            // navigation.navigate('AddType');
+            // Appel à l'api pour ajouter le bivouac avec les données du store
+            try {
+				console.log('trying to create a Bivouac');
+				const { name, rental_type, field_type, area, description, is_pmr, equipments } = bivouacDataFromStore;
+				const hostId = 1;  // Fixé à 1 pour l'instant
+				const bivouacData = { 
+					hostId, 
+					name, 
+					price: payForStay === 'yes' ? price : 0, 
+					rental_type: rental_type || null, 
+					field_type: field_type || null, 
+					area: area || 0, 
+					description, 
+					is_pmr, 
+					privacy, 
+					equipments: equipments || []
+				};
+				console.log('bivouacData : ', bivouacData);
+				console.log('Before calling createBivouac');
+				const response = await createBivouac(bivouacData);
+				console.log('Bivouac created successfully:', response);
+				// Ajoutez toute autre logique après la création réussie, comme la navigation vers une autre page
+			} catch (error) {
+				console.error('Failed to create bivouac:', error);
+				Alert.alert('Error', 'Failed to create bivouac. Please try again.');
+            }
         } else {
             Alert.alert(t('common:warning'), t('addBivouac:addPrice.selectPrivacy'));
         }
