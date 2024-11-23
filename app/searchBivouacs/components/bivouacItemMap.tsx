@@ -10,7 +10,7 @@ export default function BivouacItemMap({ item }: { item: any }) {
 
     return (
         <View style={styles.container}>
-            <View>
+            <View style={styles.bivouacImageContainer} >
                 <Image source={{ uri: item.photos[0] }} style={styles.bivouacImage} resizeMode="cover" />
             </View>
             <View style={styles.bivouacInformations}>
@@ -32,36 +32,46 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 10,
         padding: 5,
-        backgroundColor: '#fff',
+        backgroundColor: Colors.black,
         marginRight: 15,
+        width: 'auto',
     },
     bivouacInformations: {
         flexDirection: 'column',
-        
+        marginLeft: 10,
+        marginRight: 10,
+        justifyContent: 'center',
+    },
+    bivouacImageContainer: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     bivouacImage: {
         height: 100,
         width: 100,
+        padding: 2,
         borderRadius: 5
     },
     bivouacTitle: {
         fontSize: 18,
         fontWeight: 'bold',
+        color: Colors.white,
     },
     bivouacAddress: {
-        color: '#555',
+        color: Colors.white,
     },
     bivouacViewHost: {
         display: 'flex',
         flexDirection: 'row',
         gap: 5,
         alignItems: 'center',
-        marginTop: 5,
+        marginTop: 10,
     },
     bivouacHostIcon: {
-        color: Colors.secondary,
+        color: Colors.green3,
     },    
     bivouacHost: {
-        color: Colors.secondary,
+        color: Colors.green3,
     },
 });
