@@ -1,5 +1,7 @@
 {
+  "previous": "Précédent",
   "next": "Suivant",
+  "addBivouac": "Ajouter un bivouac",
   "addLocation": {
     "location": "Localisation",
     "address": "Adresse",
@@ -9,5 +11,48 @@
     "gps_coordinates": "Coordonnées GPS",
     "latitude": "Latitude",
     "longitude": "Longitude"
+  },
+  "addType": {
+    "rental": "Type de location",
+    "site": "Type de terrain",
+    "area": "Superficie disponible",
+    "description": "Description du lieu",
+    "PRM": "Accès PMR",
+    "siteType": {
+      "underbrush": "Sous-bois",
+      "sand": "Sable",
+      "field": "Champ",
+      "cave": "Grotte"
+    },
+    "rentalType": {
+      "nothing": "Rien",
+      "tent": "Tente",
+      "teepee": "Tipi"
+    }
+  },
+  "addEquipment": {
+    "available": "Equipements disponibles",
+    "electricity": "Electricité",
+    "water": "Eau",
+    "shelter": "Abris",
+    "wifi": "Wifi",
+    "toilet": "Toilette",
+    "shower": "Douche",
+    "campfire": "Feu de camp",
+    "picnic": "Table picnic"
+  },
+  "addPhotos": {
+    "photos": "Ajouter de photos",
+    "add": "Ajouter"
+  },
+  "addPrice": {
+    "askedPrice": "Prix demandé",
+    "public": "Publique",
+    "private": "Privé",
+    "place": "Le lieu est",
+    "noPrice": "Le lieu est publique. Vous ne pouvez pas faire payer les bivouaqueurs.",
+    "canPrice": "Le lieu est privé. Vous pouvez décider de faire payer les bivouaqueurs pour leur séjour, mais ce n'est pas obligatoire.",
+    "nightPrice": "Tarif par nuit",
+    "makePayment": "Voulez-vous faire payer le séjour ?"
   }
 }

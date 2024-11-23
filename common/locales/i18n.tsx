@@ -1,4 +1,4 @@
-import { Platform, NativeModules } from 'react-native'
+import { Platform, NativeModules } from 'react-native';
 import i18n, { ModuleType } from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import enCommon from './en.json';
@@ -15,12 +15,25 @@ import frFavorites from '../../app/favorites/locales/fr.json';
 import enFavorites from '../../app/favorites/locales/en.json';
 import frMybivouacs from '../../app/myBivouacs/locales/fr.json';
 import enMybivouacs from '../../app/myBivouacs/locales/en.json';
+import frProfilePage from '../../app/profilePage/locales/fr.json';
+import enProfilePage from '../../app/profilePage/locales/en.json';
 
-const deviceLanguage : String =
-  Platform.OS === 'ios'
-    ? NativeModules.SettingsManager.settings.AppleLocale ||
-      NativeModules.SettingsManager.settings.AppleLanguages[0] //iOS 13
-    : NativeModules.I18nManager.localeIdentifier;
+const getDeviceLanguage = () => {
+  let locale = 'en'; // Default to English
+
+  if (Platform.OS === 'ios') {
+    const settings = NativeModules.SettingsManager?.settings;
+    if (settings) {
+      locale = settings.AppleLocale || settings.AppleLanguages[0];
+    }
+  } else {
+    locale = NativeModules.I18nManager?.localeIdentifier || locale;
+  }
+
+  return locale;
+};
+
+const deviceLanguage = getDeviceLanguage();
 
 // Language detection logic based on device locale
 const languageDetector = {
@@ -56,6 +69,7 @@ i18n
         addBivouac: enAddBivouac,
         favorites: enFavorites,
         myBivouacs: frMybivouacs,
+        profilePage: enProfilePage,
       },
       fr: {
         common: frCommon,
@@ -65,6 +79,7 @@ i18n
         addBivouac: frAddBivouac,
         favorites: frFavorites,
         myBivouacs: frMybivouacs,
+        profilePage: frProfilePage,
       },
     },
     ns: ['searchBivouacs', 'users'], // Define namespaces

@@ -1,7 +1,12 @@
-import SearchBivouacList from "@/app/searchBivouacs/screens/searchBivouacList";
+import React from 'react';
+import { Provider } from 'react-redux';
+import { store } from '../../common/store/store';
+import SearchBivouacList from '@/app/searchBivouacs/screens/searchBivouacList';
 
 export default function SearchPage() {
   return (
-    <SearchBivouacList />
+    <Provider store={store}>
+      <SearchBivouacList />
+    </Provider>
   );
 }

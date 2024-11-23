@@ -21,5 +21,8 @@
     "Announces": "Vos annonces",
     "history": "Historique des réservations",
     "privacyPolicy": "Politique de confidentialité",
-    "logOut": "Se déconnecter"
+    "logOut": "Se déconnecter",
+    "nextTrip": "Vos prochains voyages",
+    "yes": "Oui",
+    "no": "Non"
 }

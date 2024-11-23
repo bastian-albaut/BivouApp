@@ -35,6 +35,7 @@ export default function TabLayout() {
       />
       <Tabs.Screen
         name="bivouacHostPage"
+        // name="addBivouacPage"
         options={{
           title: t('common:bivouac_host_page'),
           tabBarIcon: ({ focused }) => <TabBarIcon name="home" focused={focused} />,
