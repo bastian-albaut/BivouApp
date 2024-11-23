@@ -68,7 +68,7 @@ i18n
         users: enUsers,
         addBivouac: enAddBivouac,
         favorites: enFavorites,
-        myBivouacs: frMybivouacs,
+        myBivouacs: enMybivouacs,
         profilePage: enProfilePage,
       },
       fr: {
