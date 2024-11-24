@@ -9,10 +9,13 @@ import * as Location from 'expo-location'; // Importer expo-location
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchBivouacs } from '../../../common/store/slices/bivouacsSlice';
 import { AppDispatch, RootState } from '@/common/store/store';
+import BivouacItemMap from '../components/bivouacItemMap';
 
 
 
 export default function SearchBivouacMap() {
+
+
   const [city, setCity] = useState('');
   const [suggestions, setSuggestions] = useState<any[]>([]);
   const [location, setLocation] = useState({ latitude: 48.8566, longitude: 2.3522 }); // Coordonnées par défaut (Paris)
@@ -24,6 +27,9 @@ export default function SearchBivouacMap() {
   useEffect(() => {
     dispatch(fetchBivouacs());
   }, [dispatch]);
+
+  // Search functionality
+  const filteredBivouacs = data;
 
   // Fonction pour rechercher les suggestions de ville en France avec Nominatim
   const searchSuggestions = async (text: string) => {
@@ -71,7 +77,7 @@ export default function SearchBivouacMap() {
     const { lat, lon } = suggestion;
     setLocation({ latitude: parseFloat(lat), longitude: parseFloat(lon) });
     setCity(formattedCity || suggestion.display_name);
-    setSuggestions([]); 
+    setSuggestions([]);
   };
 
   // Utiliser useEffect pour demander la localisation lors du lancement
@@ -121,6 +127,15 @@ export default function SearchBivouacMap() {
         />
       )}
 
+      <View style={styles.bivouacList}>
+        <FlatList
+          data={filteredBivouacs}
+          horizontal={true}
+          renderItem={({ item }) => <BivouacItemMap item={item} />}
+          keyExtractor={(item) => item.id.toString()}
+        />
+      </View>
+
       <MapView
         style={styles.map}
         region={{
@@ -167,7 +182,7 @@ const styles = StyleSheet.create({
   },
   suggestionList: {
     width: 330,
-    maxHeight: 150, 
+    maxHeight: 150,
     position: 'absolute',
     top: 72,
     left: 30,
@@ -185,4 +200,12 @@ const styles = StyleSheet.create({
   map: {
     flex: 1,
   },
+  bivouacList: {
+    zIndex: 1,
+    height: 110,
+    flexDirection: 'row',
+    position: 'absolute',
+    bottom: 0,
+    margin: 20
+  }
 });
