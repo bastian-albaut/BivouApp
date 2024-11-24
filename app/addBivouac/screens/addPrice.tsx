@@ -12,10 +12,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updatePrice } from '../../../common/store/slices/bivouacsSlice';
 import { createBivouac } from '../../../common/api/bivouac/bivouacs';
 import { RootState } from '../../../common/store/store';
+import { useRouter } from 'expo-router';
 
 const AddPrice: React.FC = () => {
 	const dispatch = useDispatch();
     const navigation = useNavigation<StackNavigationProp<AddStackParamList, 'AddPrice'>>();
+	const router = useRouter();
   
     const [privacy, setPrivacy] = useState<'public' | 'private' | null>(null);
     const [payForStay, setPayForStay] = useState<'yes' | 'no' | null>(null);
@@ -66,6 +68,7 @@ const AddPrice: React.FC = () => {
 				const response = await createBivouac(bivouacData);
 				console.log('Bivouac created successfully:', response);
 				// Ajoutez toute autre logique après la création réussie, comme la navigation vers une autre page
+				router.back();
 			} catch (error) {
 				console.error('Failed to create bivouac:', error);
 				Alert.alert('Error', 'Failed to create bivouac. Please try again.');
