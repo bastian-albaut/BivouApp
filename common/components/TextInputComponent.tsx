@@ -7,20 +7,18 @@ export default function TextInputComponent(props: any) {
   const [isFocused, setIsFocused] = useState(false);
   const animatedLabelPosition = useRef(new Animated.Value(0)).current;
   const multiline = props.multiline || false;
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
-  useEffect(() => {
-    if (props.value !== text) {
-      setText(props.value);
-    }
-  }, [props.value]);
+  
   
   useEffect(() => {
     Animated.timing(animatedLabelPosition, {
-      toValue: isFocused || !!props.value, // Utiliser props.value pour gérer l'état du champ
+      toValue: (isFocused || !!props.value) ? 1 : 0, // Utiliser props.value pour gérer l'état du champ
       duration: 200,
       useNativeDriver: false,
     }).start();
   }, [isFocused, props.value]);
+
 
   const labelStyle = {
     top: animatedLabelPosition.interpolate({
@@ -54,7 +52,7 @@ export default function TextInputComponent(props: any) {
           style={[styles.input, multiline ? styles.multiline : styles.singleLine]}
           multiline={multiline}
           numberOfLines={multiline ? 4 : 1} // Ajuste le nombre de lignes visibles par défaut
-          value={text}
+          value={props.value}
           keyboardType={props.keyboardType || 'default'}
           secureTextEntry={props.secureTextEntry && !isPasswordVisible}
           onFocus={() => setIsFocused(true)}
