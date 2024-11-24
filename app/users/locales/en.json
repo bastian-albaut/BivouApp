@@ -13,5 +13,12 @@
     "surname": "Surname",
     "phone": "Phone number",
     "validate": "Validate",
-    "modify": "Modify"
+    "modify": "Modify",
+    "signUpSuccess": "Sign Up Successful",
+    "signUpSuccessMessage": "Your account has been successfully created. Please log in.",
+    "signUpFailed": "Sign Up Failed",
+    "passwordMismatch": "Passwords Do Not Match",
+    "passwordMismatchMessage": "The passwords you entered do not match.",
+    "loading": "Loading..."
+
 }
