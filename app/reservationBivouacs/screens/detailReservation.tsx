@@ -1,16 +1,18 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, Alert } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
 import Colors from '@/common/constants/Colors';
 import ButtonComponent from '@/common/components/ButtonComponent';
 import { FontAwesome } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
+import { addReservation } from '@/common/store/slices/reservationsSlice';
 
 export default function ReservationConfirmation() {
 
     // Get the search parameters
     const params = useLocalSearchParams();
-    const { startDate, endDate, bivouac } = params;
+    const { startDate, endDate, bivouac } = params as { startDate: string | string[], endDate: string | string[], bivouac: string | string[] };
     const start = new Date(Array.isArray(startDate) ? startDate[0] : startDate);
     const end = new Date(Array.isArray(endDate) ? endDate[0] : endDate);
     const bivouacData = JSON.parse(Array.isArray(bivouac) ? bivouac[0] : bivouac);
@@ -22,6 +24,27 @@ export default function ReservationConfirmation() {
     const priceWithoutTax = (bivouacData.price * nights).toFixed(2);
     const tax = (parseFloat(priceWithoutTax) * 0.01).toFixed(2);
     const total = (parseFloat(priceWithoutTax) + parseFloat(tax)).toFixed(2);
+    
+    // Handle reservation confirmation
+    const dispatch = useDispatch();
+    const handleConfirmReservation = async () => {
+        console.log('Confirm reservation');
+        try {
+            await dispatch(
+                addReservation({
+                bivouacId: bivouacData.id,
+                startDate: start.toISOString(),
+                endDate: end.toISOString(),
+                price: parseFloat(total),
+                }) as any
+            ).unwrap(); // Unwraps the promise to handle errors
+            Alert.alert(t('reservationBivouacs:success_reservation_title'), t('reservationBivouacs:success_reservation_message'));
+        } catch (error) {
+            Alert.alert(t('reservationBivouacs:error_reservation_title'), t('reservationBivouacs:error_reservation_message'));
+            console.error('Error confirming reservation:', error);
+        }
+    };
+
 
     return (
         <View style={styles.container}>
@@ -53,7 +76,7 @@ export default function ReservationConfirmation() {
                 <Text style={[ styles.priceText, styles.total ]}>{total}€</Text>
             </View>
 
-            <ButtonComponent title={t('reservationBivouacs:confirm_reservation')} onPress={() => console.log('Confirmation de réservation')} />
+            <ButtonComponent title={t('reservationBivouacs:confirm_reservation')} onPress={handleConfirmReservation} />
         </View>
     );
     }
