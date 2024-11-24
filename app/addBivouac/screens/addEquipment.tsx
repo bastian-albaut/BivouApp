@@ -7,38 +7,43 @@ import { useTranslation } from 'react-i18next';
 import Colors from "@/common/constants/Colors";
 import { AddStackParamList } from './addStack';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { useDispatch } from 'react-redux';
+import { updateEquipments } from '../../../common/store/slices/bivouacsSlice';
 
 const AddEquipment: React.FC = () => {
+    const dispatch = useDispatch();
     const navigation = useNavigation<StackNavigationProp<AddStackParamList, 'AddEquipment'>>();
 
-    const { t } = useTranslation();
+    const [selectedEquipment, setSelectedEquipment] = useState<string[]>([]);
 
     const [currentPage, setCurrentPage] = React.useState(3);
     const totalPages = 5;
 
+    const { t } = useTranslation();
+
     const handleBackPress = () => {
+        dispatch(updateEquipments(selectedEquipment));
         navigation.goBack();
     };
     
     const handleNextPress = () => {
+        dispatch(updateEquipments(selectedEquipment));
         navigation.navigate('AddPhotos');
     };
 
     const progress = currentPage / totalPages;
 
-    const [selectedLabels, setSelectedLabels] = useState<string[]>([]);
-
     const handleSelect = (label: string, isSelected: boolean) => {
-        setSelectedLabels(prevLabels => {
+        setSelectedEquipment(prevSelected => {
             if (isSelected) {
-                return [...prevLabels, label];
+                return [...prevSelected, label];
             } else {
-                return prevLabels.filter(item => item !== label);
+                return prevSelected.filter(item => item !== label);
             }
         });
     };
 
-    const [components, setComponents] = useState([
+    const components = [
         { label: t('addBivouac:addEquipment.water'), icon: 'tint', selected: false },
         { label: t('addBivouac:addEquipment.electricity'), icon: 'bolt', selected: false },
         { label: t('addBivouac:addEquipment.shelter'), icon: 'shower', selected: false },
@@ -47,7 +52,7 @@ const AddEquipment: React.FC = () => {
         { label: t('addBivouac:addEquipment.shower'), icon: 'shower', selected: false },
         { label: t('addBivouac:addEquipment.campfire'), icon: 'fire', selected: false },
         { label: t('addBivouac:addEquipment.picnic'), icon: 'table', selected: false },
-    ]);
+    ];
     
     return (
 
@@ -61,6 +66,7 @@ const AddEquipment: React.FC = () => {
                             label={component.label}
                             icon={component.icon}
                             selected={component.selected}
+                            onSelect={handleSelect}
                         />
                     ))}
                 </View>

@@ -11,7 +11,9 @@ export default function EquipmentComponent(props: any) {
     const handlePress = () => {
         const newSelectedState = !selected;
         setSelected(newSelectedState);
-        //onSelect(label, newSelectedState); // Notify the parent component
+        if (onSelect) {
+            onSelect(label, newSelectedState); // Notify the parent component
+        }
     };
 
     return (

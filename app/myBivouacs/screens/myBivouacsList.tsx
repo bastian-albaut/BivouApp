@@ -5,37 +5,37 @@ import { fetchBivouacs } from '../../../common/store/slices/bivouacsSlice';
 import { RootState, AppDispatch } from '../../../common/store/store';
 import { useTranslation } from 'react-i18next';
 import BivouacItem from '../components/bivouacItem';
-import Colors from "@/common/constants/Colors";
+import Colors from "../../../common/constants/Colors";
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import CustomIconButton from '@/common/components/customIconButton';
 import { useRouter } from 'expo-router';
-import { fetchFavorites } from '@/common/store/slices/favoritesSlice';
+import CustomIconButton from '../../../common/components/customIconButton';
 
-export default function Favorites() {
+export default function MyBivouacsList() {
   
   // Redux store access
   const dispatch = useDispatch<AppDispatch>();
-  const { data, loading, error } = useSelector((state: RootState) => state.favorites);
+  const { data, loading, error } = useSelector((state: RootState) => state.bivouacs);
   useEffect(() => {
-    dispatch(fetchFavorites());
+    dispatch(fetchBivouacs());
   }, [dispatch]);
 
+  
   // Translation
   const { t } = useTranslation();
 
+  const router = useRouter();
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{t('favorites:title')}</Text>
-
+      <Text style={styles.title}>{t('myBivouacs:title')}</Text>
       {loading && <Text>Loading...</Text>}
       {error && <Text>Error: {error}</Text>}
 
-      <FlatList
-        data={data}
-        renderItem={({ item }) => <BivouacItem item={item} />}
-        keyExtractor={(item) => item.id.toString()}
-        contentContainerStyle={styles.list}
-      />
+      <FlatList data={data} renderItem={({ item }) => <BivouacItem item={item} />} keyExtractor={(item) => item.id.toString()} contentContainerStyle={styles.list}/>
+      
+      <View style={styles.containerButton}>
+        <CustomIconButton title={t('myBivouacs:add_bivouac_button')} iconName="plus" onPress={() => router.push(`../../addBivouac/screens/addStack`)} />
+      </View>
     </View>
   );
 }
