@@ -3,27 +3,22 @@ import { TextInput, View, StyleSheet, Animated, TouchableOpacity } from 'react-n
 import Colors from '../constants/Colors';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 
-
 export default function TextInputComponent(props: any) {
   const [isFocused, setIsFocused] = useState(false);
   const animatedLabelPosition = useRef(new Animated.Value(0)).current;
-  const [text, setText] = useState('');
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const multiline = props.multiline || false;
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
-  useEffect(() => {
-    if (props.value !== text) {
-      setText(props.value);
-    }
-  }, [props.value]);
+  
   
   useEffect(() => {
     Animated.timing(animatedLabelPosition, {
-      toValue: isFocused || text ? 1 : 0,
+      toValue: (isFocused || !!props.value) ? 1 : 0, // Utiliser props.value pour gérer l'état du champ
       duration: 200,
       useNativeDriver: false,
     }).start();
-  }, [isFocused, text]);
+  }, [isFocused, props.value]);
+
 
   const labelStyle = {
     top: animatedLabelPosition.interpolate({
@@ -57,25 +52,21 @@ export default function TextInputComponent(props: any) {
           style={[styles.input, multiline ? styles.multiline : styles.singleLine]}
           multiline={multiline}
           numberOfLines={multiline ? 4 : 1} // Ajuste le nombre de lignes visibles par défaut
-          value={text}
+          value={props.value}
           keyboardType={props.keyboardType || 'default'}
           secureTextEntry={props.secureTextEntry && !isPasswordVisible}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
-          onChangeText={(newText) => {
-            setText(newText);
-            props.onChangeText(newText); // Call the parent component's onChangeText
-          }}
+          onChangeText={props.onChangeText} // Appeler le callback des props
           editable={props.editable}
         />
       </View>
 
       {props.secureTextEntry && (
-        <TouchableOpacity onPress={togglePasswordVisibility} activeOpacity={0.8} >
-          
+        <TouchableOpacity onPress={togglePasswordVisibility} activeOpacity={0.8}>
           <FontAwesome
             style={styles.eyeIcon}
-            name={isPasswordVisible ? 'eye' : 'eye-slash'} 
+            name={isPasswordVisible ? 'eye' : 'eye-slash'}
             size={20}
             color={Colors.black}
           />

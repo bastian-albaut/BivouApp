@@ -1,16 +1,32 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Keyboard, TouchableWithoutFeedback, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Keyboard, TouchableWithoutFeedback, TouchableOpacity, Alert } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useRouter } from 'expo-router';
 import TextInputComponent from '../../../common/components/TextInputComponent';
 import ButtonComponent from '../../../common/components/ButtonComponent';
+import { loginApi } from '../api/loginApi';
+import { storeToken } from '@/common/utils/authStorage';
 import Colors from '@/common/constants/Colors';
 
 export default function Login() {
-  const [searchQuery, setSearchQuery] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const { t } = useTranslation();
-
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
+
+  const handleLogin = async () => {
+    setLoading(true);
+    try {
+      const token = await loginApi(email, password);
+      await storeToken(token); 
+      router.push('../../searchBivouacs/screens/searchBivouacList');
+    } catch (error) {
+      Alert.alert('Login failed', (error as Error).message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -18,19 +34,36 @@ export default function Login() {
         <View style={styles.centeredContainer}>
           <Text style={styles.leftAlignedTitle}>{t('users:loginTitle')}</Text>
 
-          <TextInputComponent icon="envelope" placeholder={t('users:mailAddress')} keyboardType="email-address" value="" secureTextEntry={false} />
-          <TextInputComponent icon="lock" placeholder={t('users:password')} value="" secureTextEntry={true} />
+          <TextInputComponent
+            icon="envelope"
+            placeholder={t('users:mailAddress')}
+            keyboardType="email-address"
+            value={email}
+            onChangeText={setEmail}
+            secureTextEntry={false}
+          />
+          <TextInputComponent
+            icon="lock"
+            placeholder={t('users:password')}
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry={true}
+          />
 
           <Text style={styles.signupText}>
             {t('users:noAccount')} 
           </Text>
-          <TouchableOpacity activeOpacity={0.8} onPress={() => router.navigate("./signup")}>
+          <TouchableOpacity activeOpacity={0.8} onPress={() => router.navigate("/users/screens/signup")}>
               <Text style={styles.signupLink}>{t('users:signUp')} </Text>
           </TouchableOpacity>
         </View>
 
         <View style={styles.bottomButton}>
-          <ButtonComponent title={t('users:login')} onPress={() => console.log('Se connecter')} />
+          <ButtonComponent
+            title={loading ? t('users:loading') : t('users:login')}
+            onPress={handleLogin}
+            disabled={loading}
+          />
         </View>
       </View>
     </TouchableWithoutFeedback>
