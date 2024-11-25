@@ -41,7 +41,7 @@ interface FooterProps {
     footerContainer: {
       position: 'absolute',
       width: 340,
-      bottom: 0,
+      bottom: 15,
       backgroundColor: Colors.white,
     },
     buttonContainer: {
