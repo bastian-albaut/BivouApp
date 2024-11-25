@@ -20,7 +20,7 @@ export default function Login() {
     try {
       const token = await loginApi(email, password);
       await storeToken(token); 
-      router.push('../../searchBivouacs/screens/searchBivouacList');
+      router.push('../../(tabs)/searchBivouacList');
     } catch (error) {
       Alert.alert('Login failed', (error as Error).message);
     } finally {
