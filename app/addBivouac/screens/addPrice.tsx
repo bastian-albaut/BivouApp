@@ -49,7 +49,7 @@ const AddPrice: React.FC = () => {
             // Appel à l'api pour ajouter le bivouac avec les données du store
             try {
 				console.log('trying to create a Bivouac');
-				const { name, rental_type, field_type, area, description, is_pmr, equipments } = bivouacDataFromStore;
+				const { name, rental_type, field_type, area, description, is_pmr, equipmentIds } = bivouacDataFromStore;
 				const hostId = 1;  // Fixé à 1 pour l'instant
 				const bivouacData = { 
 					hostId, 
@@ -61,7 +61,7 @@ const AddPrice: React.FC = () => {
 					description, 
 					is_pmr, 
 					privacy, 
-					equipments: equipments || []
+					equipmentIds: equipmentIds || []
 				};
 				console.log('bivouacData : ', bivouacData);
 				console.log('Before calling createBivouac');

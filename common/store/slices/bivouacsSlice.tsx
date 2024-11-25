@@ -15,7 +15,7 @@ interface BivouacState {
   is_pmr: boolean;
   privacy: string;
   price: number;
-  equipments: any[];
+  equipmentIds: any[];
   data: any[];
   loading: boolean;
   error: string | null;
@@ -35,7 +35,7 @@ const initialState: BivouacState = {
   is_pmr: false,
   privacy: '',
   price: 0,
-  equipments: [],
+  equipmentIds: [],
   data: [],
   loading: false,
   error: null,
@@ -78,7 +78,7 @@ const bivouacSlice = createSlice({
       state.is_pmr = is_pmr;
     },
     updateEquipments(state, action) {
-      state.equipments = action.payload.equipments;
+      state.equipmentIds = action.payload.equipmentIds;
     },
     updatePrice(state, action) {
       const { privacy, price } = action.payload;
@@ -119,7 +119,7 @@ const bivouacSlice = createSlice({
         // state.description = bivouac.description;
         // state.is_pmr = bivouac.is_pmr;
         // state.privacy = bivouac.privacy;
-        // state.equipments = bivouac.equipments;
+        // state.equipmentIds = bivouac.equipmentIds;
         // state.price = bivouac.price;
       })
       .addCase(fetchBivouacById.rejected, (state, action) => {
