@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, Alert } from 'react-native';
-import { useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import Colors from '@/common/constants/Colors';
 import ButtonComponent from '@/common/components/ButtonComponent';
 import { FontAwesome } from '@expo/vector-icons';
@@ -26,6 +26,7 @@ export default function ReservationConfirmation() {
     const total = (parseFloat(priceWithoutTax) + parseFloat(tax)).toFixed(2);
     
     // Handle reservation confirmation
+    const router = useRouter();
     const dispatch = useDispatch();
     const handleConfirmReservation = async () => {
         console.log('Confirm reservation');
@@ -38,7 +39,8 @@ export default function ReservationConfirmation() {
                 price: parseFloat(total),
                 }) as any
             ).unwrap(); // Unwraps the promise to handle errors
-            Alert.alert(t('reservationBivouacs:success_reservation_title'), t('reservationBivouacs:success_reservation_message'));
+            Alert.alert(t('reservationBivouacs:success_reservation_title'), t('reservationBivouacs:success_reservation_message'), [{text: "OK",onPress: () => router.push('../../(tabs)/profilePage'),},
+            ]);
         } catch (error) {
             Alert.alert(t('reservationBivouacs:error_reservation_title'), t('reservationBivouacs:error_reservation_message'));
             console.error('Error confirming reservation:', error);
