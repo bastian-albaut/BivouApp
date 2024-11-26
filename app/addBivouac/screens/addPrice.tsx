@@ -13,6 +13,7 @@ import { updatePrice } from '../../../common/store/slices/bivouacsSlice';
 import { createBivouac } from '../../../common/api/bivouac/bivouacs';
 import { RootState } from '../../../common/store/store';
 import { useRouter } from 'expo-router';
+import { getUserId } from '../../../common/utils/authStorage';
 
 const AddPrice: React.FC = () => {
 	const dispatch = useDispatch();
@@ -48,30 +49,40 @@ const AddPrice: React.FC = () => {
             dispatch(updatePrice({ privacy, price: payForStay === 'yes' ? price : 0 }));
             // Appel à l'api pour ajouter le bivouac avec les données du store
             try {
-				console.log('trying to create a Bivouac');
-				const { name, rental_type, field_type, area, description, is_pmr, equipmentIds } = bivouacDataFromStore;
-				const hostId = 1;  // Fixé à 1 pour l'instant
-				const bivouacData = { 
-					hostId, 
-					name, 
-					price: payForStay === 'yes' ? price : 0, 
-					rental_type: rental_type || null, 
-					field_type: field_type || null, 
-					area: area || 0, 
-					description, 
-					is_pmr, 
-					privacy, 
-					equipmentIds: equipmentIds || []
-				};
-				console.log('bivouacData : ', bivouacData);
-				console.log('Before calling createBivouac');
-				const response = await createBivouac(bivouacData);
-				console.log('Bivouac created successfully:', response);
-				// Ajoutez toute autre logique après la création réussie, comme la navigation vers une autre page
-				router.back();
-			} catch (error) {
-				console.error('Failed to create bivouac:', error);
-				Alert.alert('Error', 'Failed to create bivouac. Please try again.');
+				const hostId = await getUserId();
+				if (hostId !== null) {
+					try {
+						console.log('trying to create a Bivouac');
+						const { name, rental_type, field_type, area, description, is_pmr, equipmentIds } = bivouacDataFromStore;
+						// const hostId = 1;  // Fixé à 1 pour l'instant
+						const bivouacData = { 
+							hostId, 
+							name, 
+							price: payForStay === 'yes' ? price : 0, 
+							rental_type: rental_type || null, 
+							field_type: field_type || null, 
+							area: area || 0, 
+							description, 
+							is_pmr, 
+							privacy, 
+							equipmentIds: equipmentIds || []
+						};
+						console.log('bivouacData : ', bivouacData);
+						console.log('Before calling createBivouac');
+						const response = await createBivouac(bivouacData);
+						console.log('Bivouac created successfully:', response);
+						// Ajoutez toute autre logique après la création réussie, comme la navigation vers une autre page
+						router.back();
+					} catch (error) {
+						console.error('Failed to create bivouac:', error);
+						Alert.alert('Error', 'Failed to create bivouac. Please try again.');
+					}
+				} else {
+					Alert.alert('Error', 'Failed to get id. Please login and try again.');
+				}
+            } catch (error) {
+              console.error('Error fetching user id', error);
+			  Alert.alert('Error', 'Failed to get id. Please login and try again.');
             }
         } else {
             Alert.alert(t('common:warning'), t('addBivouac:addPrice.selectPrivacy'));
