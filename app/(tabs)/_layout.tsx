@@ -1,7 +1,6 @@
 import React from 'react';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { Link, Tabs } from 'expo-router';
-import { Pressable } from 'react-native';
+import { Tabs } from 'expo-router';
 
 import Colors from '@/common/constants/Colors';
 import { useTranslation } from 'react-i18next';
@@ -42,7 +41,7 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="index"
+        name="searchBivouacList"
         options={{
           title: t('common:tab_search_page'),
           tabBarIcon: ({ focused }) => <TabBarIcon name="search" focused={focused} />,

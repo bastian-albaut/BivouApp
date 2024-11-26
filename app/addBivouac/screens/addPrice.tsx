@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, StyleSheet, Button, Alert, ScrollView, Text } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, StyleSheet, Alert, ScrollView, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import TextInputComponent from '../../../common/components/TextInputComponent';
 import RadioButtonComponent from '../components/RadioButtonComponent';
@@ -8,23 +8,74 @@ import { useTranslation } from 'react-i18next';
 import Colors from "@/common/constants/Colors";
 import { AddStackParamList } from './addStack';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { useDispatch, useSelector } from 'react-redux';
+import { updatePrice } from '../../../common/store/slices/bivouacsSlice';
+import { createBivouac } from '../../../common/api/bivouac/bivouacs';
+import { RootState } from '../../../common/store/store';
+import { useRouter } from 'expo-router';
 
 const AddPrice: React.FC = () => {
+	const dispatch = useDispatch();
     const navigation = useNavigation<StackNavigationProp<AddStackParamList, 'AddPrice'>>();
+	const router = useRouter();
   
-    const [selectedPrivacy, setSelectedPrivacy] = useState<'public' | 'private' | null>(null);
+    const [privacy, setPrivacy] = useState<'public' | 'private' | null>(null);
     const [payForStay, setPayForStay] = useState<'yes' | 'no' | null>(null);
+    const [price, setPrice] = useState(0);
+    
     const [currentPage, setCurrentPage] = React.useState(5);
     const totalPages = 5;
 
     const { t } = useTranslation();
 
+
+	// Sélection des données du store Redux
+	const bivouacDataFromStore = useSelector((state: RootState) => state.bivouacs);
+
+	useEffect(() => {
+        if (privacy === 'public') {
+            setPrice(0);
+            setPayForStay(null);
+        }
+    }, [privacy]);
+
     const handleBackPress = () => {
         navigation.goBack();
     };
     
-    const handleNextPress = () => {
-        //navigation.navigate('AddType');
+    const handleNextPress = async () => {
+        if (privacy) {
+            dispatch(updatePrice({ privacy, price: payForStay === 'yes' ? price : 0 }));
+            // Appel à l'api pour ajouter le bivouac avec les données du store
+            try {
+				console.log('trying to create a Bivouac');
+				const { name, rental_type, field_type, area, description, is_pmr, equipments } = bivouacDataFromStore;
+				const hostId = 1;  // Fixé à 1 pour l'instant
+				const bivouacData = { 
+					hostId, 
+					name, 
+					price: payForStay === 'yes' ? price : 0, 
+					rental_type: rental_type || null, 
+					field_type: field_type || null, 
+					area: area || 0, 
+					description, 
+					is_pmr, 
+					privacy, 
+					equipments: equipments || []
+				};
+				console.log('bivouacData : ', bivouacData);
+				console.log('Before calling createBivouac');
+				const response = await createBivouac(bivouacData);
+				console.log('Bivouac created successfully:', response);
+				// Ajoutez toute autre logique après la création réussie, comme la navigation vers une autre page
+				router.back();
+			} catch (error) {
+				console.error('Failed to create bivouac:', error);
+				Alert.alert('Error', 'Failed to create bivouac. Please try again.');
+            }
+        } else {
+            Alert.alert(t('common:warning'), t('addBivouac:addPrice.selectPrivacy'));
+        }
     };
 
     const progress = currentPage / totalPages;
@@ -36,21 +87,21 @@ const AddPrice: React.FC = () => {
           <View style={styles.radioButtonGroup}>
             <RadioButtonComponent
               label={t('addBivouac:addPrice.public')}
-              selected={selectedPrivacy === 'public'}
-              onPress={() => setSelectedPrivacy('public')}
+              selected={privacy === 'public'}
+              onPress={() => setPrivacy('public')}
             />
             <RadioButtonComponent
               label={t('addBivouac:addPrice.private')}
-              selected={selectedPrivacy === 'private'}
-              onPress={() => setSelectedPrivacy('private')}
+              selected={privacy === 'private'}
+              onPress={() => setPrivacy('private')}
             />
           </View>
 
-          {selectedPrivacy === 'public' && (
+          {privacy === 'public' && (
             <Text style={styles.place} >{t('addBivouac:addPrice.noPrice')}</Text>
           )}
           
-          {selectedPrivacy === 'private' && (
+          {privacy === 'private' && (
             <>
               <Text style={styles.place} >{t('addBivouac:addPrice.canPrice')}</Text>
               
@@ -77,6 +128,8 @@ const AddPrice: React.FC = () => {
                   icon="money"
                   placeholder={t('addBivouac:addPrice.nightPrice')}
                   keyboardType="numeric"
+                  value={price}
+                  onChangeText={setPrice}
                   euro={true}
                 />
               )}
@@ -88,6 +141,7 @@ const AddPrice: React.FC = () => {
             onBackPress={handleBackPress}
             onNextPress={handleNextPress}
             progress={progress}
+            isLastStep={true}
           />
         </ScrollView>
     );
@@ -152,9 +206,9 @@ const styles = StyleSheet.create({
     radioButtonGroup: {
       flexDirection: 'row',
       alignItems: 'center',
-      alignSelf: 'flex-start', // Aligns the radio button group to the left
+      alignSelf: 'flex-start',
       marginLeft: 8,
-      paddingLeft: 20, // Adjust this value to match the left padding of your text inputs
+      paddingLeft: 20,
     },
 });
   
