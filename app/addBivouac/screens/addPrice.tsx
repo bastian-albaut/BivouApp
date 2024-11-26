@@ -10,7 +10,7 @@ import { AddStackParamList } from './addStack';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useDispatch, useSelector } from 'react-redux';
 import { updatePrice } from '../../../common/store/slices/bivouacsSlice';
-import { createBivouac } from '../../../common/api/bivouac/bivouacs';
+import { createBivouac } from '../../../common/api/bivouac/bivouacsApi';
 import { RootState } from '../../../common/store/store';
 import { useRouter } from 'expo-router';
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FlatList, StyleSheet, TextInput, View, Text, Pressable, Button, Dimensions, TouchableOpacity } from 'react-native';
-import { fetchBivouacs } from '../../../common/store/slices/bivouacsSlice';
+import { fetchAllBivouacData } from '@/common/api/bivouac/bivouacsApi';
 import { RootState, AppDispatch } from '../../../common/store/store';
 import { useTranslation } from 'react-i18next';
 import BivouacItem from '../components/bivouacItem';
@@ -10,61 +10,77 @@ import FontAwesome from '@expo/vector-icons/FontAwesome';
 import CustomIconButton from '@/common/components/customIconButton';
 import { useRouter } from 'expo-router';
 
+
 export default function SearchBivouacList() {
-  
-  // Redux store access
   const dispatch = useDispatch<AppDispatch>();
-  const { data, loading, error } = useSelector((state: RootState) => state.bivouacs);
+
+  // Accès aux données du Redux store
+  const { data, status, error } = useSelector((state: RootState) => state.bivouacs);
+
+  // Effet pour charger les données
   useEffect(() => {
-    dispatch(fetchBivouacs());
-  }, [dispatch]);
+    if (status === 'idle') {
+      dispatch(fetchAllBivouacData());
+    }
+  }, [status, dispatch]);
 
-  
-  // Search functionality
+  console.log("data", data);
+
+  // Fonctionnalité de recherche
   const [searchQuery, setSearchQuery] = useState('');
-  const filteredBivouacs = data.filter(bivouac => 
+  const filteredBivouacs = data ? data.filter((bivouac) =>
     bivouac.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  ) : [];
 
-  // Translation
   const { t } = useTranslation();
-
   const router = useRouter();
 
   return (
     <View style={styles.container}>
       <View style={styles.searchContainer}>
         <View style={styles.searchInput}>
-          <FontAwesome name="search" size={24} color={Colors.black} style={styles.searchIcon} />
+          <FontAwesome name="search" size={24} color="black" style={styles.searchIcon} />
           <TextInput
             style={styles.searchBar}
             placeholder={t('searchBivouacs:search_bar')}
-            placeholderTextColor={Colors.black}
+            placeholderTextColor="black"
             value={searchQuery}
             onChangeText={setSearchQuery}
           />
-          <FontAwesome name="filter" size={24} color={Colors.black} />
+          <FontAwesome name="filter" size={24} color="black" />
         </View>
       </View>
 
-      
-
-      {loading && <Text>Loading...</Text>}
+      {/* Affichage des états de chargement ou d'erreur */}
+      {status === 'loading' && <Text>Loading...</Text>}
       {error && <Text>Error: {error}</Text>}
 
-      <FlatList
-        data={filteredBivouacs}
-        renderItem={({ item }) => <BivouacItem item={item} />}
-        keyExtractor={(item) => item.id.toString()}
-        contentContainerStyle={styles.list}
-      />
-      
+      {/* Affichage de la liste des bivouacs */}
+      {filteredBivouacs.length === 0 ? (
+        <Text>No data</Text>
+      ) : (
+        <FlatList
+          data={filteredBivouacs}
+          renderItem={({ item }) => (
+            item?.bivouacId ? <BivouacItem item={item} /> : null
+          )}
+          keyExtractor={(item) => item?.bivouacId.toString()}
+          contentContainerStyle={styles.list}
+        />
+      )}
+
+      {/* Bouton pour accéder à la carte */}
       <View style={styles.containerButton}>
-        <CustomIconButton title={t('searchBivouacs:map_button')} iconName="map" onPress={() => router.push(`/searchBivouacs/screens/searchBivouacMap`)} />
+        <CustomIconButton
+          title={t('searchBivouacs:map_button')}
+          iconName="map"
+          onPress={() => router.push(`/searchBivouacs/screens/searchBivouacMap`)}
+        />
       </View>
     </View>
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {
