@@ -10,6 +10,14 @@ export const storeToken = async (token: string) => {
   }
 };
 
+export const storeUserId = async (userId: number) => {
+  try {
+    await AsyncStorage.setItem('userId', userId.toString());
+  } catch (error) {
+    console.error('Failed to store userId', error);
+  }
+};
+
 export const getToken = async () => {
   try {
     return await AsyncStorage.getItem(TOKEN_KEY);
@@ -19,10 +27,27 @@ export const getToken = async () => {
   }
 };
 
+export const getUserId = async () => {
+  try {
+    return await AsyncStorage.getItem('userId');
+  } catch (error) {
+    console.error('Failed to retrieve userId', error);
+    return null;
+  }
+};
+
 export const removeToken = async () => {
   try {
     await AsyncStorage.removeItem(TOKEN_KEY);
   } catch (error) {
     console.error('Failed to remove token', error);
+  }
+};
+
+export const removeUserId = async () => {
+  try {
+    await AsyncStorage.removeItem('userId');
+  } catch (error) {
+    console.error('Failed to remove userId', error);
   }
 };

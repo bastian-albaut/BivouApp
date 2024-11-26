@@ -15,11 +15,14 @@ export default function Login() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
+  import { storeToken, storeUserId } from '@/common/utils/authStorage'; // Ajoute une fonction pour stocker l'ID utilisateur
+
   const handleLogin = async () => {
     setLoading(true);
     try {
-      const token = await loginApi(email, password);
-      await storeToken(token); 
+      const { token, userId } = await loginApi(email, password);
+      await storeToken(token);
+      await storeUserId(userId); // Stocke l'ID utilisateur dans le stockage sécurisé
       router.push('../../(tabs)/searchBivouacList');
     } catch (error) {
       Alert.alert('Login failed', (error as Error).message);
@@ -27,6 +30,7 @@ export default function Login() {
       setLoading(false);
     }
   };
+  
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
