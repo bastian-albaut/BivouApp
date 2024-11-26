@@ -43,11 +43,11 @@ export default function BivouacItem({ item }: { item: any }) {
                 <View>
                     <Text style={styles.bivouacTitle}>{item.name}</Text>
                     {/* <Text style={styles.bivouacAddress}>{`${item.address.number} ${item.address.street}, ${item.address.city}, ${item.address.postalCode}`}</Text> */}
-                    <Text style={styles.bivouacAddress}>Test addresse blablablaa</Text>
+                    <Text style={styles.bivouacAddress}>{item.address ? `${item.address.number} ${item.address.street}, ${item.address.city} ${item.address.postalCode}`:'Privé'}</Text>
                     <View style={styles.bivouacViewHost}>
                         <FontAwesome style={styles.bivouacHostIcon} name="user-circle" size={20} color="black" />
                         {/* <Text style={styles.bivouacHost}>{item.host.name}</Text> */}
-                        <Text style={styles.bivouacHost}>Test Host</Text>
+                        <Text style={styles.bivouacHost}>{item.host ? item.host.first_name + ' ' + item.host.last_name:'Anonyme'}</Text>
                     </View>
                 </View>
             </View>
