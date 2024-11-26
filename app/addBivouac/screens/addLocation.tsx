@@ -14,9 +14,10 @@ const AddLocation: React.FC = () => {
 	const dispatch = useDispatch();
 	const navigation = useNavigation<StackNavigationProp<AddStackParamList, 'AddLocation'>>();
 
+	const [street, setStreet] = useState('');
+	const [num, setNum] = useState('');
 	const [city, setCity] = useState('');
 	const [postalCode, setPostalCode] = useState('');
-	const [street, setStreet] = useState('');
 	const [latitude, setLatitude] = useState('');
 	const [longitude, setLongitude] = useState('');
 
@@ -28,23 +29,24 @@ const AddLocation: React.FC = () => {
 	const handleNextPress = () => {
 
 		// Vérification si aucun champ n'est rempli
-		if (!city && !postalCode && !street && !latitude && !longitude) {
+		if (!num && !city && !postalCode && !street && !latitude && !longitude) {
 			Alert.alert(t('common:warning'), t('addBivouac:addLocation.giveAddress'));
 			return;
 		}
 
 		// Vérification de la validité des données avant de passer à l'étape suivante
-		const addressFilled = city && postalCode && street;
+		const addressFilled = city && postalCode && street && num;
 		const coordinatesFilled = latitude && longitude;
 
-		if ((addressFilled && !(latitude || longitude)) || (coordinatesFilled && !(city || postalCode || street))) {
+		if ((addressFilled && !(latitude || longitude)) || (coordinatesFilled && !(city || postalCode || street || num))) {
 			// Dispatch action pour mettre à jour Redux avec les informations de localisation
 			dispatch(updateLocation({
-			city: city,
-			postalCode: postalCode,
-			street: street,
-			latitude: latitude,
-			longitude: longitude,
+				num: num,
+				street: street,
+				city: city,
+				postalCode: postalCode,
+				latitude: latitude,
+				longitude: longitude,
 			}));
 
 			// Naviguer vers la page suivante
@@ -71,6 +73,19 @@ const AddLocation: React.FC = () => {
 		<Text style={styles.section}>{t('addBivouac:addLocation.address')}</Text>
 		<TextInputComponent
 			icon="map-marker"
+			placeholder={t('addBivouac:addLocation.num')}
+			value={num}
+			onChangeText={setNum}
+			keyboardType="numeric"
+		/>
+		<TextInputComponent
+			icon="map-marker"
+			placeholder={t('addBivouac:addLocation.street')}
+			value={street}
+			onChangeText={setStreet}
+		/>
+		<TextInputComponent
+			icon="map-marker"
 			placeholder={t('addBivouac:addLocation.city')}
 			value={city}
 			onChangeText={setCity}
@@ -81,12 +96,6 @@ const AddLocation: React.FC = () => {
 			value={postalCode}
 			onChangeText={setPostalCode}
 			keyboardType="numeric"
-		/>
-		<TextInputComponent
-			icon="map-marker"
-			placeholder={t('addBivouac:addLocation.street')}
-			value={street}
-			onChangeText={setStreet}
 		/>
 		<View style={styles.separator}>
 			<View style={styles.line} />
