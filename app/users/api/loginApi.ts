@@ -2,7 +2,7 @@
 const BASE_URL = 'http://ms-user.cluster-ig5.igpolytech.fr:8080/api';
 
 export const loginApi = async (email: string, password: string): Promise<{ token: string; userId: number }> => {
-  const response = await fetch(`${BASE_URL}/login`, {
+  const response = await fetch(`${BASE_URL}/users/login`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
