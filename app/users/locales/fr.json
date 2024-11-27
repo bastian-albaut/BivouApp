@@ -20,6 +20,10 @@
     "signUpFailed": "Inscription échouée",
     "passwordMismatch": "Mots de passe différents",
     "passwordMismatchMessage": "Les mots de passe ne correspondent pas.",
-    "loading": "Chargement..."
+    "loading": "Chargement...",
+    "updateSuccessTitle": "Mise à jour réussie",
+    "updateSuccessMessage": "Vos informations ont été mises à jour avec succès.",
+    "updateErrorTitle": "Mise à jour échouée",
+    "updateErrorMessage": "Une erreur est survenue lors de la mise à jour de vos informations. Veuillez réessayer plus tard."
 }
   

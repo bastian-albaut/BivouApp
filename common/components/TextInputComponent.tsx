@@ -8,8 +8,6 @@ export default function TextInputComponent(props: any) {
   const animatedLabelPosition = useRef(new Animated.Value(0)).current;
   const multiline = props.multiline || false;
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-
-  
   
   useEffect(() => {
     Animated.timing(animatedLabelPosition, {
