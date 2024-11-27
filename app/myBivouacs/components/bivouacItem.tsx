@@ -18,8 +18,7 @@ export default function BivouacItem({ item }: { item: any }) {
 
     // Handle Delete Action
     const handleDelete = () => {
-        console.log(`Deleting bivouac with ID: ${item.id}`);
-        // Add your delete logic here
+        console.log(`Deleting bivouac with ID: ${item.bivouacId}`);
     };
 
     return (
@@ -29,19 +28,19 @@ export default function BivouacItem({ item }: { item: any }) {
             router.push({
                 pathname: '/reservationBivouacs/screens/detailBivouac',
                 params: {
-                    itemId: item.id
+                    itemId: item.bivouacId
                 },
             })}
         >
             <View style={styles.bivouacItem}>
                 {/* Image Section */}
                 <View style={styles.imageContainer}>
-                    <Image source={{ uri: item.photos[0] }} style={styles.bivouacImage} resizeMode="cover" />
+                    <Image source={{ uri: "https://picsum.photos/200/300" }} style={styles.bivouacImage} resizeMode="cover" />
                 </View>
 
                 {/* Information and Action Section */}
                 <View style={styles.informationContainer}>
-                    <Text style={styles.bivouacTitle}>{item.name}</Text>
+                    <Text style={styles.bivouacTitle}>{item.name ? item.name : 'Pas de nom'}</Text>
                     
                     {/* Delete Button */}
                     <View style={styles.actionContainer}>
