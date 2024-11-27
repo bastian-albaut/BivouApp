@@ -20,8 +20,8 @@ export const fetchUsers = createAsyncThunk('users/fetchUsers', async () => {
   return response;
 });
 
-export const fetchUserById = createAsyncThunk('users/fetchUserById', async (id: number) => {
-  const response = await getUserById(id);
+export const fetchUserById = createAsyncThunk('users/fetchUserById', async ({ id, token }: { id: number; token: string }) => {
+  const response = await getUserById(id, token);
   return response;
 });
 

@@ -8,7 +8,7 @@ import Colors from '@/common/constants/Colors';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/common/store/store';
 import { fetchUserById, updateUser } from '@/common/store/slices/usersSlice';
-import { getUserId } from '@/common/utils/authStorage';
+import { getToken, getUserId } from '@/common/utils/authStorage';
 
 export default function PersonalInformation() {
   const { t } = useTranslation();
@@ -29,7 +29,11 @@ export default function PersonalInformation() {
         if (!userId) {
           throw new Error('User ID not found');
         }
-        await dispatch(fetchUserById(userId)).unwrap();
+        const token = await getToken();
+        if (!token) {
+          throw new Error('Token not found');
+        }
+        await dispatch(fetchUserById({ id: userId, token })).unwrap();
       } catch (err) {
         console.error('Error fetching user data:', err);
         Alert.alert(t('common:error'), t('users:fetchUserError'));
@@ -40,6 +44,7 @@ export default function PersonalInformation() {
 
   useEffect(() => {
     if (selectedUser) {
+      console.log('selectedUser', selectedUser);
       setSurname(selectedUser.surname || '');
       setName(selectedUser.name || '');
       setEmail(selectedUser.email || '');
@@ -86,7 +91,7 @@ export default function PersonalInformation() {
         />
         <TextInputComponent
           icon="user"
-          placeholder={"michelllllllllll"}
+          placeholder={t('users:name')}
           value={name}
           onChangeText={setName}
           secureTextEntry={false}

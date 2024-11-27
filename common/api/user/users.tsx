@@ -4,8 +4,12 @@ export const getUsers = async () => {
   return await apiClient('users');
 };
 
-export const getUserById = async (id: number) => {
-  return await apiClient(`users/${id}`);
+export const getUserById = async (id: number, token: string) => {
+  return await apiClient(`users/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 };
 
 export const putUser = async (userData: any) => {
