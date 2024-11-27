@@ -5,7 +5,8 @@ export const apiClient = async (endpoint: string, options: RequestInit = {}) => 
     throw new Error(`Error: ${response.body}`);
   }
 
-  if(response.status === 204) {
+  // If no content, return empty object
+  if (response.status === 204) {
     return {};
   }
 
