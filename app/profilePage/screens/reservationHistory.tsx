@@ -31,16 +31,30 @@ export default function ReservationHistory() {
     dispatch(fetchAllBivouacData());
   }, [dispatch]);
 
-  // Merge reservation with bivouac details and filter by user
-  const mergedReservations = (reservations || [])
-    .filter((reservation) => reservation.userId === currentUserId) // Filter for current user
-    .map((reservation) => {
-      const bivouac = (bivouacs || []).find((b) => b.id === reservation.bivouacId);
-      return {
-        ...reservation,
-        bivouac, // Add bivouac details to the reservation
-      };
-    });
+  const mergeAndFilterReservationsByUser = (reservations: any[], bivouacs: any[], currentUserId: number | null) => {
+    if (!reservations || !bivouacs) {
+      console.warn("Reservations or Bivouacs data is missing.");
+      return [];
+    }
+  
+    return reservations
+      .filter((reservation) => reservation.userId === currentUserId) // Filter by current user
+      .map((reservation) => {
+        const bivouac = bivouacs.find((b) => b.bivouacId === reservation.bivouacId);
+  
+        if (!bivouac) {
+          console.warn(`Bivouac with ID ${reservation.bivouacId} not found.`);
+        }
+  
+        return {
+          ...reservation,
+          bivouac: bivouac || null, // Attach bivouac details, or null if not found
+        };
+      });
+  };
+  
+
+  const mergedReservations = mergeAndFilterReservationsByUser(reservations, bivouacs, currentUserId);
 
   const renderReservation = ({ item }: { item: any }) => {
     const { bivouac } = item;
