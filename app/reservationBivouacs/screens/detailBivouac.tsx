@@ -16,7 +16,6 @@ export default function DetailBivouac() {
   const params = useLocalSearchParams();
   const { itemId } = params;
   const id = Array.isArray(itemId) ? Number(itemId[0]) : Number(itemId);
-  console.log(id);
 
   // Redux store access
   const dispatch = useDispatch<AppDispatch>();
