@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useRouter } from 'expo-router';
 import TextInputComponent from '../../../common/components/TextInputComponent';
 import ButtonComponent from '../../../common/components/ButtonComponent';
-import { registerApi } from '../api/registerApi';
+import registerApi from '../api/registerApi';
 import Colors from '@/common/constants/Colors';
 
 export default function SignUp() {

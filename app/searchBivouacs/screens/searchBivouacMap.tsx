@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef  } from 'react';
 import { View, TextInput, FlatList, Text, TouchableOpacity, StyleSheet, Alert, Keyboard } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import axios from 'axios';
@@ -7,25 +7,23 @@ import { useTranslation } from 'react-i18next';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import * as Location from 'expo-location'; // Importer expo-location
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchBivouacs } from '../../../common/store/slices/bivouacsSlice';
+import { fetchAllBivouacData } from '@/common/api/bivouac/bivouacsApi';
 import { AppDispatch, RootState } from '@/common/store/store';
 import BivouacItemMap from '../components/bivouacItemMap';
 
-
-
 export default function SearchBivouacMap() {
-
-
   const [city, setCity] = useState('');
   const [suggestions, setSuggestions] = useState<any[]>([]);
-  const [location, setLocation] = useState({ latitude: 48.8566, longitude: 2.3522 }); // Coordonnées par défaut (Paris)
+  const [location, setLocation] = useState({ latitude: 48.8566, longitude: 2.3522 });
+  const [selectedBivouacIndex, setSelectedBivouacIndex] = useState<number | null>(null);
   const { t } = useTranslation();
 
   // Redux store access
   const dispatch = useDispatch<AppDispatch>();
   const { data, loading, error } = useSelector((state: RootState) => state.bivouacs);
+
   useEffect(() => {
-    dispatch(fetchBivouacs());
+    dispatch(fetchAllBivouacData());
   }, [dispatch]);
 
   // Search functionality
@@ -61,7 +59,6 @@ export default function SearchBivouacMap() {
     }
   };
 
-  // Fonction pour formater les résultats et afficher uniquement la ville et la région
   const formatSuggestion = (item: any) => {
     const city = item.address.city || item.address.town || item.address.village || '';
     const state = item.address.state || '';
@@ -71,7 +68,6 @@ export default function SearchBivouacMap() {
     return `${city}, ${state}`;
   };
 
-  // Quand l'utilisateur sélectionne une suggestion
   const selectSuggestion = (suggestion: any) => {
     const formattedCity = formatSuggestion(suggestion);
     const { lat, lon } = suggestion;
@@ -80,7 +76,6 @@ export default function SearchBivouacMap() {
     setSuggestions([]);
   };
 
-  // Utiliser useEffect pour demander la localisation lors du lancement
   useEffect(() => {
     const getLocationPermission = async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
@@ -99,6 +94,13 @@ export default function SearchBivouacMap() {
     getLocationPermission();
   }, []);
 
+  const flatListRef = useRef<FlatList>(null);
+
+  const handleMarkerPress = (index: number) => {
+    setSelectedBivouacIndex(index);
+    flatListRef.current?.scrollToIndex({ index, animated: true });
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.searchContainer}>
@@ -110,8 +112,6 @@ export default function SearchBivouacMap() {
           value={city}
           onChangeText={searchSuggestions}
         />
-
-
       </View>
 
       {suggestions.length > 0 && (
@@ -128,12 +128,21 @@ export default function SearchBivouacMap() {
       )}
 
       <View style={styles.bivouacList}>
-        <FlatList
-          data={filteredBivouacs}
-          horizontal={true}
-          renderItem={({ item }) => <BivouacItemMap item={item} />}
-          keyExtractor={(item) => item.id.toString()}
-        />
+        {/* Affichage de la liste des bivouacs */}
+        {filteredBivouacs.length === 0 ? (
+          <Text>No data</Text>
+        ) : (
+          <FlatList
+            ref={flatListRef}
+            data={filteredBivouacs}
+            horizontal={true}
+            renderItem={({ item, index }) => (
+              item?.bivouacId ? <BivouacItemMap item={item} isSelected={index === selectedBivouacIndex} /> : null
+            )}
+            keyExtractor={(item) => item?.bivouacId.toString()}
+            initialScrollIndex={selectedBivouacIndex}
+          />
+        )}
       </View>
 
       <MapView
@@ -145,10 +154,27 @@ export default function SearchBivouacMap() {
           longitudeDelta: 0.05,
         }}
         onPress={() => {
-          Keyboard.dismiss(); // Fermer le clavier ici
+          Keyboard.dismiss();
         }}
       >
         <Marker coordinate={location} title="Votre position" />
+        {filteredBivouacs.map((bivouac, index) => {
+          if (bivouac.address && bivouac.address.latitude && bivouac.address.longitude) {
+            return (
+              <Marker
+                key={index}
+                coordinate={{
+                  latitude: parseFloat(bivouac.address.latitude),
+                  longitude: parseFloat(bivouac.address.longitude),
+                }}
+                title={bivouac.name}
+                description={bivouac.description}
+                onPress={() => handleMarkerPress(index)}
+              />
+            );
+          }
+          return null;
+        })}
       </MapView>
     </View>
   );

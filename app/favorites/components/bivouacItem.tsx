@@ -22,24 +22,24 @@ export default function BivouacItem({ item }: { item: any }) {
             router.push({
                 pathname: '/reservationBivouacs/screens/detailBivouac',
                 params: {
-                    itemId: item.id
+                    itemId: item.bivouacId
                 },
             })}
         >
             <View style={styles.bivouacItem}>
                 <View style={styles.imageContainer}>
-                    <Image source={{ uri: item.photos[0] }} style={styles.bivouacImage} resizeMode="cover" />
+                    <Image source={{ uri: "https://picsum.photos/200/300" }} style={styles.bivouacImage} resizeMode="cover" />
                     <TouchableOpacity onPress={toggleFavorite} style={styles.favoriteIcon}>
                         <FontAwesome name="heart" size={28} color={isFavorited ? "red" : "gray"} />
                     </TouchableOpacity>
                 </View>
 
                 <View style={styles.informationContainer}>
-                    <Text style={styles.bivouacTitle}>{item.name}</Text>
-                    <Text style={styles.bivouacAddress}>{`${item.address.number} ${item.address.street}, ${item.address.city}, ${item.address.postalCode}`}</Text>
+                    <Text style={styles.bivouacTitle}>{item.name ? item.name : 'Pas de nom'}</Text>
+                    <Text style={styles.bivouacAddress}>{item.address ? `${item.address.number} ${item.address.street}, ${item.address.city} ${item.address.postalCode}`:'Privé'}</Text>
                     <View style={styles.bivouacViewHost}>
                         <FontAwesome style={styles.bivouacHostIcon} name="user-circle" size={20} color="black" />
-                        <Text style={styles.bivouacHost}>{item.host.name}</Text>
+                        <Text style={styles.bivouacHost}>{item.host ? item.host.first_name + ' ' + item.host.last_name:'Anonyme'}</Text>
                     </View>
                 </View>
             </View>
