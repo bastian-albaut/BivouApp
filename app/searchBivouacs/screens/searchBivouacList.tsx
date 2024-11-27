@@ -24,7 +24,6 @@ export default function SearchBivouacList() {
     }
   }, [status, dispatch]);
 
-
   // Fonctionnalité de recherche
   const [searchQuery, setSearchQuery] = useState('');
   const filteredBivouacs = data ? data.filter((bivouac) =>
