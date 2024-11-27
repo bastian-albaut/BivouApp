@@ -1,5 +1,6 @@
 {
   "expo": {
+    "newArchEnabled": true,
     "name": "BivouApp",
     "slug": "BivouApp",
     "version": "1.0.0",

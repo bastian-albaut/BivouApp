@@ -3,7 +3,7 @@ import axios from 'axios';
 // TO-DO: Mettre cette valeur dans une variable d'environnement.
 const BASE_URL = 'http://ms-user.cluster-ig5.igpolytech.fr:8080/api';
 
-export const registerApi = async (email: string, password: string) => {
+const registerApi = async (email: string, password: string) => {
   console.log('Attempting to register with email:', email, password); // Log pour vérifier les données envoyées
 
   try {
@@ -29,3 +29,5 @@ export const registerApi = async (email: string, password: string) => {
     }
   }
 };
+
+export default registerApi;
