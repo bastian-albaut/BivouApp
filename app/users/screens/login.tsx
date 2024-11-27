@@ -5,7 +5,7 @@ import { useRouter } from 'expo-router';
 import TextInputComponent from '../../../common/components/TextInputComponent';
 import ButtonComponent from '../../../common/components/ButtonComponent';
 import { loginApi } from '../api/loginApi';
-import { storeToken, storeUserId } from '@/common/utils/authStorage'; // Ajoute une fonction pour stocker l'ID utilisateur
+import { storeToken, storeUserId } from '@/common/utils/authStorage';
 import Colors from '@/common/constants/Colors';
 
 export default function Login() {
@@ -14,7 +14,6 @@ export default function Login() {
   const { t } = useTranslation();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-
 
   const handleLogin = async () => {
     setLoading(true);
