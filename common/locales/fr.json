@@ -24,5 +24,6 @@
     "logOut": "Se déconnecter",
     "nextTrip": "Vos prochains voyages",
     "yes": "Oui",
-    "no": "Non"
+    "no": "Non",
+    "noUpcomingTrips": "Vous n'avez pas de voyages à venir."
 }

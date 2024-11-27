@@ -10,6 +10,9 @@
     "yourRightsSubtitle": "Your rights",
     "yourRightsContent": "We do not sell, trade or otherwise transfer your personally identifiable information to third parties. This does not include trusted third parties who assist us in operating our website or conducting our business, so long as those parties agree to keep this information confidential. We believe it is necessary to share information in order to investigate, prevent, or take action regarding illegal activities, suspected fraud, situations involving potential threats to the physical safety of any person, violations of our terms of use, or when required by law. However, non-personally identifiable information may be provided to other parties for marketing, advertising or other uses.",
     "modifyDataSubtitle": "Modification",
-    "modifyDataContent": "We reserve the right to modify this privacy policy at any time. Any changes will be displayed directly in the application."
-
+    "modifyDataContent": "We reserve the right to modify this privacy policy at any time. Any changes will be displayed directly in the application.",
+    "unknownBivouac": "Unknown Bivouac",
+    "fetchError": "An error occurred while fetching the data. Please try again later.",
+    "historyTitle": "History of reservations",
+    "noReservations": "You have no reservations yet."
 }

@@ -6,7 +6,8 @@ const Colors = {
   secondary: '#938C6C',
   white: '#F0EAD9', 
   black: '#22211F',
-  lightgray: '#d3d3bf',
+  lightGrey: '#d3d3bf',
+  grey: '#8a8a8a',
   red: '#d0341e',
 };
 

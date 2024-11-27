@@ -1,8 +1,7 @@
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { fetchAllBivouacData, getBivouacById, getBivouacs } from '../../api/bivouac/bivouacsApi';
-import { CombinedBivouac } from './type';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { fetchAllBivouacData } from '../../api/bivouac/bivouacsApi';
 
-interface BivouacState {
+export interface BivouacState {
   num: string | null;
   street: string | null;
   city: string | null;
@@ -45,7 +44,6 @@ const initialState: BivouacState = {
   error: null,
   status: 'idle',
 };
-
 
 const bivouacSlice = createSlice({
   name: 'bivouac',

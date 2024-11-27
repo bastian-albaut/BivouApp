@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
   },
   bar: {
     height: '100%',
-    backgroundColor: Colors.lightgray,
+    backgroundColor: Colors.lightGrey,
     borderTopLeftRadius: 4,
     borderBottomLeftRadius: 4,
   },
