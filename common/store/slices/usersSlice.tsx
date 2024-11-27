@@ -25,8 +25,8 @@ export const fetchUserById = createAsyncThunk('users/fetchUserById', async ({ id
   return response;
 });
 
-export const updateUser = createAsyncThunk('users/updateUser', async (userData: any) => {
-  const response = await putUser(userData);
+export const updateUser = createAsyncThunk('users/updateUser', async ({ userData, userId, token }: { userData: any; userId: number; token: string }) => {
+  const response = await putUser(userData, userId, token);
   return response;
 });
 

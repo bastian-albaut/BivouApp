@@ -20,7 +20,11 @@ export default function PersonalInformation() {
 
   // Redux store access
   const dispatch = useDispatch<AppDispatch>();
-  const { selectedUser, loading, error } = useSelector((state: RootState) => state.users);
+  const { selectedUser, loading, error } = useSelector((state: RootState) => state.users) as {
+    selectedUser: any;
+    loading: boolean;
+    error: string | null;
+  };
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -45,10 +49,10 @@ export default function PersonalInformation() {
   useEffect(() => {
     if (selectedUser) {
       console.log('selectedUser', selectedUser);
-      setSurname(selectedUser.surname || '');
-      setName(selectedUser.name || '');
+      setSurname(selectedUser.last_name || '');
+      setName(selectedUser.first_name || '');
       setEmail(selectedUser.email || '');
-      setPhone(selectedUser.phone || '');
+      setPhone(selectedUser.phone_number || '');
     }
   }, [selectedUser]);
 
@@ -58,14 +62,21 @@ export default function PersonalInformation() {
       if (!userId) {
         throw new Error('User ID not found');
       }
+      const token = await getToken();
+      if (!token) {
+        throw new Error('Token not found');
+      }
 
       await dispatch(
         updateUser({
+          userData: {
+            lastName: surname,
+            firstName: name,
+            email,
+            emailNumber: phone,
+          },
           userId,
-          surname,
-          name,
-          email,
-          phone,
+          token
         })
       ).unwrap();
 
@@ -73,7 +84,7 @@ export default function PersonalInformation() {
       router.push('../../(tabs)/profilePage');
     } catch (err) {
       console.error('Error updating user:', err);
-      Alert.alert(t('common:updateErrorTitle'), t('users:updateErrorMessage'));
+      Alert.alert(t('users:updateErrorTitle'), t('users:updateErrorMessage'));
     }
   };
 
