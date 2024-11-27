@@ -53,9 +53,9 @@ const AddPrice: React.FC = () => {
 				if (hostId !== null) {
 					try {
 						console.log('trying to create a Address');
-						const { num, street, city, postalCode } = bivouacDataFromStore;
+						const { num: number, street, city, postalCode } = bivouacDataFromStore;
 						const addressData = { 
-							num, 
+							number, 
 							street, 
 							city,
 							postalCode
