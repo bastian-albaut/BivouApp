@@ -46,15 +46,6 @@ const initialState: BivouacState = {
   status: 'idle',
 };
 
-export const fetchBivouacs = createAsyncThunk('bivouacs/fetchBivouacs', async () => {
-  const response = await getBivouacs();
-  return response;
-});
-
-export const fetchBivouacById = createAsyncThunk('bivouacs/fetchBivouacById', async (id: number) => {
-  const response = await getBivouacById(id);
-  return response;
-});
 
 const bivouacSlice = createSlice({
   name: 'bivouac',
@@ -92,28 +83,6 @@ const bivouacSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchBivouacs.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(fetchBivouacs.fulfilled, (state, action) => {
-        state.loading = false;
-        state.data = action.payload;
-      })
-      .addCase(fetchBivouacs.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.error.message || 'Error fetching bivouacs';
-      })
-      .addCase(fetchBivouacById.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(fetchBivouacById.fulfilled, (state, action) => {
-        state.loading = false;
-        const bivouac = action.payload;
-      })
-      .addCase(fetchBivouacById.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.error.message || 'Error fetching bivouac by ID';
-      })
       .addCase(fetchAllBivouacData.pending, (state) => {
         state.status = 'loading';
       })
