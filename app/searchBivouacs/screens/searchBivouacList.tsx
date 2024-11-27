@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { FlatList, StyleSheet, TextInput, View, Text, Pressable, Button, Dimensions, TouchableOpacity } from 'react-native';
+import { FlatList, StyleSheet, TextInput, View, Text } from 'react-native';
 import { fetchAllBivouacData } from '@/common/api/bivouac/bivouacsApi';
 import { RootState, AppDispatch } from '../../../common/store/store';
 import { useTranslation } from 'react-i18next';
@@ -8,31 +8,75 @@ import BivouacItem from '../components/bivouacItem';
 import Colors from "@/common/constants/Colors";
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import CustomIconButton from '@/common/components/customIconButton';
+import { getUserId } from '@/common/utils/authStorage';
+import { fetchFavouritesByUserId, newFavourite, removeFavourite } from '@/common/store/slices/favouritesSlice';
 import { useRouter } from 'expo-router';
-
 
 export default function SearchBivouacList() {
   const dispatch = useDispatch<AppDispatch>();
+  const router = useRouter();
+  const [currentUserId, setCurrentUserId] = useState<number | null>(null);
 
-  // Accès aux données du Redux store
-  const { data, status, error } = useSelector((state: RootState) => state.bivouacs);
+  // Redux state
+  const { data: bivouacs, status, error } = useSelector((state: RootState) => state.bivouacs);
+  const { data: favourites } = useSelector((state: RootState) => state.favourites);
 
-  // Effet pour charger les données
+  const [mergedBivouacs, setMergedBivouacs] = useState<any[]>([]);
+  const [searchQuery, setSearchQuery] = useState('');
+
+  // Fetch user ID and initial data
   useEffect(() => {
+    const fetchCurrentUser = async () => {
+      const userId = await getUserId();
+      setCurrentUserId(Number(userId));
+    };
+
+    fetchCurrentUser();
     if (status === 'idle') {
       dispatch(fetchAllBivouacData());
     }
-  }, [status, dispatch]);
+  }, [dispatch, status]);
 
+  useEffect(() => {
+    if (currentUserId) {
+      dispatch(fetchFavouritesByUserId(currentUserId));
+    }
+  }, [dispatch, currentUserId]);
 
-  // Fonctionnalité de recherche
-  const [searchQuery, setSearchQuery] = useState('');
-  const filteredBivouacs = data ? data.filter((bivouac) =>
+  // Merge bivouacs with favorites
+  useEffect(() => {
+    if (bivouacs && favourites) {
+      const merged = bivouacs.map((bivouac) => ({
+        ...bivouac,
+        isFavorited: favourites.some((fav) => fav.id.bivouacId === bivouac.bivouacId),
+      }));
+      setMergedBivouacs(merged);
+    }
+  }, [bivouacs, favourites]);
+
+  // Toggle favorite status
+  const toggleFavorite = (bivouacId: number, isFavorited: boolean) => {
+    const updatedBivouacs = mergedBivouacs.map((bivouac) =>
+      bivouac.bivouacId === bivouacId ? { ...bivouac, isFavorited: !isFavorited } : bivouac
+    );
+
+    setMergedBivouacs(updatedBivouacs);
+
+    if (currentUserId) {
+      if (isFavorited) {
+        dispatch(removeFavourite({ userId: currentUserId, bivouacId }));
+      } else {
+        dispatch(newFavourite({ userId: currentUserId, bivouacId }));
+      }
+    }
+  };
+
+  // Filter bivouacs by search query
+  const filteredBivouacs = mergedBivouacs.filter((bivouac) =>
     bivouac.name.toLowerCase().includes(searchQuery.toLowerCase())
-  ) : [];
+  );
 
   const { t } = useTranslation();
-  const router = useRouter();
 
   return (
     <View style={styles.container}>
@@ -50,25 +94,21 @@ export default function SearchBivouacList() {
         </View>
       </View>
 
-      {/* Affichage des états de chargement ou d'erreur */}
       {status === 'loading' && <Text>Loading...</Text>}
       {error && <Text>Error: {error}</Text>}
 
-      {/* Affichage de la liste des bivouacs */}
-      {filteredBivouacs.length === 0 ? (
-        <Text>No data</Text>
-      ) : (
-        <FlatList
-          data={filteredBivouacs}
-          renderItem={({ item }) => (
-            item?.bivouacId ? <BivouacItem item={item} /> : null
-          )}
-          keyExtractor={(item) => item?.bivouacId.toString()}
-          contentContainerStyle={styles.list}
-        />
-      )}
+      <FlatList
+        data={filteredBivouacs}
+        renderItem={({ item }) => (
+          <BivouacItem
+            item={item}
+            onToggleFavorite={() => toggleFavorite(item.bivouacId, item.isFavorited)}
+          />
+        )}
+        keyExtractor={(item) => item.bivouacId.toString()}
+        contentContainerStyle={styles.list}
+      />
 
-      {/* Bouton pour accéder à la carte */}
       <View style={styles.containerButton}>
         <CustomIconButton
           title={t('searchBivouacs:map_button')}
@@ -79,7 +119,6 @@ export default function SearchBivouacList() {
     </View>
   );
 }
-
 
 const styles = StyleSheet.create({
   container: {
@@ -112,9 +151,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   list: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 20,
     paddingBottom: 20,
   },
   containerButton: {
@@ -125,22 +161,4 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
   },
-  mapButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 10,
-    paddingHorizontal: 20,
-    backgroundColor: Colors.green1,
-    borderRadius: 10,
-    paddingVertical: 15,
-    elevation: 5, 
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.3,
-    shadowRadius: 3,
-  },
-  mapButtonText: {
-    color: Colors.white,
-    fontSize: 18,
-  }
 });
