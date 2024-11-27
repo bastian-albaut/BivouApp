@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, StyleSheet, ActivityIndicator, Alert } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
@@ -6,10 +6,12 @@ import { AppDispatch, RootState } from '@/common/store/store';
 import { fetchReservations } from '@/common/store/slices/reservationsSlice';
 import { fetchBivouacs } from '@/common/store/slices/bivouacsSlice';
 import Colors from '@/common/constants/Colors';
+import { getUserId } from '@/common/utils/authStorage';
 
 export default function ReservationHistory() {
   const { t } = useTranslation();
   const dispatch = useDispatch<AppDispatch>();
+  const [currentUserId, setCurrentUserId] = useState<number | null>(null);
 
   const { data: reservations, loading: reservationsLoading, error: reservationsError } = useSelector(
     (state: RootState) => state.reservations
@@ -19,18 +21,26 @@ export default function ReservationHistory() {
   );
 
   useEffect(() => {
+    const fetchCurrentUser = async () => {
+      const userId = await getUserId();
+      setCurrentUserId(Number(userId));
+    };
+
+    fetchCurrentUser();
     dispatch(fetchReservations());
     dispatch(fetchBivouacs());
   }, [dispatch]);
 
-  // Merge reservation with bivouac details
-  const mergedReservations = (reservations || []).map((reservation) => {
-    const bivouac = (bivouacs || []).find((b) => b.id === reservation.bivouacId);
-    return {
-      ...reservation,
-      bivouac, // Add bivouac details to the reservation
-    };
-  });
+  // Merge reservation with bivouac details and filter by user
+  const mergedReservations = (reservations || [])
+    .filter((reservation) => reservation.userId === currentUserId) // Filter for current user
+    .map((reservation) => {
+      const bivouac = (bivouacs || []).find((b) => b.id === reservation.bivouacId);
+      return {
+        ...reservation,
+        bivouac, // Add bivouac details to the reservation
+      };
+    });
 
   const renderReservation = ({ item }: { item: any }) => {
     const { bivouac } = item;
