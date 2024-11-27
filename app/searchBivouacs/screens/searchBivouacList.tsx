@@ -9,13 +9,15 @@ import Colors from "@/common/constants/Colors";
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import CustomIconButton from '@/common/components/customIconButton';
 import { useRouter } from 'expo-router';
-
+import { fetchAllEquipments } from '@/common/store/slices/equipmentSlice';
 
 export default function SearchBivouacList() {
   const dispatch = useDispatch<AppDispatch>();
 
   // Accès aux données du Redux store
   const { data, status, error } = useSelector((state: RootState) => state.bivouacs);
+  const { dataEquipment, loadingEquipment, errorEquipment } = useSelector((state: RootState) => state.equipments);
+
 
   // Effet pour charger les données
   useEffect(() => {
@@ -24,11 +26,40 @@ export default function SearchBivouacList() {
     }
   }, [status, dispatch]);
 
-  // Fonctionnalité de recherche
+  useEffect(() => {
+    dispatch(fetchAllEquipments());
+  }, [dispatch]);
+
+
+  // Fonctionnalité de recherche et filtres
   const [searchQuery, setSearchQuery] = useState('');
-  const filteredBivouacs = data ? data.filter((bivouac) =>
-    bivouac.name.toLowerCase().includes(searchQuery.toLowerCase())
-  ) : [];
+  const [showFilterBox, setShowFilterBox] = useState(false);
+  const [selectedEquipments, setSelectedEquipments] = useState<Set<number>>(new Set());
+
+  // Bivouacs filtrés
+  const filteredBivouacs = data.filter((bivouac) => {
+    const matchesSearch = bivouac.name.toLowerCase().includes(searchQuery.toLowerCase());
+  
+    const matchesEquipment =
+      selectedEquipments.size === 0 || 
+      Array.from(selectedEquipments).every((selectedEquipId) => 
+        bivouac.equipments.some((equip: { equipmentId: number }) => equip.equipmentId === selectedEquipId)
+      );
+  
+    return matchesSearch && matchesEquipment;
+  });
+
+  const toggleEquipment = (equipmentId: number) => {
+    setSelectedEquipments((prev) => {
+      const newSet = new Set(prev);
+      if (newSet.has(equipmentId)) {
+        newSet.delete(equipmentId);
+      } else {
+        newSet.add(equipmentId);
+      }
+      return newSet;
+    });
+  };  
 
   const { t } = useTranslation();
   const router = useRouter();
@@ -45,9 +76,37 @@ export default function SearchBivouacList() {
             value={searchQuery}
             onChangeText={setSearchQuery}
           />
-          <FontAwesome name="filter" size={24} color="black" />
+          <FontAwesome
+            name="filter"
+            size={24}
+            color="black"
+            onPress={() => setShowFilterBox((prev) => !prev)}
+          />
         </View>
       </View>
+
+      {showFilterBox && (
+        <View style={styles.filterBox}>
+          <Text style={styles.filterTitle}>{t('searchBivouacs:filter_by_equipment')}</Text>
+          <View style={styles.filterGrid}>
+            {dataEquipment.map((item) => (
+              <TouchableOpacity
+                key={item.equipmentId}
+                onPress={() => toggleEquipment(item.equipmentId)}
+                style={[
+                  styles.filterBadge,
+                  selectedEquipments.has(item.equipmentId) && styles.selectedFilterBadge,
+                ]}
+              >
+                <FontAwesome name={item.icon} size={20} color={Colors.white} style={styles.filterIcon} />
+                <Text style={styles.filterBadgeText}>{item.label}</Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        </View>
+      )}
+
+
 
       {/* Affichage des états de chargement ou d'erreur */}
       {status === 'loading' && <Text>Loading...</Text>}
@@ -55,7 +114,7 @@ export default function SearchBivouacList() {
 
       {/* Affichage de la liste des bivouacs */}
       {filteredBivouacs.length === 0 ? (
-        <Text>No data</Text>
+        <Text style={styles.noDataText}>No bivouac corresponding</Text>
       ) : (
         <FlatList
           data={filteredBivouacs}
@@ -110,6 +169,61 @@ const styles = StyleSheet.create({
     color: Colors.black,
     flex: 1,
   },
+  noDataText: {
+    textAlign: 'center',
+    fontSize: 18,
+    color: Colors.black,
+    marginTop: 20,
+  },
+  filterBox: {
+    backgroundColor: '#f9f9f9',
+    padding: 15,
+    borderRadius: 10,
+    marginHorizontal: 10,
+    marginBottom: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 2,
+  },
+  filterTitle: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: Colors.black,
+    marginBottom: 10,
+    textAlign: 'center',
+  },
+  filterGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    gap: 10,
+  },
+  filterBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: Colors.black,
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    borderRadius: 20,
+    margin: 5,
+    borderWidth: 1,
+    borderColor: Colors.black,
+  },
+  selectedFilterBadge: {
+    backgroundColor: Colors.green1,
+    borderColor: Colors.green2,
+  },
+  filterBadgeText: {
+    fontSize: 14,
+    fontWeight: '500',
+    color: Colors.white,
+    marginLeft: 8,
+  },
+  filterIcon: {
+    marginRight: 5,
+  },
   list: {
     display: 'flex',
     flexDirection: 'column',
@@ -143,3 +257,4 @@ const styles = StyleSheet.create({
     fontSize: 18,
   }
 });
+

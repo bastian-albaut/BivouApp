@@ -124,7 +124,7 @@ export default function SearchBivouacMap() {
         <FontAwesome name="search" size={24} color={Colors.black} style={styles.searchIcon} />
         <TextInput
           style={styles.searchBar}
-          placeholder={t('searchBivouacs:search_bar')}
+          placeholder={t('searchBivouacs:search_bar_map')}
           placeholderTextColor={Colors.black}
           value={city}
           onChangeText={searchSuggestions}
