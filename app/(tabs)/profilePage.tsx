@@ -46,14 +46,6 @@ export default function ProfilePage() {
           <Icon name="angle-right" size={20} color="black" />
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => router.push("../profilePage/screens/yourPublications")} style={styles.profileLine}>
-          <View style={styles.lineTitle}>
-            <Icon name="clone" size={20} color="black" />
-            <Text style={styles.lineText}>{t("common:Announces")}</Text>
-          </View>
-          <Icon name="angle-right" size={20} color="black" />
-        </TouchableOpacity>
-
         <TouchableOpacity onPress={() => router.push("../profilePage/screens/reservationHistory")} style={styles.profileLine}>
           <View style={styles.lineTitle}>
             <Icon name="history" size={20} color="black" />
