@@ -17,7 +17,7 @@ export const addFavourite = async (data: any) => {
 
 export const deleteFavourite = async (data: any) => {
   return await apiClient('favourites', {
-    method: 'POST',
+    method: 'DELETE',
     body: JSON.stringify(data),
     headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${await getToken()}` },
   });

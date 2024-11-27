@@ -1,21 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { FlatList, StyleSheet, TextInput, View, Text, Pressable, Button, Dimensions, TouchableOpacity } from 'react-native';
+import { FlatList, StyleSheet, View, Text } from 'react-native';
 import { RootState, AppDispatch } from '../../../common/store/store';
 import { useTranslation } from 'react-i18next';
 import BivouacItem from '../components/bivouacItem';
 import Colors from "@/common/constants/Colors";
-import FontAwesome from '@expo/vector-icons/FontAwesome';
-import CustomIconButton from '@/common/components/customIconButton';
-import { useRouter } from 'expo-router';
-import { fetchFavouritesByUserId } from '@/common/store/slices/favouritesSlice';
+import { fetchFavouritesByUserId, newFavourite, removeFavourite } from '@/common/store/slices/favouritesSlice';
 import { getUserId } from '@/common/utils/authStorage';
 import { fetchAllBivouacData } from '@/common/api/bivouac/bivouacsApi';
 
 export default function Favorites() {
-  
   const dispatch = useDispatch<AppDispatch>();
-  const { data, loading, error } = useSelector((state: RootState) => state.favourites);
   const [currentUserId, setCurrentUserId] = useState<number | null>(null);
 
   const { data: favourites, loading: favouritesLoading, error: favouritesError } = useSelector(
@@ -25,14 +20,18 @@ export default function Favorites() {
     (state: RootState) => state.bivouacs
   );
 
+  const [mergedFavourites, setMergedFavourites] = useState<any[]>([]);
+
+  // Fetch current user ID
   useEffect(() => {
     const fetchCurrentUser = async () => {
-      const userId = await getUserId(); // Ensure getUserId retrieves the logged-in user ID
+      const userId = await getUserId();
       setCurrentUserId(Number(userId));
     };
     fetchCurrentUser();
   }, []);
 
+  // Fetch data for current user
   useEffect(() => {
     if (currentUserId) {
       dispatch(fetchFavouritesByUserId(currentUserId));
@@ -40,48 +39,59 @@ export default function Favorites() {
     }
   }, [dispatch, currentUserId]);
 
-  const mergeFavouritesWithBivouacs = (favourites: any[], bivouacs: any[]) => {
-    if (!favourites || !bivouacs) {
-      console.warn('Favourites or Bivouacs data is missing.');
-      return [];
+  // Handle removing a favorite
+  const handleRemoveFavorite = (bivouacId: number) => {
+    // Remove the bivouac locally first
+    const updatedFavourites = mergedFavourites.filter(
+      (item) => item.bivouac?.bivouacId !== bivouacId
+    );
+    setMergedFavourites(updatedFavourites);
+
+    // Dispatch the removal to the backend
+    if (currentUserId) {
+      dispatch(removeFavourite({ userId: currentUserId, bivouacId }));
     }
-
-    return favourites.map((favourite) => {
-      const bivouac = bivouacs.find((b) => b.bivouacId === favourite.id.bivouacId);
-
-      if (!bivouac) {
-        console.warn(`Bivouac with ID ${favourite.id.bivouacId} not found.`);
-      }
-
-      return {
-        ...favourite,
-        bivouac: bivouac || null, // Attach bivouac details, or null if not found
-      };
-    });
   };
 
-const mergedFavourites = mergeFavouritesWithBivouacs(favourites, bivouacs);
+  const [alreadyFetch, setAlreadyFetch] = useState(false);
 
+  // Update the useEffect for merging favourites
+  useEffect(() => {
+    if (favourites && bivouacs && !alreadyFetch) {
+      const merged = favourites.map((favourite) => {
+        const bivouac = bivouacs.find((b) => b.bivouacId === favourite.id.bivouacId);
+        return {
+          ...favourite,
+          bivouac: bivouac ? { ...bivouac, isFavorited: true } : null,
+        };
+      });
 
-  // Translation
+      // Keep the merged favorites in sync
+      setMergedFavourites(merged);
+      setAlreadyFetch(true);
+    }
+  }, [favourites, bivouacs]);
+
   const { t } = useTranslation();
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{t('favorites:title')}</Text>
 
-      {loading && <Text>Loading...</Text>}
-      {error && <Text>Error: {error}</Text>}
+      {favouritesLoading && <Text>Loading...</Text>}
+      {favouritesError && <Text>Error: {favouritesError}</Text>}
 
       <FlatList
         data={mergedFavourites}
         renderItem={({ item }) => (
-          <BivouacItem item={item.bivouac} /> // Pass the bivouac details to BivouacItem
+          <BivouacItem
+            item={item.bivouac}
+            onRemoveFavorite={() => handleRemoveFavorite(item.bivouac?.bivouacId)}
+          />
         )}
         keyExtractor={(item) => item.id.bivouacId.toString()}
         contentContainerStyle={styles.list}
       />
-
     </View>
   );
 }
@@ -101,54 +111,7 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     paddingLeft: 10,
   },
-  searchContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderColor: Colors.black,
-    borderWidth: 1,
-    borderRadius: 8,
-    marginHorizontal: 10,
-    marginBottom: 10,
-    paddingHorizontal: 10,
-  },
-  searchIcon: {
-    marginRight: 10,
-  },
-  searchBar: {
-    flex: 1,
-    height: 50,
-    color: Colors.black,
-  },
   list: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 20,
     paddingBottom: 20,
   },
-  containerButton: {
-    position: 'absolute',
-    bottom: 20,
-    left: 0,
-    right: 0,
-    flexDirection: 'row',
-    justifyContent: 'center',
-  },
-  mapButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 10,
-    paddingHorizontal: 20,
-    backgroundColor: Colors.green1,
-    borderRadius: 10,
-    paddingVertical: 15,
-    elevation: 5, // Adds shadow for Android
-    shadowColor: '#000', // Adds shadow for iOS
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.3,
-    shadowRadius: 3,
-  },
-  mapButtonText: {
-    color: Colors.white,
-    fontSize: 18,
-  }
 });
