@@ -3,6 +3,7 @@ import usersReducer from './slices/usersSlice';
 import bivouacsReducer from './slices/bivouacsSlice';
 import favouritesReducer from './slices/favouritesSlice';
 import reservationsReducer from './slices/reservationsSlice';
+import equipmentReducer from './slices/equipmentSlice';
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
     bivouacs: bivouacsReducer,
     favourites: favouritesReducer,
     reservations: reservationsReducer,
+    equipments: equipmentReducer,
   },
 });
 

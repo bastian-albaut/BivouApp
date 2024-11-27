@@ -27,7 +27,6 @@ const AddEquipment: React.FC = () => {
     };
     
     const handleNextPress = () => {
-        console.log(selectedEquipment);
         dispatch(updateEquipments({
             equipmentIds: selectedEquipment
         }));

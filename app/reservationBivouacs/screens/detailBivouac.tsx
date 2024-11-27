@@ -16,7 +16,6 @@ export default function DetailBivouac() {
   const params = useLocalSearchParams();
   const { itemId } = params;
   const id = Array.isArray(itemId) ? Number(itemId[0]) : Number(itemId);
-  console.log(id);
 
   // Redux store access
   const dispatch = useDispatch<AppDispatch>();
@@ -32,7 +31,6 @@ export default function DetailBivouac() {
     if(bivouacs.length > 0) {
       const foundBivouac = bivouacs.find((b) => b.bivouacId === id);
       setBivouac(foundBivouac);
-      console.log(foundBivouac);
     }
   }, [bivouacs]);
 
@@ -48,7 +46,7 @@ export default function DetailBivouac() {
       {bivouac ? (
         <ScrollView>
           {/* <ImageGallery images={bivouac.photos} /> */}
-          <BivouacInformations name={bivouac.name} price={bivouac.price} address={bivouac.address} rating={bivouac.rating} comments={bivouac.comments} host={bivouac.host} description={bivouac.description} equipment={bivouac.equipment} />
+          <BivouacInformations name={bivouac.name} price={bivouac.price} address={bivouac.address} rating={bivouac.rating} comments={bivouac.comments} host={bivouac.host} description={bivouac.description} equipment={bivouac.equipments} />
           <ReservationDates bivouac={bivouac}/>
         </ScrollView>
       ) : (

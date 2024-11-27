@@ -42,7 +42,6 @@ const AddType: React.FC = () => {
     ];
 
     const handleNextPress = () => {
-		console.log(name, area, description, selectedPRM);
 		if (name && description && selectedPRM !== null && selectedPRM !== undefined) {
 			dispatch(updateType({
 			name,

@@ -29,9 +29,7 @@ export default function ReservationConfirmation() {
     // Handle reservation confirmation
     const router = useRouter();
     const dispatch = useDispatch();
-    const handleConfirmReservation = async () => {
-        console.log('Confirm reservation');
-        
+    const handleConfirmReservation = async () => {        
         try {
             const hostId = await getUserId();
             if (hostId === null) {

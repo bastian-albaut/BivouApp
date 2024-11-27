@@ -1,5 +1,7 @@
 {
     "search_bar": "Search a bivouac",
+    "search_bar_map": "Search a place",
     "list_empty": "No bivouacs found",
-    "map_button": "Map"
+    "map_button": "Map",
+    "filter_by_equipment": "Filter by equipment"
 }

@@ -9,6 +9,7 @@ import Colors from "../../../common/constants/Colors";
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { useRouter } from 'expo-router';
 import CustomIconButton from '../../../common/components/customIconButton';
+import { getUserId } from '@/common/utils/authStorage';
 
 export default function MyBivouacsList() {
   
@@ -19,6 +20,20 @@ export default function MyBivouacsList() {
     dispatch(fetchAllBivouacData());
   }, [dispatch]);
 
+  const [filteredBivouac, setFilteredBivouac] = useState<any[]>([]);
+
+  useEffect(() => {
+    const filterBivouac = async () => {
+      const userId = await getUserId();
+      const filtered = data.filter((bivouac: any) => bivouac.hostId == userId);
+      setFilteredBivouac(filtered);
+    };
+
+    if (data) {
+      filterBivouac();
+    }
+  }, [data]);
+    
   
   // Translation
   const { t } = useTranslation();
@@ -35,7 +50,7 @@ export default function MyBivouacsList() {
         <Text>No data</Text>
       ) : (
         <FlatList 
-          data={data} 
+          data={filteredBivouac} 
           renderItem={({ item }) => (
             item?.bivouacId ? <BivouacItem item={item} /> : null
           )}

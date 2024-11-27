@@ -14,8 +14,9 @@ import BivouacItemMap from '../components/bivouacItemMap';
 export default function SearchBivouacMap() {
   const [city, setCity] = useState('');
   const [suggestions, setSuggestions] = useState<any[]>([]);
-  const [location, setLocation] = useState({ latitude: 48.8566, longitude: 2.3522 });
+  const [location, setLocation] = useState({ latitude: 48.8566, longitude: 2.3522 }); // Paris par défaut
   const [selectedBivouacIndex, setSelectedBivouacIndex] = useState<number | null>(null);
+  const [visibleBivouacs, setVisibleBivouacs] = useState<any[]>([]);
   const { t } = useTranslation();
 
   // Redux store access
@@ -101,13 +102,29 @@ export default function SearchBivouacMap() {
     flatListRef.current?.scrollToIndex({ index, animated: true });
   };
 
+  const handleRegionChange = (region: any) => {
+    const { latitude, longitude, latitudeDelta, longitudeDelta } = region;
+    const filtered = filteredBivouacs.filter((bivouac: any) => {
+      const bivouacLat = parseFloat(bivouac.address.latitude);
+      const bivouacLon = parseFloat(bivouac.address.longitude);
+      return (
+        bivouacLat >= latitude - latitudeDelta &&
+        bivouacLat <= latitude + latitudeDelta &&
+        bivouacLon >= longitude - longitudeDelta &&
+        bivouacLon <= longitude + longitudeDelta
+      );
+    }).slice(0, 20); // Limiter à 20 bivouacs maximum
+
+    setVisibleBivouacs(filtered);
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.searchContainer}>
         <FontAwesome name="search" size={24} color={Colors.black} style={styles.searchIcon} />
         <TextInput
           style={styles.searchBar}
-          placeholder={t('searchBivouacs:search_bar')}
+          placeholder={t('searchBivouacs:search_bar_map')}
           placeholderTextColor={Colors.black}
           value={city}
           onChangeText={searchSuggestions}
@@ -129,12 +146,12 @@ export default function SearchBivouacMap() {
 
       <View style={styles.bivouacList}>
         {/* Affichage de la liste des bivouacs */}
-        {filteredBivouacs.length === 0 ? (
+        {visibleBivouacs.length === 0 ? (
           <Text>No data</Text>
         ) : (
           <FlatList
             ref={flatListRef}
-            data={filteredBivouacs}
+            data={visibleBivouacs}
             horizontal={true}
             renderItem={({ item, index }) => (
               item?.bivouacId ? <BivouacItemMap item={item} isSelected={index === selectedBivouacIndex} /> : null
@@ -156,9 +173,9 @@ export default function SearchBivouacMap() {
         onPress={() => {
           Keyboard.dismiss();
         }}
+        onRegionChangeComplete={handleRegionChange}
       >
-        <Marker coordinate={location} title="Votre position" />
-        {filteredBivouacs.map((bivouac, index) => {
+        {visibleBivouacs.map((bivouac, index) => {
           if (bivouac.address && bivouac.address.latitude && bivouac.address.longitude) {
             return (
               <Marker
@@ -167,9 +184,8 @@ export default function SearchBivouacMap() {
                   latitude: parseFloat(bivouac.address.latitude),
                   longitude: parseFloat(bivouac.address.longitude),
                 }}
-                title={bivouac.name}
-                description={bivouac.description}
                 onPress={() => handleMarkerPress(index)}
+                image={index === selectedBivouacIndex ? require('@/assets/images/tantes_selected.png') : require('@/assets/images/tantes.png')}
               />
             );
           }

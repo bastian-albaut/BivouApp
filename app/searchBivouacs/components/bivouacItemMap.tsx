@@ -13,14 +13,25 @@ export default function BivouacItemMap({ item }: { item: any }) {
             <View style={styles.bivouacImageContainer} >
                 <Image source={{ uri: 'https://picsum.photos/200/300' }} style={styles.bivouacImage} resizeMode="cover" />
             </View>
-            <View style={styles.bivouacInformations}>
-                <Text style={styles.bivouacTitle}>{item.name ? item.name : 'Pas de nom'}</Text>
-                <Text style={styles.bivouacAddress}>{item.address ? `${item.address.number} ${item.address.street}, ${item.address.city} ${item.address.postalCode}`:'Privé'}</Text>
-                <View style={styles.bivouacViewHost}>
-                    <FontAwesome style={styles.bivouacHostIcon} name="user-circle" size={20} color="black" />
-                    <Text style={styles.bivouacHost}>{item.host ? item.host.first_name + ' ' + item.host.last_name:'Anonyme'}</Text>
+            <TouchableOpacity 
+                activeOpacity={0.8} 
+                onPress={() => 
+                router.push({
+                    pathname: '/reservationBivouacs/screens/detailBivouac',
+                    params: {
+                    itemId: item.bivouacId
+                    },
+                })}
+            >
+                <View style={styles.bivouacInformations}>
+                    <Text style={styles.bivouacTitle}>{item.name ? item.name : 'Pas de nom'}</Text>
+                    <Text style={styles.bivouacAddress}>{item.address ? `${item.address.number} ${item.address.street}, ${item.address.city} ${item.address.postalCode}`:'Privé'}</Text>
+                    <View style={styles.bivouacViewHost}>
+                        <FontAwesome style={styles.bivouacHostIcon} name="user-circle" size={20} color="black" />
+                        <Text style={styles.bivouacHost}>{item.host ? item.host.first_name + ' ' + item.host.last_name:'Anonyme'}</Text>
+                    </View>
                 </View>
-            </View>
+            </TouchableOpacity>
         </View>
     );
 }

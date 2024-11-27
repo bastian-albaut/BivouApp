@@ -65,27 +65,37 @@ export default function BivouacInformations({ name, price, address, rating, comm
       </TouchableOpacity>
 
       <Text style={styles.sectionTitle}>{t('common:equipments')}</Text>
-      {/* <View style={styles.equipmentList}>
-        {equipment.map((item, index) => (
+      <View style={styles.equipmentList}>
+        {equipment.map((item: any, index: any) => (
           <View key={index} style={styles.equipmentItem}>
-            <FontAwesome name={getEquipmentIcon(item)} size={18} color={Colors.black} />
-            <Text style={styles.equipmentText}>{item}</Text>
+            <FontAwesome name={getEquipmentIcon(item.label)} size={18} color={Colors.black} />
+            <Text style={styles.equipmentText}>{item.label}</Text>
           </View>
         ))}
-      </View> */}
+      </View>
     </View>
   );
 }
 
-// Provisoire
-const getEquipmentIcon = (equipment: string) => {
-  switch (equipment.toLowerCase()) {
+// Provisoire (ou permanent...)
+const getEquipmentIcon = (label: string) => {
+  switch (label.toLowerCase()) {
     case 'eau':
       return 'tint';
-    case 'toilette':
+    case 'toilet':
       return 'bath';
-    case 'table picnic':
+    case 'picnic':
       return 'tree';
+    case 'shower':
+      return 'shower';
+    case 'electricity':
+      return 'bolt';
+    case 'shelter':
+      return 'umbrella';  
+    case 'wifi':
+      return 'wifi';
+    case 'campfire':
+      return 'fire';
     default:
       return 'cog';
   }

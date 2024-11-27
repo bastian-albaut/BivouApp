@@ -86,7 +86,7 @@ const bivouacSlice = createSlice({
       })
       .addCase(fetchAllBivouacData.fulfilled, (state, action: PayloadAction<any[]>) => {
         state.status = 'succeeded';
-        state.data = action.payload;
+        state.data = action.payload; 
       })
       .addCase(fetchAllBivouacData.rejected, (state, action) => {
         state.status = 'failed';

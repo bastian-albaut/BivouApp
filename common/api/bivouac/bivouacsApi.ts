@@ -18,16 +18,24 @@ export const fetchAllBivouacData = createAsyncThunk(
     try {
       const headers = await getHeaders();
 
-      const [bivouacs, addresses, hosts] = await Promise.all([
+      const [bivouacs, addresses, hosts, equipments, bivouacEquipments] = await Promise.all([
         fetch(`${BASE_URL}/api/bivouacs`, { headers }).then(res => res.json()),
         fetch(`${BASE_URL}/api/addresses`, { headers }).then(res => res.json()),
         fetch(`${BASE_URL}/api/users/hosts`, { headers }).then(res => res.json()),
+        fetch(`${BASE_URL}/api/equipments`, { headers }).then(res => res.json()),
+        fetch(`${BASE_URL}/api/bivouac-equipment`, { headers }).then(res => res.json()),
       ]);
 
-      const combinedData = bivouacs.map((bivouac: { addressId: any; hostId: any; }) => ({
+      const combinedData = bivouacs.map((bivouac: { addressId: any; hostId: any; bivouacId: any; equipmentId: any; }) => ({
         ...bivouac,
         address: addresses.find((addr: { addressId: any; }) => addr.addressId === bivouac.addressId),
         host: hosts.find((user: { user_id: any; }) => user.user_id === bivouac.hostId),
+        equipments: bivouacEquipments
+          .filter((be: { bivouacId: any; }) => be.bivouacId === bivouac.bivouacId)
+          .map((be: { equipmentId: any; }) => {
+            const equipment = equipments.find((eq: { equipmentId: any; }) => eq.equipmentId === be.equipmentId);
+            return equipment;
+          }),
       }));
 
       return combinedData;
@@ -36,6 +44,7 @@ export const fetchAllBivouacData = createAsyncThunk(
     }
   }
 );
+
 
 export const createAddress = async (addressData: any) => {
   try {
@@ -77,4 +86,20 @@ export const isUserHost = async (userId : string, token: string) => {
       Authorization: `Bearer ${token}`,
     },
   });
+
+}
+
+export const deleteBivouac = async (bivouacId: string) => {
+  try {
+    const response = await apiClient(`bivouacs/${bivouacId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    return response;
+  } catch (error) {
+    console.error('Error deleting bivouac:', error);
+    throw error;
+  }
 }

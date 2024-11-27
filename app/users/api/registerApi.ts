@@ -4,7 +4,6 @@ import axios from 'axios';
 const BASE_URL = 'http://ms-user.cluster-ig5.igpolytech.fr:8080/api';
 
 const registerApi = async (email: string, password: string) => {
-  console.log('Attempting to register with email:', email, password); // Log pour vérifier les données envoyées
 
   try {
     const response = await axios.post(`${BASE_URL}/users/register`, {
@@ -12,7 +11,6 @@ const registerApi = async (email: string, password: string) => {
       password,
     });
 
-    console.log('Response received:', response.data); // Log pour vérifier la réponse de l'API
 
     return 'Registration successful';
   } catch (error) {

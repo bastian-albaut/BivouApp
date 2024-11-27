@@ -59,9 +59,7 @@ const AddPrice: React.FC = () => {
 							city,
 							postalCode
 						};
-						console.log('addressData : ', addressData);
 						const response = await createAddress(addressData);
-						console.log('Address created successfully:', response);
 						if (response && response.addressId !== undefined) {
 							const addressId = response.addressId;
 							if (addressId !== null) {
@@ -80,14 +78,11 @@ const AddPrice: React.FC = () => {
 										privacy, 
 										equipmentIds: equipmentIds || []
 									};
-									console.log('bivouacData : ', bivouacData);
 									const response = await createBivouac(bivouacData);
-									console.log('Bivouac created successfully:', response);
 									const userToken = await getToken();
 									if (userToken !== null) {
 										try {
 											const response = await isUserHost(hostId, userToken);
-											console.log('User is now host: ', response);
 											router.back();
 										} catch (error) {
 											console.error('Error fetching token', error);

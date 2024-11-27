@@ -9,7 +9,6 @@ export const getReservationById = async (id: number) => {
 };
 
 export const createReservation = async (bivouacData: any) => {
-  console.log('createReservation', bivouacData);
   return await apiClient('reservations', {
     method: 'POST',
     body: JSON.stringify(bivouacData),
