@@ -1,12 +1,11 @@
 import { apiClient } from '../index';
-import { mockBivouacs } from './MockData';
 import { getToken } from '../../utils/authStorage'
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 const BASE_URL = 'http://bivouapp-api-gateway.cluster-ig5.igpolytech.fr:8081';
 
 const getHeaders = async () => {
-  const token = await getToken(); // Récupère le token depuis le storage ou un autre endroit
+  const token = await getToken(); 
   return {
     Authorization: `Bearer ${token}`,
     'Content-Type': 'application/json',
@@ -37,14 +36,6 @@ export const fetchAllBivouacData = createAsyncThunk(
     }
   }
 );
-
-export const getBivouacs = async () => {
-  return mockBivouacs;
-};
-
-export const getBivouacById = async (id: number) => {
-  return mockBivouacs;
-};
 
 export const createAddress = async (addressData: any) => {
   try {
