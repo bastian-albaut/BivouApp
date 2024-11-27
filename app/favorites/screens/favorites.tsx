@@ -9,15 +9,33 @@ import FontAwesome from '@expo/vector-icons/FontAwesome';
 import CustomIconButton from '@/common/components/customIconButton';
 import { useRouter } from 'expo-router';
 import { fetchFavouritesByUserId } from '@/common/store/slices/favouritesSlice';
+import { getUserId } from '@/common/utils/authStorage';
 
 export default function Favorites() {
   
-  // Redux store access
   const dispatch = useDispatch<AppDispatch>();
   const { data, loading, error } = useSelector((state: RootState) => state.favourites);
+  const [currentUserId, setCurrentUserId] = useState<number | null>(null);
+
+  // Fetch current user ID
   useEffect(() => {
-    dispatch(fetchFavouritesByUserId(1));
-  }, [dispatch]);
+    const fetchCurrentUser = async () => {
+      const userId = await getUserId(); // Ensure getUserId retrieves the logged-in user ID
+      setCurrentUserId(Number(userId));
+    };
+    fetchCurrentUser();
+  }, []);
+
+  useEffect(() => {
+    if (currentUserId) {
+      dispatch(fetchFavouritesByUserId(currentUserId));
+    }
+  }, [dispatch, currentUserId]);
+
+  // Log favorites after fetching
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
 
   // Translation
   const { t } = useTranslation();
@@ -32,7 +50,7 @@ export default function Favorites() {
       <FlatList
         data={data}
         renderItem={({ item }) => <BivouacItem item={item} />}
-        keyExtractor={(item) => item.id.toString()}
+        keyExtractor={(item) => item.id.bivouacId.toString()}
         contentContainerStyle={styles.list}
       />
     </View>
