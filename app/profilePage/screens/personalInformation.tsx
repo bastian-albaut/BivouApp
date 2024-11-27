@@ -48,7 +48,6 @@ export default function PersonalInformation() {
 
   useEffect(() => {
     if (selectedUser) {
-      console.log('selectedUser', selectedUser);
       setSurname(selectedUser.last_name || '');
       setName(selectedUser.first_name || '');
       setEmail(selectedUser.email || '');
@@ -109,7 +108,7 @@ export default function PersonalInformation() {
         />
         <TextInputComponent
           icon="envelope"
-          placeholder={t('users:email')}
+          placeholder={t('users:mailAddress')}
           value={email}
           onChangeText={setEmail}
           keyboardType="email-address"
