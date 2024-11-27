@@ -12,16 +12,19 @@ export default function BivouacItem({
   onToggleFavorite: () => void;
 }) {
   const router = useRouter();
-  const [isFavorited, setIsFavorited] = useState(false);
+  const [isFavorited, setIsFavorited] = useState(item.isFavorited);
 
-  useEffect(() => {
-    setIsFavorited(item.isFavorited);
-  }, [item]);
 
   const toggleFavorite = () => {
-    setIsFavorited(!isFavorited);
+    setIsFavorited((prev: any) => !prev);
     onToggleFavorite();
   };
+
+    useEffect(() => {
+        console.log("en dessous: ");
+        console.log("item ", item);
+        console.log("isFavorited ", isFavorited);
+    }, [isFavorited]);
 
   return (
     <TouchableOpacity
