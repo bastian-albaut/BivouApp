@@ -5,13 +5,51 @@ import { mockBivouacs } from './MockData';
 // const API_URL = 'http://localhost:8080/api';
 
 export const getBivouacs = async () => {
-  // return await apiClient('bivouacs');
+  // try {
+  //   const response = await apiClient('bivouacs', {
+  //     method: 'GET',
+  //     headers: {
+  //       'Content-Type': 'application/json'
+  //     }
+  //   });
+  //   return response;
+  // } catch (error) {
+  //   console.error('Error creating bivouac:', error);
+  //   throw error;
+  // }
   return mockBivouacs;
 };
 
 export const getBivouacById = async (id: number) => {
-  // return await apiClient(`bivouacs/${id}`);
+  // try {
+  //   const response = await apiClient(`bivouacs/${id}`, {
+  //     method: 'GET',
+  //     headers: {
+  //       'Content-Type': 'application/json'
+  //     }
+  //   });
+  //   return response;
+  // } catch (error) {
+  //   console.error('Error creating bivouac:', error);
+  //   throw error;
+  // }
   return mockBivouacs;
+};
+
+export const createAddress = async (addressData: any) => {
+  try {
+    const response = await apiClient('addresses', {
+      method: 'POST',
+      body: JSON.stringify(addressData),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    return response;
+  } catch (error) {
+    console.error('Error creating bivouac:', error);
+    throw error;
+  }
 };
 
 export const createBivouac = async (bivouacData: any) => {

@@ -2,9 +2,10 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { getBivouacs, getBivouacById, createBivouac } from '../../api/bivouac/bivouacs';
 
 interface BivouacState {
+  num: string | null;
+  street: string | null;
   city: string | null;
   postalCode: string | null;
-  street: string | null;
   latitude: string | null;
   longitude: string | null;
   name: string;
@@ -15,16 +16,17 @@ interface BivouacState {
   is_pmr: boolean;
   privacy: string;
   price: number;
-  equipments: any[];
+  equipmentIds: any[];
   data: any[];
   loading: boolean;
   error: string | null;
 }
 
 const initialState: BivouacState = {
+  num: '',
+  street: '',
   city: '',
   postalCode: '',
-  street: '',
   latitude: '',
   longitude: '',
   name:'',
@@ -35,7 +37,7 @@ const initialState: BivouacState = {
   is_pmr: false,
   privacy: '',
   price: 0,
-  equipments: [],
+  equipmentIds: [],
   data: [],
   loading: false,
   error: null,
@@ -61,10 +63,11 @@ const bivouacSlice = createSlice({
   initialState,
   reducers: {
     updateLocation(state, action) {
-      const { city, postalCode, street, latitude, longitude } = action.payload;
+      const { num, street, city, postalCode, latitude, longitude } = action.payload;
+      state.num = num;
+      state.street = street;
       state.city = city;
       state.postalCode = postalCode;
-      state.street = street;
       state.latitude = latitude;
       state.longitude = longitude;
     },
@@ -78,7 +81,7 @@ const bivouacSlice = createSlice({
       state.is_pmr = is_pmr;
     },
     updateEquipments(state, action) {
-      state.equipments = action.payload.equipments;
+      state.equipmentIds = action.payload.equipmentIds;
     },
     updatePrice(state, action) {
       const { privacy, price } = action.payload;
@@ -108,19 +111,6 @@ const bivouacSlice = createSlice({
       .addCase(fetchBivouacById.fulfilled, (state, action) => {
         state.loading = false;
         const bivouac = action.payload;
-        // state.city = bivouac.address.city;
-        // state.postalCode = bivouac.postalCode;
-        // state.street = bivouac.street;
-        // state.latitude = bivouac.latitude;
-        // state.longitude = bivouac.longitude;
-        // state.rental_type = bivouac.rental_type;
-        // state.field_type = bivouac.field_type;
-        // state.area = bivouac.area;
-        // state.description = bivouac.description;
-        // state.is_pmr = bivouac.is_pmr;
-        // state.privacy = bivouac.privacy;
-        // state.equipments = bivouac.equipments;
-        // state.price = bivouac.price;
       })
       .addCase(fetchBivouacById.rejected, (state, action) => {
         state.loading = false;
