@@ -73,15 +73,16 @@ function RootLayoutNav() {
         headerTitleAlign: 'center',
       }}
     >
-      <Stack.Screen name="(tabs)" />
+      <Stack.Screen name="index" options={{ headerBackVisible: false }} />
+      <Stack.Screen name="(tabs)" options={{ headerBackVisible: false }}/>
       <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
-      <Stack.Screen name="users/screens/testScreen" options={{ headerBackTitle: t("common:navigation_back")}} />
-      <Stack.Screen name="searchBivouacs/screens/searchBivouacList" options={{ headerBackTitle: t("common:navigation_back")}} />
-      <Stack.Screen name="searchBivouacs/screens/searchBivouacMap" options={{ headerBackTitle: t("common:navigation_back")}} />
+      <Stack.Screen name="users/screens/login" options={{headerBackVisible: false }} />
+      <Stack.Screen name="users/screens/signup" options={{headerBackVisible: false }} />
+      <Stack.Screen name="users/screens/testScreen" options={{ headerBackTitle: t("common:navigation_back") }} />
+      <Stack.Screen name="searchBivouacs/screens/searchBivouacList" options={{headerBackTitle: t("common:navigation_back") }} />
+      <Stack.Screen name="searchBivouacs/screens/searchBivouacMap" options={{ headerBackTitle: t("common:navigation_back") }} />
       <Stack.Screen name="reservationBivouacs/screens/detailBivouac" options={{ headerBackTitle: t("common:navigation_back") }} />
       <Stack.Screen name="reservationBivouacs/screens/detailReservation" options={{ headerBackTitle: t("common:navigation_back") }} />
-      <Stack.Screen name="users/screens/login" options={{ headerBackTitle: t("common:navigation_back")}} />
-      <Stack.Screen name="users/screens/signup" options={{ headerBackTitle: t("common:navigation_back") }} />
       <Stack.Screen name="profilePage/screens/changeLanguage" options={{ headerBackTitle: t("common:navigation_back") }} />
       <Stack.Screen name="profilePage/screens/privacyPolicy" options={{ headerBackTitle: t("common:navigation_back") }} />
       <Stack.Screen name="profilePage/screens/reservationHistory" options={{ headerBackTitle: t("common:navigation_back") }} />

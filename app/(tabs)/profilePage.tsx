@@ -10,6 +10,7 @@ import { AppDispatch, RootState } from '@/common/store/store';
 import { fetchReservations } from '@/common/store/slices/reservationsSlice';
 import { fetchAllBivouacData } from '@/common/api/bivouac/bivouacsApi';
 import { getUserId } from '@/common/utils/authStorage';
+import { removeToken, removeUserId } from '@/common/utils/authStorage';
 
 export default function ProfilePage() {
   const { i18n, t } = useTranslation();
@@ -103,9 +104,13 @@ export default function ProfilePage() {
           <Icon name="angle-right" size={20} color="black" />
         </TouchableOpacity>
       </View>
-
-      <TouchableOpacity onPress={() => router.push('../users/screens/login')}>
-        <Text style={styles.logoutButton}>{t('common:logOut')}</Text>
+      
+      <TouchableOpacity onPress={async () => {
+        await removeToken();
+        await removeUserId();
+        router.push('../users/screens/login');
+      }}>
+        <Text style={styles.logoutButton} >{t("common:logOut")}</Text>
       </TouchableOpacity>
     </View>
   );

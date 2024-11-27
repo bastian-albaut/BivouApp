@@ -10,10 +10,10 @@ import { AddStackParamList } from './addStack';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useDispatch, useSelector } from 'react-redux';
 import { updatePrice } from '../../../common/store/slices/bivouacsSlice';
-import { createBivouac, createAddress } from '../../../common/api/bivouac/bivouacsApi';
+import { createBivouac, createAddress, isUserHost } from '../../../common/api/bivouac/bivouacsApi';
 import { RootState } from '../../../common/store/store';
 import { useRouter } from 'expo-router';
-import { getUserId } from '../../../common/utils/authStorage';
+import { getToken, getUserId } from '../../../common/utils/authStorage';
 
 const AddPrice: React.FC = () => {
 	const dispatch = useDispatch();
@@ -52,7 +52,6 @@ const AddPrice: React.FC = () => {
 				const hostId = await getUserId();
 				if (hostId !== null) {
 					try {
-						console.log('trying to create a Address');
 						const { num: number, street, city, postalCode } = bivouacDataFromStore;
 						const addressData = { 
 							number, 
@@ -61,16 +60,12 @@ const AddPrice: React.FC = () => {
 							postalCode
 						};
 						console.log('addressData : ', addressData);
-						console.log('Before calling createAddress');
 						const response = await createAddress(addressData);
 						console.log('Address created successfully:', response);
-						// Ajoutez toute autre logique après la création réussie, comme la navigation vers une autre page
 						if (response && response.addressId !== undefined) {
 							const addressId = response.addressId;
-							console.log('Address ID:', addressId);
 							if (addressId !== null) {
 								try {
-									console.log('trying to create a Bivouac');
 									const { name, rental_type, field_type, area, description, is_pmr, equipmentIds } = bivouacDataFromStore;
 									const bivouacData = { 
 										hostId,
@@ -86,11 +81,21 @@ const AddPrice: React.FC = () => {
 										equipmentIds: equipmentIds || []
 									};
 									console.log('bivouacData : ', bivouacData);
-									console.log('Before calling createBivouac');
 									const response = await createBivouac(bivouacData);
 									console.log('Bivouac created successfully:', response);
-									// Ajoutez toute autre logique après la création réussie, comme la navigation vers une autre page
-									router.back();
+									const userToken = await getToken();
+									if (userToken !== null) {
+										try {
+											const response = await isUserHost(hostId, userToken);
+											console.log('User is now host: ', response);
+											router.back();
+										} catch (error) {
+											console.error('Error fetching token', error);
+											Alert.alert('Error', 'Failed to get token. Please login and try again.');
+										}
+									} else {
+										console.error('Failed to retrieve token:');
+									}
 								} catch (error) {
 									console.error('Failed to create bivouac:', error);
 									Alert.alert('Error', 'Failed to create bivouac. Please try again.');
