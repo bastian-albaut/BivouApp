@@ -13,5 +13,9 @@
     "location": "Emplacement",
     "journey": "Voyage",
     "service_fees": "Frais de service",
-    "confirm_reservation": "Confirmer la réservation"
+    "confirm_reservation": "Confirmer la réservation",
+    "success_reservation_title": "Réservation confirmée",
+    "success_reservation_message": "Votre réservation a été confirmée. Vous pouvez la consulter dans votre profil.",
+    "error_reservation_title": "Erreur de réservation",
+    "error_reservation_message": "Une erreur s'est produite lors du traitement de votre réservation. Veuillez réessayer plus tard."
 }
