@@ -36,11 +36,11 @@ export default function ReservationHistory() {
     const { bivouac } = item;
     return (
       <View style={styles.reservationItem}>
-        <Text style={styles.bivouacName}>{bivouac?.name || t('reservations:unknownBivouac')}</Text>
+        <Text style={styles.bivouacName}>{bivouac?.name || t('profilePage:unknownBivouac')}</Text>
         <Text style={styles.dates}>
           {t('common:from')} {new Date(item.startDate).toLocaleDateString('fr-FR')} {t('common:to')} {new Date(item.endDate).toLocaleDateString('fr-FR')}
         </Text>
-        <Text style={styles.price}>{t('reservations:price')}: {item.price}€</Text>
+        <Text style={styles.price}>{item.price}€</Text>
       </View>
     );
   };
@@ -56,16 +56,16 @@ export default function ReservationHistory() {
   if (reservationsError || bivouacsError) {
     return (
       <View style={styles.errorContainer}>
-        <Text style={styles.errorText}>{t('reservations:fetchError')}</Text>
+        <Text style={styles.errorText}>{t('profilePage:fetchError')}</Text>
       </View>
     );
   }
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{t('reservations:historyTitle')}</Text>
+      <Text style={styles.title}>{t('profilePage:historyTitle')}</Text>
       {mergedReservations.length === 0 ? (
-        <Text style={styles.noReservationsText}>{t('reservations:noReservations')}</Text>
+        <Text style={styles.noReservationsText}>{t('profilePage:noReservations')}</Text>
       ) : (
         <FlatList
           data={mergedReservations}
