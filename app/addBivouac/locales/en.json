@@ -6,9 +6,10 @@
   "addLocation": {
     "location": "Location",
     "address": "Address",
+    "num": "Street Number",
+    "street": "Street Name",
     "city": "City",
     "postalCode": "Postal Code",
-    "street": "Street Number, Street Name...",
     "gps_coordinates": "GPS Coordinates",
     "latitude": "Latitude",
     "longitude": "Longitude",

@@ -9,15 +9,15 @@ import Colors from "@/common/constants/Colors";
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import CustomIconButton from '@/common/components/customIconButton';
 import { useRouter } from 'expo-router';
-import { fetchFavorites } from '@/common/store/slices/favoritesSlice';
+import { fetchFavouritesByUserId } from '@/common/store/slices/favouritesSlice';
 
 export default function Favorites() {
   
   // Redux store access
   const dispatch = useDispatch<AppDispatch>();
-  const { data, loading, error } = useSelector((state: RootState) => state.favorites);
+  const { data, loading, error } = useSelector((state: RootState) => state.favourites);
   useEffect(() => {
-    dispatch(fetchFavorites());
+    dispatch(fetchFavouritesByUserId(1));
   }, [dispatch]);
 
   // Translation

@@ -14,5 +14,9 @@
     "journey": "Journey",
     "price": "Price",
     "service_fees": "Service fees",
-    "confirm_reservation": "Confirm reservation"
+    "confirm_reservation": "Confirm reservation",
+    "success_reservation_title": "Reservation confirmed",
+    "success_reservation_message": "Your reservation has been confirmed. You can view it in your profile.",
+    "error_reservation_title": "Reservation error",
+    "error_reservation_message": "An error occurred while processing your reservation. Please try again later."
 }

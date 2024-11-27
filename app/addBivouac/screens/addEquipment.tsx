@@ -14,7 +14,7 @@ const AddEquipment: React.FC = () => {
     const dispatch = useDispatch();
     const navigation = useNavigation<StackNavigationProp<AddStackParamList, 'AddEquipment'>>();
 
-    const [selectedEquipment, setSelectedEquipment] = useState<string[]>([]);
+    const [selectedEquipment, setSelectedEquipment] = useState<number[]>([]);
 
     const [currentPage, setCurrentPage] = React.useState(3);
     const totalPages = 5;
@@ -27,31 +27,34 @@ const AddEquipment: React.FC = () => {
     };
     
     const handleNextPress = () => {
-        dispatch(updateEquipments(selectedEquipment));
+        console.log(selectedEquipment);
+        dispatch(updateEquipments({
+            equipmentIds: selectedEquipment
+        }));
         navigation.navigate('AddPhotos');
     };
 
     const progress = currentPage / totalPages;
 
-    const handleSelect = (label: string, isSelected: boolean) => {
+    const handleSelect = (equipment_id: number, isSelected: boolean) => {
         setSelectedEquipment(prevSelected => {
             if (isSelected) {
-                return [...prevSelected, label];
+                return [...prevSelected, equipment_id];
             } else {
-                return prevSelected.filter(item => item !== label);
+                return prevSelected.filter(item => item !== equipment_id);
             }
         });
     };
 
     const components = [
-        { label: t('addBivouac:addEquipment.water'), icon: 'tint', selected: false },
-        { label: t('addBivouac:addEquipment.electricity'), icon: 'bolt', selected: false },
-        { label: t('addBivouac:addEquipment.shelter'), icon: 'shower', selected: false },
-        { label: t('addBivouac:addEquipment.wifi'), icon: 'wifi', selected: false },
-        { label: t('addBivouac:addEquipment.toilet'), icon: 'shower', selected: false },
-        { label: t('addBivouac:addEquipment.shower'), icon: 'shower', selected: false },
-        { label: t('addBivouac:addEquipment.campfire'), icon: 'fire', selected: false },
-        { label: t('addBivouac:addEquipment.picnic'), icon: 'table', selected: false },
+        { equipment_id: 1, label: t('addBivouac:addEquipment.water'), icon: 'tint', selected: false },
+        { equipment_id: 2, label: t('addBivouac:addEquipment.electricity'), icon: 'bolt', selected: false },
+        { equipment_id: 3, label: t('addBivouac:addEquipment.shelter'), icon: 'shower', selected: false },
+        { equipment_id: 4, label: t('addBivouac:addEquipment.wifi'), icon: 'wifi', selected: false },
+        { equipment_id: 5, label: t('addBivouac:addEquipment.toilet'), icon: 'shower', selected: false },
+        { equipment_id: 6, label: t('addBivouac:addEquipment.shower'), icon: 'shower', selected: false },
+        { equipment_id: 7, label: t('addBivouac:addEquipment.campfire'), icon: 'fire', selected: false },
+        { equipment_id: 8, label: t('addBivouac:addEquipment.picnic'), icon: 'table', selected: false },
     ];
     
     return (
@@ -63,6 +66,7 @@ const AddEquipment: React.FC = () => {
                     {components.map((component, index) => (
                         <EquipmentComponent 
                             key={index}
+                            equipment_id={component.equipment_id}
                             label={component.label}
                             icon={component.icon}
                             selected={component.selected}

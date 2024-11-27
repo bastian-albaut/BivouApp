@@ -5,14 +5,14 @@ import FontAwesome from '@expo/vector-icons/FontAwesome';
 
 export default function EquipmentComponent(props: any) {
 
-    const { label, icon, onSelect } = props;
+    const { equipment_id, label, icon, onSelect } = props;
     const [selected, setSelected] = useState(false);
 
     const handlePress = () => {
         const newSelectedState = !selected;
         setSelected(newSelectedState);
         if (onSelect) {
-            onSelect(label, newSelectedState); // Notify the parent component
+            onSelect(equipment_id, newSelectedState); // Notify the parent component
         }
     };
 
