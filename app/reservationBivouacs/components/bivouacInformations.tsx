@@ -65,14 +65,14 @@ export default function BivouacInformations({ name, price, address, rating, comm
       </TouchableOpacity>
 
       <Text style={styles.sectionTitle}>{t('common:equipments')}</Text>
-      <View style={styles.equipmentList}>
+      {/* <View style={styles.equipmentList}>
         {equipment.map((item, index) => (
           <View key={index} style={styles.equipmentItem}>
             <FontAwesome name={getEquipmentIcon(item)} size={18} color={Colors.black} />
             <Text style={styles.equipmentText}>{item}</Text>
           </View>
         ))}
-      </View>
+      </View> */}
     </View>
   );
 }

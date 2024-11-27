@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/common/store/store';
 import { fetchReservations } from '@/common/store/slices/reservationsSlice';
-import { fetchBivouacs } from '@/common/store/slices/bivouacsSlice';
+import { fetchAllBivouacData } from '@/common/api/bivouac/bivouacsApi';
 import Colors from '@/common/constants/Colors';
 import { getUserId } from '@/common/utils/authStorage';
 
@@ -28,7 +28,7 @@ export default function ReservationHistory() {
 
     fetchCurrentUser();
     dispatch(fetchReservations());
-    dispatch(fetchBivouacs());
+    dispatch(fetchAllBivouacData());
   }, [dispatch]);
 
   // Merge reservation with bivouac details and filter by user
