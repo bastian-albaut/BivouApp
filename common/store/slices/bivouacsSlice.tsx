@@ -1,5 +1,6 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { getBivouacs, getBivouacById, createBivouac } from '../../api/bivouac/bivouacs';
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import { fetchAllBivouacData, getBivouacById, getBivouacs } from '../../api/bivouac/bivouacsApi';
+import { CombinedBivouac } from './type';
 
 interface BivouacState {
   num: string | null;
@@ -20,6 +21,7 @@ interface BivouacState {
   data: any[];
   loading: boolean;
   error: string | null;
+  status: 'idle' | 'loading' | 'succeeded' | 'failed';
 }
 
 const initialState: BivouacState = {
@@ -29,7 +31,7 @@ const initialState: BivouacState = {
   postalCode: '',
   latitude: '',
   longitude: '',
-  name:'',
+  name: '',
   rental_type: '',
   field_type: '',
   area: 0,
@@ -41,22 +43,9 @@ const initialState: BivouacState = {
   data: [],
   loading: false,
   error: null,
+  status: 'idle',
 };
 
-export const fetchBivouacs = createAsyncThunk('bivouacs/fetchBivouacs', async () => {
-  const response = await getBivouacs();
-  return response;
-});
-
-// export const fetchUserBivouacs = createAsyncThunk('bivouacs/fetchUserBivouacs', async () => {
-//   const response = await getUserBivouacsTest();
-//   return response;
-// });
-
-export const fetchBivouacById = createAsyncThunk('bivouacs/fetchBivouacById', async (id: number) => {
-  const response = await getBivouacById(id);
-  return response;
-});
 
 const bivouacSlice = createSlice({
   name: 'bivouac',
@@ -94,38 +83,16 @@ const bivouacSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchBivouacs.pending, (state) => {
-        state.loading = true;
+      .addCase(fetchAllBivouacData.pending, (state) => {
+        state.status = 'loading';
       })
-      .addCase(fetchBivouacs.fulfilled, (state, action) => {
-        state.loading = false;
+      .addCase(fetchAllBivouacData.fulfilled, (state, action: PayloadAction<any[]>) => {
+        state.status = 'succeeded';
         state.data = action.payload;
       })
-      .addCase(fetchBivouacs.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.error.message || 'Error fetching bivouacs';
-      })
-      .addCase(fetchBivouacById.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(fetchBivouacById.fulfilled, (state, action) => {
-        state.loading = false;
-        const bivouac = action.payload;
-      })
-      .addCase(fetchBivouacById.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.error.message || 'Error fetching bivouac by ID';
-      // })
-      // .addCase(fetchUserBivouacs.pending, (state) => {
-      //   state.loading = true;
-      // })
-      // .addCase(fetchUserBivouacs.fulfilled, (state, action) => {
-      //   state.loading = false;
-      //   state.data = action.payload;
-      // })
-      // .addCase(fetchUserBivouacs.rejected, (state, action) => {
-      //   state.loading = false;
-      //   state.error = action.error.message || 'Error fetching user bivouacs';
+      .addCase(fetchAllBivouacData.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message || 'Failed to fetch bivouac data';
       });
   },
 });

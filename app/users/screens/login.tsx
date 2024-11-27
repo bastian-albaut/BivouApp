@@ -4,9 +4,9 @@ import { useTranslation } from 'react-i18next';
 import { useRouter } from 'expo-router';
 import TextInputComponent from '../../../common/components/TextInputComponent';
 import ButtonComponent from '../../../common/components/ButtonComponent';
-import { loginApi } from '../api/loginApi';
-import { storeToken, storeUserId } from '@/common/utils/authStorage';
+import loginApi from '../api/loginApi';
 import Colors from '@/common/constants/Colors';
+import { storeToken, storeUserId } from '@/common/utils/authStorage';
 
 export default function Login() {
   const [email, setEmail] = useState('');
