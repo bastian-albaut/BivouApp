@@ -1,19 +1,31 @@
-import React, { useState } from "react";
-import { StyleSheet, Image, View, Text, Button, Pressable, TouchableOpacity } from 'react-native';
+import React, { useEffect, useState } from "react";
+import { StyleSheet, Image, View, Text, TouchableOpacity } from "react-native";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import Colors from "@/common/constants/Colors";
 import { useRouter } from "expo-router";
 
-export default function BivouacItem({ item }: { item: any }) {
-    const router = useRouter();
+export default function BivouacItem({
+  item,
+  onRemoveFavorite,
+}: {
+  item: any;
+  onRemoveFavorite: () => void;
+}) {
+  const router = useRouter();
+  const [isFavorited, setIsFavorited] = useState(false);
 
-    // State to manage favorite status
-    const [isFavorited, setIsFavorited] = useState(false);
+  useEffect(() => {
+    if (item?.isFavorited) {
+      setIsFavorited(true);
+    }
+  }, [item]);
 
-    // Toggle the favorite status
-    const toggleFavorite = () => {
-        setIsFavorited(!isFavorited);
-    };
+  const toggleFavorite = () => {
+    if (isFavorited) {
+      onRemoveFavorite();
+    }
+    setIsFavorited(!isFavorited);
+  };
 
     const imageMapping: { [key: number]: any } = {
         1: require('@/assets/images/photo1.jpg'),
@@ -53,62 +65,67 @@ export default function BivouacItem({ item }: { item: any }) {
                     </TouchableOpacity>
                 </View>
 
-                <View style={styles.informationContainer}>
-                    <Text style={styles.bivouacTitle}>{item.name ? item.name : 'Pas de nom'}</Text>
-                    <Text style={styles.bivouacAddress}>{item.address ? `${item.address.number} ${item.address.street}, ${item.address.city} ${item.address.postalCode}`:'Privé'}</Text>
-                    <View style={styles.bivouacViewHost}>
-                        <FontAwesome style={styles.bivouacHostIcon} name="user-circle" size={20} color="black" />
-                        <Text style={styles.bivouacHost}>{item.host ? item.host.first_name + ' ' + item.host.last_name:'Anonyme'}</Text>
-                    </View>
-                </View>
-            </View>
-        </TouchableOpacity>
-    );
+        <View style={styles.informationContainer}>
+          <Text style={styles.bivouacTitle}>{item.name ? item.name : "Pas de nom"}</Text>
+          <Text style={styles.bivouacAddress}>
+            {item.address
+              ? `${item.address.number} ${item.address.street}, ${item.address.city} ${item.address.postalCode}`
+              : "Privé"}
+          </Text>
+          <View style={styles.bivouacViewHost}>
+            <FontAwesome style={styles.bivouacHostIcon} name="user-circle" size={20} color="black" />
+            <Text style={styles.bivouacHost}>
+              {item.host ? item.host.first_name + " " + item.host.last_name : "Anonyme"}
+            </Text>
+          </View>
+        </View>
+      </View>
+    </TouchableOpacity>
+  );
 }
 
 const styles = StyleSheet.create({
-    bivouacItem: {
-        flexDirection: 'row',
-        padding: 10,
-    },
-    imageContainer: {
-        position: 'relative',
-        flex: 2,
-    },
-    informationContainer: {
-        flex: 3,
-        marginLeft: 10,
-    },
-    bivouacImage: {
-        alignSelf: 'stretch',
-        height: 100,
-        borderRadius: 10,
-        marginBottom: 10,
-    },
-    favoriteIcon: {
-        position: 'absolute',
-        top: 15,
-        right: 15,
-        zIndex: 1,
-    },
-    bivouacTitle: {
-        fontSize: 18,
-        fontWeight: 'bold',
-    },
-    bivouacAddress: {
-        color: '#555',
-    },
-    bivouacViewHost: {
-        display: 'flex',
-        flexDirection: 'row',
-        gap: 5,
-        alignItems: 'center',
-        marginTop: 5,
-    },
-    bivouacHostIcon: {
-        color: Colors.secondary,
-    },    
-    bivouacHost: {
-        color: Colors.secondary,
-    },
+  bivouacItem: {
+    flexDirection: "row",
+    padding: 10,
+  },
+  imageContainer: {
+    position: "relative",
+    flex: 2,
+  },
+  informationContainer: {
+    flex: 3,
+    marginLeft: 10,
+  },
+  bivouacImage: {
+    alignSelf: "stretch",
+    height: 100,
+    borderRadius: 10,
+    marginBottom: 10,
+  },
+  favoriteIcon: {
+    position: "absolute",
+    top: 15,
+    right: 15,
+    zIndex: 1,
+  },
+  bivouacTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  bivouacAddress: {
+    color: "#555",
+  },
+  bivouacViewHost: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 5,
+  },
+  bivouacHostIcon: {
+    color: Colors.secondary,
+  },
+  bivouacHost: {
+    color: Colors.secondary,
+  },
 });

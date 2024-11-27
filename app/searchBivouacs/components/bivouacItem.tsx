@@ -1,19 +1,24 @@
-import React, { useState } from "react";
-import { StyleSheet, Image, View, Text, Button, Pressable, TouchableOpacity } from 'react-native';
-import FontAwesome from "@expo/vector-icons/FontAwesome";
-import Colors from "@/common/constants/Colors";
-import { useRouter } from "expo-router";
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Image, View, Text, TouchableOpacity } from 'react-native';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
+import Colors from '@/common/constants/Colors';
+import { useRouter } from 'expo-router';
 
-export default function BivouacItem({ item }: { item: any }) {
-    const router = useRouter();
+export default function BivouacItem({
+  item,
+  onToggleFavorite,
+}: {
+  item: any;
+  onToggleFavorite: () => void;
+}) {
+  const router = useRouter();
+  const [isFavorited, setIsFavorited] = useState(item.isFavorited);
 
-    // State to manage favorite status
-    const [isFavorited, setIsFavorited] = useState(false);
 
-    // Toggle the favorite status
-    const toggleFavorite = () => {
-        setIsFavorited(!isFavorited);
-    };
+  const toggleFavorite = () => {
+    setIsFavorited((prev: any) => !prev);
+    onToggleFavorite();
+  };
 
     const imageMapping: { [key: number]: any } = {
         1: require('@/assets/images/photo1.jpg'),
