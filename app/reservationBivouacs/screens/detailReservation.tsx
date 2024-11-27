@@ -7,6 +7,7 @@ import { FontAwesome } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { addReservation } from '@/common/store/slices/reservationsSlice';
+import { getUserId } from '@/common/utils/authStorage';
 
 export default function ReservationConfirmation() {
 
@@ -30,13 +31,19 @@ export default function ReservationConfirmation() {
     const dispatch = useDispatch();
     const handleConfirmReservation = async () => {
         console.log('Confirm reservation');
+        
         try {
+            const hostId = await getUserId();
+            if (hostId === null) {
+                throw new Error('User ID not found');
+            }
             await dispatch(
                 addReservation({
-                bivouacId: bivouacData.id,
-                startDate: start.toISOString(),
-                endDate: end.toISOString(),
-                price: parseFloat(total),
+                    bivouacId: bivouacData.id,
+                    userId: hostId,
+                    startDate: start.toISOString(),
+                    endDate: end.toISOString(),
+                    price: parseFloat(total),
                 }) as any
             ).unwrap(); // Unwraps the promise to handle errors
             Alert.alert(t('reservationBivouacs:success_reservation_title'), t('reservationBivouacs:success_reservation_message'), [{text: "OK",onPress: () => router.push('../../(tabs)/profilePage'),},
