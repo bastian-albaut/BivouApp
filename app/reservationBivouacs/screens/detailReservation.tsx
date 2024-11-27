@@ -59,13 +59,13 @@ export default function ReservationConfirmation() {
         <View style={styles.container}>
             <Text style={styles.title}>{t('reservationBivouacs:reservation_details')}</Text>
             <Text style={styles.subtitle}>{t('reservationBivouacs:location')}</Text>
-            <Image source={{ uri: bivouacData.photos[0] }} style={styles.bivouacImage} resizeMode="cover" />
+            {/* <Image source={{ uri: bivouacData.photos[0] }} style={styles.bivouacImage} resizeMode="cover" /> */}
             <Text style={styles.bivouacName}>{bivouacData.name}</Text>
             <Text style={styles.bivouacAddress}>{bivouacData.address.street}, {bivouacData.address.city}</Text>
 
             <View style={styles.hostContainer}>
                 <FontAwesome name="user-circle" size={18} color={Colors.black} />
-                <Text style={styles.host}>{t('common:host')}: {bivouacData.host.name}</Text>
+                <Text style={styles.host}>{t('common:host')}: {bivouacData.host ? bivouacData.host.first_name + ' ' + bivouacData.host.last_name:'Anonyme'}</Text>
             </View>
 
             <Text style={styles.subtitle}>{t('reservationBivouacs:journey')}</Text>

@@ -25,7 +25,7 @@ type BivouacDetailsProps = {
   equipment: string[];
 };
 
-export default function BivouacInformations({ name, price, address, rating, comments, host, description, equipment }: BivouacDetailsProps) {
+export default function BivouacInformations({ name, price, address, rating, comments, host, description, equipment }: any) {
   const [isDescriptionExpanded, setDescriptionExpanded] = useState(false);
 
   const toggleDescription = () => {
@@ -53,7 +53,7 @@ export default function BivouacInformations({ name, price, address, rating, comm
 
       <View style={styles.hostContainer}>
         <FontAwesome name="user-circle" size={18} color={Colors.black} />
-        <Text style={styles.host}>{t('common:host')}: {host.name}</Text>
+        <Text style={styles.host}>{t('common:host')}: {host ? host.first_name + ' ' + host.last_name:'Anonyme'}</Text>
       </View>
 
       <Text style={styles.sectionTitle}>Description</Text>
