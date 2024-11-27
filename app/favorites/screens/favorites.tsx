@@ -10,6 +10,7 @@ import CustomIconButton from '@/common/components/customIconButton';
 import { useRouter } from 'expo-router';
 import { fetchFavouritesByUserId } from '@/common/store/slices/favouritesSlice';
 import { getUserId } from '@/common/utils/authStorage';
+import { fetchAllBivouacData } from '@/common/api/bivouac/bivouacsApi';
 
 export default function Favorites() {
   
@@ -17,7 +18,13 @@ export default function Favorites() {
   const { data, loading, error } = useSelector((state: RootState) => state.favourites);
   const [currentUserId, setCurrentUserId] = useState<number | null>(null);
 
-  // Fetch current user ID
+  const { data: favourites, loading: favouritesLoading, error: favouritesError } = useSelector(
+    (state: RootState) => state.favourites
+  );
+  const { data: bivouacs, loading: bivouacsLoading, error: bivouacsError } = useSelector(
+    (state: RootState) => state.bivouacs
+  );
+
   useEffect(() => {
     const fetchCurrentUser = async () => {
       const userId = await getUserId(); // Ensure getUserId retrieves the logged-in user ID
@@ -29,13 +36,32 @@ export default function Favorites() {
   useEffect(() => {
     if (currentUserId) {
       dispatch(fetchFavouritesByUserId(currentUserId));
+      dispatch(fetchAllBivouacData());
     }
   }, [dispatch, currentUserId]);
 
-  // Log favorites after fetching
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
+  const mergeFavouritesWithBivouacs = (favourites: any[], bivouacs: any[]) => {
+    if (!favourites || !bivouacs) {
+      console.warn('Favourites or Bivouacs data is missing.');
+      return [];
+    }
+
+    return favourites.map((favourite) => {
+      const bivouac = bivouacs.find((b) => b.bivouacId === favourite.id.bivouacId);
+
+      if (!bivouac) {
+        console.warn(`Bivouac with ID ${favourite.id.bivouacId} not found.`);
+      }
+
+      return {
+        ...favourite,
+        bivouac: bivouac || null, // Attach bivouac details, or null if not found
+      };
+    });
+  };
+
+const mergedFavourites = mergeFavouritesWithBivouacs(favourites, bivouacs);
+
 
   // Translation
   const { t } = useTranslation();
@@ -48,11 +74,14 @@ export default function Favorites() {
       {error && <Text>Error: {error}</Text>}
 
       <FlatList
-        data={data}
-        renderItem={({ item }) => <BivouacItem item={item} />}
+        data={mergedFavourites}
+        renderItem={({ item }) => (
+          <BivouacItem item={item.bivouac} /> // Pass the bivouac details to BivouacItem
+        )}
         keyExtractor={(item) => item.id.bivouacId.toString()}
         contentContainerStyle={styles.list}
       />
+
     </View>
   );
 }
