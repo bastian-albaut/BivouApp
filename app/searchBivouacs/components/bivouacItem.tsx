@@ -20,12 +20,6 @@ export default function BivouacItem({
     onToggleFavorite();
   };
 
-    useEffect(() => {
-        console.log("en dessous: ");
-        console.log("item ", item);
-        console.log("isFavorited ", isFavorited);
-    }, [isFavorited]);
-
   return (
     <TouchableOpacity
       activeOpacity={0.8}
