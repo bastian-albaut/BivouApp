@@ -4,5 +4,11 @@ export const apiClient = async (endpoint: string, options: RequestInit = {}) => 
   if (!response.ok) {
     throw new Error(`Error: ${response.body}`);
   }
+
+  // If no content, return empty object
+  if (response.status === 204) {
+    return {};
+  }
+
   return await response.json();
 };
