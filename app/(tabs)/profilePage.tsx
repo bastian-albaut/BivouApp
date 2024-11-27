@@ -38,7 +38,7 @@ export default function ProfilePage() {
       </View>
 
       <View>
-        <TouchableOpacity onPress={() => router.push("../profilePage/screens/personalInformationProfile")} style={styles.profileLine}>
+        <TouchableOpacity onPress={() => router.push("../profilePage/screens/personalInformation")} style={styles.profileLine}>
           <View style={styles.lineTitle}>
             <Icon name="user-circle-o" size={20} color="black" />
             <Text style={styles.lineText}>{t("common:personalInformation")}</Text>

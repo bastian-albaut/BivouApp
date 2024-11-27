@@ -26,7 +26,7 @@ export default function SignUp() {
     try {
       await registerApi(email, password);
       Alert.alert(t('users:signUpSuccess'), t('users:signUpSuccessMessage'));
-      router.push('/users/screens/personalInformation');
+      router.push('/profilePage/screens/personalInformation');
     } catch (error) {
       Alert.alert(t('users:signUpFailed'), (error as Error).message);
     } finally {

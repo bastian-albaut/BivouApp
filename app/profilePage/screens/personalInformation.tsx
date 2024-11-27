@@ -86,7 +86,7 @@ export default function PersonalInformation() {
         />
         <TextInputComponent
           icon="user"
-          placeholder={t('users:name')}
+          placeholder={"michelllllllllll"}
           value={name}
           onChangeText={setName}
           secureTextEntry={false}
