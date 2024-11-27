@@ -69,3 +69,12 @@ export const createBivouac = async (bivouacData: any) => {
   }
 };
 
+export const isUserHost = async (userId : string, token: string) => {
+  return await apiClient(`users/setHost/${userId}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  });
+}
