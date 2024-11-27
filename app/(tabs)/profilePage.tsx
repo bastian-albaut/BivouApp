@@ -5,6 +5,7 @@ import { Link } from 'expo-router';
 import { useRouter } from 'expo-router';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Colors from '../../common/constants/Colors';
+import { removeToken, removeUserId } from '@/common/utils/authStorage';
 
 
 // Tout doit etre migrer dans la page specifique dans features/...
@@ -80,7 +81,11 @@ export default function ProfilePage() {
 
       </View>
       
-      <TouchableOpacity onPress={() => router.push('../users/screens/login')}>
+      <TouchableOpacity onPress={async () => {
+        await removeToken();
+        await removeUserId();
+        router.push('../users/screens/login');
+      }}>
         <Text style={styles.logoutButton} >{t("common:logOut")}</Text>
       </TouchableOpacity>
       
