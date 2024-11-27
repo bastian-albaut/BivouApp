@@ -23,5 +23,6 @@
     "logOut": "Log out",
     "nextTrip": "Your next trips",
     "yes": "Yes",
-    "no": "No"
+    "no": "No",
+    "noUpcomingTrips": "You have no upcoming trips."
 }
