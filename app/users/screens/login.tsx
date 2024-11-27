@@ -6,6 +6,7 @@ import TextInputComponent from '../../../common/components/TextInputComponent';
 import ButtonComponent from '../../../common/components/ButtonComponent';
 import { loginApi } from '../api/loginApi';
 import Colors from '@/common/constants/Colors';
+import { storeToken, storeUserId } from '@/common/utils/authStorage';
 
 export default function Login() {
   const [email, setEmail] = useState('');
