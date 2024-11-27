@@ -86,4 +86,20 @@ export const isUserHost = async (userId : string, token: string) => {
       Authorization: `Bearer ${token}`,
     },
   });
+
+}
+
+export const deleteBivouac = async (bivouacId: string) => {
+  try {
+    const response = await apiClient(`bivouacs/${bivouacId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    return response;
+  } catch (error) {
+    console.error('Error deleting bivouac:', error);
+    throw error;
+  }
 }
