@@ -19,6 +19,9 @@
     "signUpFailed": "Sign Up Failed",
     "passwordMismatch": "Passwords Do Not Match",
     "passwordMismatchMessage": "The passwords you entered do not match.",
-    "loading": "Loading..."
-
+    "loading": "Loading...",
+    "updateSuccessTitle": "Update Successful",
+    "updateSuccessMessage": "Your information has been successfully updated.",
+    "updateErrorTitle": "Update Failed",
+    "updateErrorMessage": "An error occurred while updating your information. Please try again later."
 }
