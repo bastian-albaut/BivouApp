@@ -73,10 +73,10 @@ function RootLayoutNav() {
         headerTitleAlign: 'center',
       }}
     >
-      <Stack.Screen name="(tabs)" />
+      <Stack.Screen name="(tabs)" options={{headerBackVisible: false,}}/>
       <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
       <Stack.Screen name="users/screens/testScreen" options={{ headerBackTitle: t("common:navigation_back")}} />
-      <Stack.Screen name="searchBivouacs/screens/searchBivouacList" options={{ headerBackTitle: t("common:navigation_back")}} />
+      <Stack.Screen name="searchBivouacs/screens/searchBivouacList" options={{headerBackTitle: t("common:navigation_back"), }} />
       <Stack.Screen name="searchBivouacs/screens/searchBivouacMap" options={{ headerBackTitle: t("common:navigation_back")}} />
       <Stack.Screen name="reservationBivouacs/screens/detailBivouac" options={{ headerBackTitle: t("common:navigation_back") }} />
       <Stack.Screen name="reservationBivouacs/screens/detailReservation" options={{ headerBackTitle: t("common:navigation_back") }} />
