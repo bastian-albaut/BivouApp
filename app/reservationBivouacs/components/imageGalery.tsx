@@ -54,9 +54,9 @@ export default function ImageGallery({ images }: ImageGalleryProps) {
         showsHorizontalScrollIndicator={false}
         onViewableItemsChanged={onViewRef.current}
         viewabilityConfig={viewConfigRef.current}
-        keyExtractor={(item, index) => index.toString()}
+        // keyExtractor={(item, index) => index.toString()}
         renderItem={({ item }) => (
-          <Image source={{ uri: item }} style={styles.image} />
+          <Image source={{ uri: 'https://picsum.photos/200/300' }} style={styles.image} />
         )}
       />
       

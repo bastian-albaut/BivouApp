@@ -10,12 +10,13 @@ export const loginApi = async (email: string, password: string): Promise<{ token
     body: JSON.stringify({ email, password }),
   });
 
+
   if (!response.ok) {
     const errorData = await response.json();
     throw new Error(errorData.message || 'Login failed');
   }
 
-  return await response.json();
+  return await response.json(); 
 };
 
 
