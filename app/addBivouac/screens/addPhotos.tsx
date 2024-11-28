@@ -7,9 +7,12 @@ import Colors from "@/common/constants/Colors";
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { AddStackParamList } from './addStack';
 import { StackNavigationProp } from '@react-navigation/stack';
+import * as ImagePicker from 'expo-image-picker';
 
 const AddPhotos: React.FC = () => {
     const navigation = useNavigation<StackNavigationProp<AddStackParamList, 'AddPhotos'>>();
+
+    const [photos, setPhotos] = useState<string[]>([]);
 
     const { t } = useTranslation();
 
@@ -24,6 +27,31 @@ const AddPhotos: React.FC = () => {
         navigation.navigate('AddPrice');
     };
 
+    const handleAddPhoto = async () => {
+        // Demander la permission d'accès aux photos
+        const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if (status !== 'granted') {
+            alert('Permission to access media library is required!');
+            return;
+        }
+
+        // Ouvrir la bibliothèque d'images
+        const result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            // allowsEditing: true,
+            // aspect: [4, 3],
+            quality: 1,
+        });
+
+        if (!result.canceled) {
+            const uris = result.assets
+                .map(asset => asset.uri)
+                .filter((uri): uri is string => uri !== undefined); // Filtrer les `undefined`
+
+            setPhotos([...photos, ...uris]);
+        }
+    };
+
     const progress = currentPage / totalPages;
 
     
@@ -36,7 +64,7 @@ const AddPhotos: React.FC = () => {
 
                 <TouchableOpacity 
                     style={[styles.button]}
-                    //onPress={handleAddPhoto}
+                    onPress={handleAddPhoto}
                     activeOpacity={0.8} 
                 >
                     <View style={styles.buttonIconCircle}>
@@ -45,6 +73,9 @@ const AddPhotos: React.FC = () => {
                     <Text style={[styles.buttonText]}>{t('addBivouac:addPhotos.add')}</Text>
                 </TouchableOpacity>
 
+                {photos.map((photo, index) => (
+                    <Image key={index} source={{ uri: photo }} style={styles.photo} />
+                ))}
 
                 <Footer
                     onBackPress={handleBackPress}
@@ -101,6 +132,12 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginLeft: 10,
     },
+    photo: {
+        width: 100,
+        height: 100,
+        margin: 10,
+        borderRadius: 10,
+    }
 });
 
 export default AddPhotos;
