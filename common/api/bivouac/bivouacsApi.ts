@@ -64,7 +64,8 @@ export const createAddress = async (addressData: any) => {
 
 export const createBivouac = async (bivouacData: any) => {
   try {
-    const response = await apiClient('bivouacs', {
+    const response = await fetch('http://10.0.0.54:8080/api/bivouacs', {
+    // const response = await apiClient('bivouacs', {
       method: 'POST',
       body: JSON.stringify(bivouacData),
       headers: {

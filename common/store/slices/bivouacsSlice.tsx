@@ -17,6 +17,7 @@ export interface BivouacState {
   privacy: string;
   price: number;
   equipmentIds: any[];
+  photos: any[];
   data: any[];
   loading: boolean;
   error: string | null;
@@ -39,6 +40,7 @@ const initialState: BivouacState = {
   privacy: '',
   price: 0,
   equipmentIds: [],
+  photos: [],
   data: [],
   loading: false,
   error: null,
@@ -66,6 +68,9 @@ const bivouacSlice = createSlice({
       state.area = area;
       state.description = description;
       state.is_pmr = is_pmr;
+    },
+    updatePhotos(state, action) {
+      state.photos = action.payload.photos;
     },
     updateEquipments(state, action) {
       state.equipmentIds = action.payload.equipmentIds;
@@ -95,6 +100,6 @@ const bivouacSlice = createSlice({
   },
 });
 
-export const { updateLocation, updateType, updateEquipments, updatePrice, resetBivouac } = bivouacSlice.actions;
+export const { updateLocation, updateType, updatePhotos, updateEquipments, updatePrice, resetBivouac } = bivouacSlice.actions;
 
 export default bivouacSlice.reducer;

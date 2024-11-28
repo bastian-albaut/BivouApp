@@ -64,7 +64,7 @@ const AddPrice: React.FC = () => {
 							const addressId = response.addressId;
 							if (addressId !== null) {
 								try {
-									const { name, rental_type, field_type, area, description, is_pmr, equipmentIds } = bivouacDataFromStore;
+									const { name, rental_type, field_type, area, description, is_pmr, equipmentIds, photos } = bivouacDataFromStore;
 									const bivouacData = { 
 										hostId,
 										addressId,
@@ -76,7 +76,8 @@ const AddPrice: React.FC = () => {
 										description, 
 										is_pmr, 
 										privacy, 
-										equipmentIds: equipmentIds || []
+										equipmentIds: equipmentIds || [],
+                    photos: photos || []
 									};
 									const response = await createBivouac(bivouacData);
 									const userToken = await getToken();
