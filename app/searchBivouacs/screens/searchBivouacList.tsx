@@ -20,6 +20,9 @@ export default function SearchBivouacList() {
 
   // Redux state
   const { data: bivouacs, status, error } = useSelector((state: RootState) => state.bivouacs);
+  console.log(bivouacs)
+  console.log(status)
+  console.log(error)
   const { data: favourites } = useSelector((state: RootState) => state.favourites);
   const { dataEquipment, loadingEquipment, errorEquipment } = useSelector((state: RootState) => state.equipments);
 

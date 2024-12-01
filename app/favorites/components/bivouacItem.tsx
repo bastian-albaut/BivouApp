@@ -102,6 +102,7 @@ const styles = StyleSheet.create({
     height: 100,
     borderRadius: 10,
     marginBottom: 10,
+    width: "100%",
   },
   favoriteIcon: {
     position: "absolute",

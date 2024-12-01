@@ -16,14 +16,15 @@ export const fetchAllBivouacData = createAsyncThunk(
   'bivouacs/fetchAllBivouacData',
   async (_, { rejectWithValue }) => {
     try {
+      console.log('Fetching all bivouac data');
       const headers = await getHeaders();
 
       const [bivouacs, addresses, hosts, equipments, bivouacEquipments] = await Promise.all([
-        fetch(`${BASE_URL}/api/bivouacs`, { headers }).then(res => res.json()),
-        fetch(`${BASE_URL}/api/addresses`, { headers }).then(res => res.json()),
-        fetch(`${BASE_URL}/api/users/hosts`, { headers }).then(res => res.json()),
-        fetch(`${BASE_URL}/api/equipments`, { headers }).then(res => res.json()),
-        fetch(`${BASE_URL}/api/bivouac-equipment`, { headers }).then(res => res.json()),
+        fetchWithCheck(`${BASE_URL}/api/bivouacs`, headers),
+        fetchWithCheck(`${BASE_URL}/api/addresses`, headers),
+        fetchWithCheck(`${BASE_URL}/api/users/hosts`, headers),
+        fetchWithCheck(`${BASE_URL}/api/equipments`, headers),
+        fetchWithCheck(`${BASE_URL}/api/bivouac-equipment`, headers),
       ]);
 
       const combinedData = bivouacs.map((bivouac: { addressId: any; hostId: any; bivouacId: any; equipmentId: any; }) => ({
@@ -40,10 +41,27 @@ export const fetchAllBivouacData = createAsyncThunk(
 
       return combinedData;
     } catch (error: any) {
+      console.log(error)
       return rejectWithValue(error.message || 'Failed to fetch bivouac data');
     }
   }
 );
+
+const fetchWithCheck = async (url: string, headers: HeadersInit) => {
+  const response = await fetch(url, { headers });
+  if (!response.ok) {
+    // Log the raw response for debugging
+    const text = await response.text();
+    console.error(`Failed to fetch: ${url}`, text);
+    throw new Error(`Failed to fetch ${url}: ${response.statusText}`);
+  }
+  try {
+    return await response.json();
+  } catch (jsonError) {
+    console.error(`JSON parsing error for ${url}`, jsonError);
+    throw new Error(`Invalid JSON from ${url}`);
+  }
+};
 
 
 export const createAddress = async (addressData: any) => {

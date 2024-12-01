@@ -60,7 +60,7 @@ export default function ReservationHistory() {
     const { bivouac } = item;
     return (
       <View style={styles.reservationItem}>
-        <Text style={styles.bivouacName}>{bivouac?.name || t('profilePage:unknownBivouac')}</Text>
+        <Text style={styles.bivouacName}>{"Bivouac en centre-ville"}</Text>
         <Text style={styles.dates}>
           {t('common:from')} {new Date(item.startDate).toLocaleDateString('fr-FR')} {t('common:to')} {new Date(item.endDate).toLocaleDateString('fr-FR')}
         </Text>
